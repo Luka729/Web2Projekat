@@ -1,5 +1,10 @@
-<h5 >Izlistavanje svih dostupnih automobila za izdavanje</h5>
-<table class="table table-hover">
+<div align="right">
+    <a  routerLink="/logovanje" > Ulogujte se</a> &nbsp; 
+    <a  routerLink="/registrovanje" >   Registrujte se</a>
+</div>  
+<br>
+<h1>Lista svih automobila za izdavanje <span style = "display: inline;">&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; &nbsp;  Lista svih hotela za izdavanje</span></h1>
+<table class="table table-hover" align="left">
     <thead class="thead-dark">
         <tr>
             <th scope="col">MARKA</th>
@@ -17,4 +22,27 @@
         </tr>
     </tbody>
 </table>
+
+
+<table class="table table-hover" align="right">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">IME</th>
+            <th scope="col">ADRESA</th>
+            <th scope="col">OCENA</th>
+            <th scope="col">CENA OD</th>
+            <th scope="col">CENA DO</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let hotels of allHotels">
+            <td>{{hotels.name}}</td>
+            <td>{{hotels.address}}</td>
+            <td>{{hotels.rate}}</td>
+            <td>{{hotels.pricesFrom}}</td>
+            <td>{{hotels.pricesTo}}$</td>
+        </tr>
+    </tbody>
+</table>
+
 

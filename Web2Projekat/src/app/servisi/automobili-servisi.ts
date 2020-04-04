@@ -1,9 +1,11 @@
 import {AutomobiliEntiteti} from 'src/app/entiteti/automobili-entiteti'
 import { Injectable } from '@angular/core';
+
 @Injectable({
     providedIn: 'root'
   })
-export class AutomobiliServisi {
+
+  export class AutomobiliServisi {
     constructor() {}
     mockedCars(): Array<AutomobiliEntiteti> {
         let allCars = new Array<AutomobiliEntiteti>();
