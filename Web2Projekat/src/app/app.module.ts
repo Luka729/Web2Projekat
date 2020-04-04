@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogovanjeComponent } from './pocetnaStrana/logovanje/logovanje.component';
 import { RegistrovanjeComponent } from './pocetnaStrana/registrovanje/registrovanje.component';
+import { PadajuciMenijiComponent } from './pocetnaStrana/padajuci-meniji/padajuci-meniji.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogovanjeComponent,
-    RegistrovanjeComponent
+    RegistrovanjeComponent,
+    PadajuciMenijiComponent
   ],
   imports: [
     BrowserModule,
