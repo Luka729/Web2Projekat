@@ -1,12 +1,16 @@
-<form>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <table align="center">
         <tr>
-            <td>
-                <label>Unesite username:</label>
-            </td>
-            <td>
-                <input type="text">
-            </td>
+            
+                <td>
+                    <label>Unesite username:</label>
+                </td>
+                <td>
+                    <input type="text" formControlName="userNameProvera">
+                    <div *ngIf="loginForm.controls.userNameProvera.invalid">
+                        Molimo Vas unesite minimalno 6 karaktera
+                    </div>
+                </td>
         </tr>
 
         <tr>
@@ -15,7 +19,10 @@
             </td>
 
             <td>
-                <input type="password">
+                <input type="password" formControlName="lozinkaProvera">
+                <div *ngIf="loginForm.controls.lozinkaProvera.invalid">
+                    Molimo Vas unesite minimalno 6 karaktera
+                </div>
             </td>
 
         </tr>
@@ -25,7 +32,7 @@
                 &nbsp;
             </td>
             <td>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" [disabled]="!loginForm.valid">
             </td>
         </tr>
         

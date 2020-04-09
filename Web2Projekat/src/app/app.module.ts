@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { LogovanjeComponent } from './pocetnaStrana/logovanje/logovanje.component';
 import { RegistrovanjeComponent } from './pocetnaStrana/registrovanje/registrovanje.component';
 import { PadajuciMenijiComponent } from './pocetnaStrana/padajuci-meniji/padajuci-meniji.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PadajuciMenijiComponent } from './pocetnaStrana/padajuci-meniji/padajuc
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
