@@ -24,17 +24,6 @@
         </tr>
         <tr>
             <td>
-                <label>Unesite username:</label>
-            </td>
-            <td>
-                <input type="text" formControlName="userNameProvera">
-                <div *ngIf="registrovanjeForm.controls.userNameProvera.invalid">
-                    Molimo Vas unesite minimalno 6 karaktera
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <label>Unesite password:</label>
             </td>
             <td>
@@ -66,10 +55,32 @@
         </tr>
         <tr>
             <td>
+                <label>Unesite ime vašeg grada:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="gradProvera">
+                <div *ngIf="registrovanjeForm.controls.gradProvera.invalid">
+                    Popunite naziv Vašeg grada
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite broj mobilnog telefona:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="telefonProvera" >
+                <div *ngIf="registrovanjeForm.controls.telefonProvera.invalid">
+                    Molimo Vas unesite pravilan format mobilnog telefona
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 &nbsp;
             </td>
             <td>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" [disabled]="!registrovanjeForm.valid">
             </td>
         </tr>
     </table>
