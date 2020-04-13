@@ -15,8 +15,7 @@ export class RegistrovanjeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initForm();
-    telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
+    this.initForm();    
   }
 
   static passwordMatchValidator(control: AbstractControl) {
@@ -30,8 +29,6 @@ export class RegistrovanjeComponent implements OnInit {
   }
 
   private initForm() {
-    telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
-
     this.registrovanjeForm = new FormGroup({
       'imeProvera' : new FormControl('',[Validators.required]),
       'prezimeProvera' : new FormControl('',[Validators.required]),
@@ -49,3 +46,5 @@ export class RegistrovanjeComponent implements OnInit {
   }
 
 }
+
+
