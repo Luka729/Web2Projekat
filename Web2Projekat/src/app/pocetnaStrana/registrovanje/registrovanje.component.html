@@ -5,7 +5,7 @@
                 <label>Unesite ime:</label>
             </td>
             <td>
-                <input type="text" formControlName="imeProvera">
+                <input type="text" formControlName="imeProvera" class="form-control" id="imeProvera">
                 <div *ngIf="registrovanjeForm.controls.imeProvera.invalid">
                     Molimo Vas unesite ime
                 </div>
@@ -16,7 +16,7 @@
                 <label>Unesite prezime:</label>
             </td>
             <td>
-                <input type="text" formControlName="prezimeProvera">
+                <input type="text" formControlName="prezimeProvera" class="form-control">
                 <div *ngIf="registrovanjeForm.controls.prezimeProvera.invalid">
                     Molimo Vas unesite prezime
                 </div>
@@ -27,7 +27,7 @@
                 <label>Unesite password:</label>
             </td>
             <td>
-                <input type="password" formControlName="lozinkaProvera">
+                <input type="password" formControlName="lozinkaProvera" class="form-control">
                 <div *ngIf="registrovanjeForm.controls.lozinkaProvera.invalid">
                     Molimo Vas unesite minimalno 6 karaktera
                 </div>
@@ -39,7 +39,7 @@
             </td>
 
             <td>
-                <input type="password" formControlName="proveralozinkeProvera">
+                <input type="password" formControlName="proveralozinkeProvera" class="form-control">
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
                 <label>Unesite e-adresu:</label>
             </td>
             <td>
-                <input type="email" formControlName="eadresaProvera">
+                <input type="email" formControlName="eadresaProvera" class="form-control">
                 <div *ngIf="registrovanjeForm.controls.eadresaProvera.invalid">
                     Molimo Vas unesite ispravan e-mail
                 </div>
@@ -58,7 +58,7 @@
                 <label>Unesite ime vašeg grada:</label>
             </td>
             <td>
-                <input type="text" formControlName="gradProvera">
+                <input type="text" formControlName="gradProvera" class="form-control">
                 <div *ngIf="registrovanjeForm.controls.gradProvera.invalid">
                     Popunite naziv Vašeg grada
                 </div>
@@ -69,7 +69,7 @@
                 <label>Unesite broj mobilnog telefona:</label>
             </td>
             <td>
-                <input type="text" formControlName="telefonProvera" >
+                <input type="text" formControlName="telefonProvera"  class="form-control">
                 <div *ngIf="registrovanjeForm.controls.telefonProvera.invalid">
                     Molimo Vas unesite pravilan format mobilnog telefona
                 </div>
@@ -80,7 +80,7 @@
                 &nbsp;
             </td>
             <td>
-                <input type="submit" value="Submit" [disabled]="!registrovanjeForm.valid">
+                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!registrovanjeForm.valid">
             </td>
         </tr>
     </table>

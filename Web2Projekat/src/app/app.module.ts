@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogovanjeComponent } from './pocetnaStrana/logovanje/logovanje.component';
 import { RegistrovanjeComponent } from './pocetnaStrana/registrovanje/registrovanje.component';
-import { PadajuciMenijiComponent } from './pocetnaStrana/padajuci-meniji/padajuci-meniji.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RentacarComponentComponent } from './pocetnaStrana/rentacar-component/rentacar-component.component';
+import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.component';
+import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     LogovanjeComponent,
     RegistrovanjeComponent,
-    PadajuciMenijiComponent
+    RentacarComponentComponent,
+    VozilaIspisComponent,
+    AvioComponent
   ],
   imports: [
     BrowserModule,

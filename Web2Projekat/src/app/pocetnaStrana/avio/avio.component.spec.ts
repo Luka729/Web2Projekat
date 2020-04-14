@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PadajuciMenijiComponent } from './padajuci-meniji.component';
+import { AvioComponent } from './avio.component';
 
-describe('PadajuciMenijiComponent', () => {
-  let component: PadajuciMenijiComponent;
-  let fixture: ComponentFixture<PadajuciMenijiComponent>;
+describe('AvioComponent', () => {
+  let component: AvioComponent;
+  let fixture: ComponentFixture<AvioComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PadajuciMenijiComponent ]
+      declarations: [ AvioComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PadajuciMenijiComponent);
+    fixture = TestBed.createComponent(AvioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

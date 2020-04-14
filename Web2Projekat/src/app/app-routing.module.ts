@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import  { PadajuciMenijiComponent } from './pocetnaStrana/padajuci-meniji/padajuci-meniji.component';
 import { LogovanjeComponent } from './pocetnaStrana/logovanje/logovanje.component';
 import { RegistrovanjeComponent } from './pocetnaStrana/registrovanje/registrovanje.component';
-
-
+import { RentacarComponentComponent } from './pocetnaStrana/rentacar-component/rentacar-component.component';
+import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.component';
 const routes: Routes = [
   {
-    path: "padajuci-meniji",
-    component: PadajuciMenijiComponent
+    path: "ispis-vozila",
+    component: VozilaIspisComponent
   },
 
   {
@@ -22,8 +21,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: PadajuciMenijiComponent
-  }
+    component: RentacarComponentComponent
+  },
 
 ];
 

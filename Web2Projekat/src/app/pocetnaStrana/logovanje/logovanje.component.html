@@ -9,7 +9,7 @@
                         <label>Unesite username:</label>
                     </td>
                     <td>
-                        <input type="text" formControlName="userNameProvera">
+                        <input type="text" formControlName="userNameProvera" class="form-control">
                         <div *ngIf="loginForm.controls.userNameProvera.invalid">
                             Molimo Vas unesite minimalno 6 karaktera
                         </div>
@@ -23,7 +23,7 @@
                 </td>
     
                 <td>
-                    <input type="password" formControlName="lozinkaProvera">
+                    <input type="password" formControlName="lozinkaProvera" class="form-control">
                     <div *ngIf="loginForm.controls.lozinkaProvera.invalid">
                         Molimo Vas unesite minimalno 6 karaktera
                     </div>
