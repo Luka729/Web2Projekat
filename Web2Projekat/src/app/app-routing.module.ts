@@ -4,10 +4,17 @@ import { LogovanjeComponent } from './pocetnaStrana/logovanje/logovanje.componen
 import { RegistrovanjeComponent } from './pocetnaStrana/registrovanje/registrovanje.component';
 import { RentacarComponentComponent } from './pocetnaStrana/rentacar-component/rentacar-component.component';
 import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.component';
+import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.component';
+import { AvioComponent } from './pocetnaStrana/avio/avio.component';
+import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
     component: VozilaIspisComponent
+  },
+  {
+    path: "ispis-letova",
+    component: LetoviIspisComponent
   },
 
   {
@@ -20,9 +27,17 @@ const routes: Routes = [
     component:RegistrovanjeComponent
   },
   {
-    path: '',
+    path: 'rent-a-car',
     component: RentacarComponentComponent
   },
+  {
+    path: 'avio-component',
+    component: AvioComponent
+  },
+  {
+    path: '',
+    component:PocetnaStranicaComponent
+  }
 
 ];
 
