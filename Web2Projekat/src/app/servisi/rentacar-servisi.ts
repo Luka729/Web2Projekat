@@ -17,7 +17,6 @@ export class RentacarServisi {
         let allCarsList: AutomobiliServisi;
         let allCars: Array<AutomobiliEntiteti>;
 
-       // allCars = allCarsList.loadCars();
         
         const rac1 = new RentacarEntitet('Srecni zivot','Neznanog Junaka 23','Najbolji smo i najjeftiniji',8000,allCars,'as',4);
         const rac2 = new RentacarEntitet('Bolja kola', 'Ivice Krivice 56', 'Ma top smo, dodjite i uverite se', 2017, allCars,'sdf',3.4);

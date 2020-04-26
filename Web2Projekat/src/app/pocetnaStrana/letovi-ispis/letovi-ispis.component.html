@@ -11,6 +11,7 @@
                     <th scope="col">BROJ PRESEDANJA</th>
                     <th scope="col">LOKACIJA PRESEDANJA</th>
                     <th scope="col">CENA KARTE</th>
+                    <th scope="col">SLOBODNA MESTA</th>
 
                 </tr>
             </thead>
@@ -18,11 +19,12 @@
                 <tr *ngFor="let al of allFlights">
                     <td>{{al.datumPoletanja}}</td>
                     <td>{{al.datumSletanja}}</td>
-                    <td>{{al.vremePutovanja}}</td>
-                    <td>{{al.duzinaPutovanja}}</td>
+                    <td>{{al.satPutovanja}}h {{al.minutPutovanja}}min</td>
+                    <td>{{al.duzinaPutovanja}}km</td>
                     <td>{{al.brojPresedanja}}</td>
                     <td>{{al.lokacijaPresedanja}}</td>
                     <td>{{al.cenaKarte}}</td>
+                    <td>{{al.slobodnaMesta}}</td>
                 </tr>
             </tbody>
         </table>

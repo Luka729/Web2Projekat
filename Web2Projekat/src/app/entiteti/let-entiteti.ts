@@ -1,19 +1,23 @@
 export class LetEntiteti {
-    datumPoletanja: Date;
-    datumSletanja: Date;
-    vremePutovanja: number;
+    datumPoletanja: string;
+    datumSletanja: string;
+    satPutovanja: number;
+    minutPutovanja: number
     duzinaPutovanja: number;
     brojPresedanja: number;
     lokacijaPresedanja: string;
     cenaKarte: number;
+    slobodnaMesta: number;
 
-    constructor(datumPoletanja: Date,datumSletanja: Date,vremePutovanja: number,duzinaPutovanja: number,brojPresedanja: number,lokacijaPresedanja: string,cenaKarte:number){
+    constructor(datumPoletanja: string,datumSletanja: string,satPutovanja: number,minutPutovanja: number,duzinaPutovanja: number,brojPresedanja: number,lokacijaPresedanja: string,cenaKarte:number, slobodnaMesta:number){
         this.datumPoletanja = datumPoletanja;
         this.datumSletanja = datumSletanja;
-        this.vremePutovanja = vremePutovanja;
+        this.satPutovanja = satPutovanja;
+        this.minutPutovanja = minutPutovanja;
         this.duzinaPutovanja = duzinaPutovanja;
         this.brojPresedanja = brojPresedanja;
         this.lokacijaPresedanja = lokacijaPresedanja;
         this.cenaKarte = cenaKarte;
+        this.slobodnaMesta = slobodnaMesta;
     }
 }
