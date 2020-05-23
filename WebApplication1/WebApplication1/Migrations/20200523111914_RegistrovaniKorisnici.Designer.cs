@@ -9,8 +9,8 @@ using WebApplication1;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200518230151_first")]
-    partial class first
+    [Migration("20200523111914_RegistrovaniKorisnici")]
+    partial class RegistrovaniKorisnici
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,13 +22,25 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.User", b =>
                 {
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FirstName");
+                    b.Property<string>("Pass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Phone")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Email");
 
                     b.ToTable("Users");
                 });

@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200523095310_InitialModel.cs" />
+    <Compile Remove="Migrations\20200523095310_InitialModel.Designer.cs" />
+    <Compile Remove="Migrations\20200523095527_InitialModel.cs" />
+    <Compile Remove="Migrations\20200523095527_InitialModel.Designer.cs" />
+    <Compile Remove="Migrations\20200523100541_InitialModel.cs" />
+    <Compile Remove="Migrations\20200523100541_InitialModel.Designer.cs" />
+    <Compile Remove="Migrations\20200523101256_dbuser.cs" />
+    <Compile Remove="Migrations\20200523101256_dbuser.Designer.cs" />
+    <Compile Remove="Migrations\20200523110004_InitialModel.cs" />
+    <Compile Remove="Migrations\20200523110004_InitialModel.Designer.cs" />
+    <Compile Remove="Migrations\20200523111337_RegistrovaniKorisnici.cs" />
+    <Compile Remove="Migrations\20200523111337_RegistrovaniKorisnici.Designer.cs" />
+    <Compile Remove="Migrations\20200523121556_Automobili.cs" />
+    <Compile Remove="Migrations\20200523121556_Automobili.Designer.cs" />
+    <Compile Remove="Migrations\20200523123751_Rent_A_Cars.cs" />
+    <Compile Remove="Migrations\20200523123751_Rent_A_Cars.Designer.cs" />
+    <Compile Remove="Migrations\20200523123913_Rent_A_Cars.cs" />
+    <Compile Remove="Migrations\20200523123913_Rent_A_Cars.Designer.cs" />
+    <Compile Remove="Migrations\20200523160350_AvioKompanije.cs" />
+    <Compile Remove="Migrations\20200523160350_AvioKompanije.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />

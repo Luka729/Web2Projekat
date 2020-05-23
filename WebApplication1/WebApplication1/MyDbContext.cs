@@ -13,5 +13,13 @@ namespace WebApplication1
         {
         }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<Rent_A_Car> Rent_A_Cars { get; set; }
+
+        public DbSet<Flight> Flights { get; set; }
+
+        public DbSet<Flight> AvioCompanies { get; set; }
     }
 }

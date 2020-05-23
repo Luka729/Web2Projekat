@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Migrations
 {
-    public partial class first : Migration
+    public partial class RegistrovaniKorisnici : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,12 +10,16 @@ namespace WebApplication1.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Phone = table.Column<long>(nullable: false),
+                    Pass = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.FirstName);
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
         }
 

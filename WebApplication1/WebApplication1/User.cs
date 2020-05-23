@@ -8,10 +8,23 @@ namespace WebApplication1
 {
     public class User
     {
-        [Key]
+
         //[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+        [Key]
+        public string Email { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string City { get; set; }
+
+        public long Phone { get; set; }
+
+        public string Pass { get; set; }
+
+        
     }
+    
 }

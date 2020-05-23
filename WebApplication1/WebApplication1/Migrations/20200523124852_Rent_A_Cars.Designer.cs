@@ -2,43 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200523124852_Rent_A_Cars")]
+    partial class Rent_A_Cars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("WebApplication1.AvioCompany", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("AverageRate")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AvioCompany");
-                });
 
             modelBuilder.Entity("WebApplication1.Car", b =>
                 {
@@ -68,66 +48,6 @@ namespace WebApplication1.Migrations
                     b.HasIndex("Rent_A_CarIDId");
 
                     b.ToTable("Cars");
-                });
-
-            modelBuilder.Entity("WebApplication1.Destination", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AvioCompanyId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AvioCompanyId");
-
-                    b.ToTable("Destination");
-                });
-
-            modelBuilder.Entity("WebApplication1.Flight", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AvailableSeats")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DepartureDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HourFlight")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LandingDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Length")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LocationOfTransit")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Minutes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfTransit")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("aivoCompIDId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("aivoCompIDId");
-
-                    b.ToTable("Flight");
                 });
 
             modelBuilder.Entity("WebApplication1.Rent_A_Car", b =>
@@ -185,20 +105,6 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Rent_A_Car", "Rent_A_CarID")
                         .WithMany("ListOfCars")
                         .HasForeignKey("Rent_A_CarIDId");
-                });
-
-            modelBuilder.Entity("WebApplication1.Destination", b =>
-                {
-                    b.HasOne("WebApplication1.AvioCompany", null)
-                        .WithMany("Destinations")
-                        .HasForeignKey("AvioCompanyId");
-                });
-
-            modelBuilder.Entity("WebApplication1.Flight", b =>
-                {
-                    b.HasOne("WebApplication1.AvioCompany", "aivoCompID")
-                        .WithMany("Flights")
-                        .HasForeignKey("aivoCompIDId");
                 });
 #pragma warning restore 612, 618
         }
