@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-registrovanje',
@@ -8,7 +8,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors }
 })
 export class RegistrovanjeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb:FormBuilder) { }
 
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
@@ -29,7 +29,7 @@ export class RegistrovanjeComponent implements OnInit {
   }
 
   private initForm() {
-    this.registrovanjeForm = new FormGroup({
+    this.registrovanjeForm = this.fb.group({
       'imeProvera' : new FormControl('',[Validators.required]),
       'prezimeProvera' : new FormControl('',[Validators.required]),
       'gradProvera': new FormControl('',[ Validators.required]),
@@ -37,7 +37,18 @@ export class RegistrovanjeComponent implements OnInit {
       'lozinkaProvera': new FormControl('',[Validators.required, Validators.minLength(6)]),
       'proveralozinkeProvera' : new FormControl('',[Validators.required]),
       'eadresaProvera' : new FormControl('',[Validators.required,Validators.email])
-    });
+    },{ validator: this.comparePasswords})
+  }
+  comparePasswords(fb: FormGroup) {
+    let confirmPswrdCtrl = fb.get('proveralozinkeProvera');
+    //passwordMismatch
+    //confirmPswrdCtrl.errors={passwordMismatch:true}
+    if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
+      if (fb.get('lozinkaProvera').value != confirmPswrdCtrl.value)
+        confirmPswrdCtrl.setErrors({ passwordMismatch: true });
+      else
+        confirmPswrdCtrl.setErrors(null);
+    }
   }
 
   onSubmit() {
