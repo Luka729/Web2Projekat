@@ -40,6 +40,9 @@
 
             <td>
                 <input type="password" formControlName="proveralozinkeProvera" class="form-control">
+                <div *ngIf= "registrovanjeForm.get('proveralozinkeProvera').errors?.passwordMismatch || registrovanjeForm.controls.proveralozinkeProvera.invalid" >
+                    Lozinke se ne poklapaju
+                </div>
             </td>
         </tr>
         <tr>
