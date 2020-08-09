@@ -13,6 +13,7 @@ import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.
 import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocet
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,17 +12,17 @@ namespace WebApplication1
         //[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 
         [Key]
-        public string Email { get; set; }
+        public string eadresaProvera { get; set; }
 
-        public string FirstName { get; set; }
+        public string imeProvera { get; set; }
 
-        public string LastName { get; set; }
+        public string prezimeProvera { get; set; }
 
-        public string City { get; set; }
+        public string gradProvera { get; set; }
 
-        public long Phone { get; set; }
+        public long telefonProvera { get; set; }
 
-        public string Pass { get; set; }
+        public string lozinkaProvera { get; set; }
 
         
     }

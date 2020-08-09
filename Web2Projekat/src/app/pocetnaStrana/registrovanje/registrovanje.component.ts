@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
+import { KorisnickiServis } from 'src/app/servisi/korisnicki-servis';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-registrovanje',
@@ -8,36 +14,27 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, 
 })
 export class RegistrovanjeComponent implements OnInit {
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder,public service:KorisnickiServis,private http:HttpClient) { }
 
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
-
+  formModel: FormGroup;
+  readonly BaseURI ='http://localhost:54277/api';
 
   ngOnInit(): void {
-    this.initForm();    
+    this.initForm();
   }
-
-  static passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmPassword: string = control.get('confirmPassword').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('confirmPassword').setErrors({ NoPassswordMatch: true });
-    }
-  }
-
   private initForm() {
     this.registrovanjeForm = this.fb.group({
-      'imeProvera' : new FormControl('',[Validators.required]),
-      'prezimeProvera' : new FormControl('',[Validators.required]),
-      'gradProvera': new FormControl('',[ Validators.required]),
-      'telefonProvera': new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]),
-      'lozinkaProvera': new FormControl('',[Validators.required, Validators.minLength(6)]),
-      'proveralozinkeProvera' : new FormControl('',[Validators.required]),
-      'eadresaProvera' : new FormControl('',[Validators.required,Validators.email])
-    },{ validator: this.comparePasswords})
+    'imeProvera' :['',Validators.required],
+    'prezimeProvera' : ['',Validators.required],
+    'gradProvera': ['',Validators.required],
+    'telefonProvera': ['',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
+    'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
+    'proveralozinkeProvera' : ['',Validators.required],
+    'eadresaProvera' : ['',[Validators.required,Validators.email]]
+  },{ validator: this.comparePasswords})
+
   }
   comparePasswords(fb: FormGroup) {
     let confirmPswrdCtrl = fb.get('proveralozinkeProvera');
@@ -50,12 +47,40 @@ export class RegistrovanjeComponent implements OnInit {
         confirmPswrdCtrl.setErrors(null);
     }
   }
-
+  register() {
+    var body = {
+    Ime: this.registrovanjeForm.value.imeProvera,
+    Prezime: this.registrovanjeForm.value.prezimeProvera,
+    Grad: this.registrovanjeForm.value.gradProvera,
+    Telefon: this.registrovanjeForm.value.telefonProvera,
+    Email: this.registrovanjeForm.value.eadresaProvera,
+    Lozinka: this.registrovanjeForm.value.lozinkaProvera
+    };
+    return this.http.post(this.BaseURI + '/User/Registrovanje', body);
+}
   onSubmit() {
-    console.log(this.registrovanjeForm.value);
-    console.log(this.registrovanjeForm);
+    this.register().subscribe(
+      (res: any) => {
+        if (res.succeeded) {
+          this.initForm();
+        } else {
+          res.errors.forEach(element => {
+            switch (element.code) {
+              case 'DuplicateUserName':
+                break;
+
+              default:
+                break;
+            }
+          });
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
+  
+
 
 }
-
-
