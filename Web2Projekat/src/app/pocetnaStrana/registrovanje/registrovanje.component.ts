@@ -1,6 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
-import { KorisnickiServis } from 'src/app/servisi/korisnicki-servis';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -14,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegistrovanjeComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,public service:KorisnickiServis,private http:HttpClient) { }
+  constructor(private fb: FormBuilder,private http:HttpClient) { }
 
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
