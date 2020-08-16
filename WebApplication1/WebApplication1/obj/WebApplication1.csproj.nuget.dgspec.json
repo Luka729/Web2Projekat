@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lu\\Desktop\\Web2Projekat\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\lu\\Desktop\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lu\\Desktop\\Web2Projekat\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\lu\\Desktop\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lu\\Desktop\\Web2Projekat\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\lu\\Desktop\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\lu\\Desktop\\Web2Projekat\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "C:\\Users\\lu\\Desktop\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\lu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lu\\Desktop\\Web2Projekat\\WebApplication1\\WebApplication1\\obj\\",
+        "outputPath": "C:\\Users\\lu\\Desktop\\WebApplication1\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,25 +43,13 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "AWSSDK.Core": {
-              "target": "Package",
-              "version": "[3.3.107.1, )"
-            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
             },
-            "Fluent.Infrastructure": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[2.0.0-beta-01, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.1.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer.Design": {
               "target": "Package",
@@ -71,17 +59,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.4, )"
-            },
-            "Microsoft.Net.Compilers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.6.0, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.7, )"
             }
           },
           "imports": [

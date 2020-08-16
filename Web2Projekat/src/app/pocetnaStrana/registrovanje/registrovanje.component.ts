@@ -1,6 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,23 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './registrovanje.component.html',
   styleUrls: ['./registrovanje.component.css']
 })
-export class RegistrovanjeComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,private http:HttpClient) { }
+@Injectable()
+
+export class RegistrovanjeComponent implements OnInit {
+  toastr: any;
+  load: number;
+
+  constructor(private fb: FormBuilder,private http:HttpClient) {
+    this.load = 0
+   }
 
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
   formModel: FormGroup;
-  readonly BaseURI ='http://localhost:54277/api';
+  readonly BaseURI ='http://localhost:57382/api';
+
+
 
   ngOnInit(): void {
     this.initForm();
@@ -35,6 +45,7 @@ export class RegistrovanjeComponent implements OnInit {
   },{ validator: this.comparePasswords})
 
   }
+
   comparePasswords(fb: FormGroup) {
     let confirmPswrdCtrl = fb.get('proveralozinkeProvera');
     //passwordMismatch
@@ -55,23 +66,15 @@ export class RegistrovanjeComponent implements OnInit {
     Email: this.registrovanjeForm.value.eadresaProvera,
     Lozinka: this.registrovanjeForm.value.lozinkaProvera
     };
-    return this.http.post(this.BaseURI + '/User/Registrovanje', body);
+    return this.http.post(this.BaseURI + '/User/Register', body);
 }
   onSubmit() {
+    this.load = 1
     this.register().subscribe(
       (res: any) => {
         if (res.succeeded) {
-          this.initForm();
-        } else {
-          res.errors.forEach(element => {
-            switch (element.code) {
-              case 'DuplicateUserName':
-                break;
-
-              default:
-                break;
-            }
-          });
+          this.registrovanjeForm.reset();
+          this.toastr.success('New user created!','registration success full');
         }
       },
       err => {

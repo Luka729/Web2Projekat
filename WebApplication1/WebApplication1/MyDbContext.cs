@@ -11,15 +11,6 @@ namespace WebApplication1
         public MyDbContext(DbContextOptions<MyDbContext> options)
 : base(options)
         {
-        }
-        public DbSet<User> Users { get; set; }
-
-        public DbSet<Car> Cars { get; set; }
-
-        public DbSet<Rent_A_Car> Rent_A_Cars { get; set; }
-
-        public DbSet<Flight> Flights { get; set; }
-
-        public DbSet<Flight> AvioCompanies { get; set; }
+        }       
     }
 }
