@@ -20,7 +20,7 @@ namespace WebApplication1.Klase
 
         public string gradProvera { get; set; }
 
-        public long telefonProvera { get; set; }
+        public string telefonProvera { get; set; }
 
         public string lozinkaProvera { get; set; }
 
