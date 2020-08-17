@@ -8,13 +8,13 @@ using WebApplication1.Klase;
 
 namespace WebApplication1
 {
-    public class MyDbContext :  IdentityDbContext
+    public class MyDbContext : IdentityDbContext
     {
         public MyDbContext(DbContextOptions<MyDbContext> options)
-: base(options) 
+: base(options)
         {
 
-    }
+        }
         public DbSet<RegistrovaniKorisniciKlasa> RegistrovaniKorisnici { get; set; }
 
     }

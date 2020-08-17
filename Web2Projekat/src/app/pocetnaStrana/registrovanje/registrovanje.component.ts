@@ -26,7 +26,7 @@ export class RegistrovanjeComponent implements OnInit {
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
   formModel: FormGroup;
-  readonly BaseURI ='http://localhost:57382/api';
+  readonly BaseURI ='http://localhost:58544/api';
 
 
 
@@ -66,7 +66,7 @@ export class RegistrovanjeComponent implements OnInit {
     Email: this.registrovanjeForm.value.eadresaProvera,
     Lozinka: this.registrovanjeForm.value.lozinkaProvera
     };
-    return this.http.post(this.BaseURI + '/User/Register', body);
+    return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
 }
   onSubmit() {
     this.load = 1
