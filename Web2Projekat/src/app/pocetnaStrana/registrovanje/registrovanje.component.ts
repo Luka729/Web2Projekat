@@ -26,7 +26,7 @@ export class RegistrovanjeComponent implements OnInit {
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
   formModel: FormGroup;
-  readonly BaseURI ='http://localhost:58544/api';
+  readonly BaseURI ='http://localhost:57382/api';
 
 
 
@@ -41,7 +41,6 @@ export class RegistrovanjeComponent implements OnInit {
     'telefonProvera': ['',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
     'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
     'proveralozinkeProvera' : ['',Validators.required],
-    'userNameProvera' : ['',Validators.required],
     'eadresaProvera' : ['',[Validators.required,Validators.email]]
   },{ validator: this.comparePasswords})
 
@@ -65,25 +64,20 @@ export class RegistrovanjeComponent implements OnInit {
     Grad: this.registrovanjeForm.value.gradProvera,
     Telefon: this.registrovanjeForm.value.telefonProvera,
     Email: this.registrovanjeForm.value.eadresaProvera,
-    Lozinka: this.registrovanjeForm.value.lozinkaProvera,
-    UserName: this.registrovanjeForm.value.userNameProvera
-
+    Lozinka: this.registrovanjeForm.value.lozinkaProvera
     };
-    return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
-}                                          
+    return this.http.post(this.BaseURI + '/User/Register', body);
+}
   onSubmit() {
     this.load = 1
-    console.log("Uslo u submit");
     this.register().subscribe(
-      (res: any) => {      
-        console.log("RADI");
-        this.registrovanjeForm.reset();
-        console.log(res);
-  
+      (res: any) => {
+        if (res.succeeded) {
+          this.registrovanjeForm.reset();
+          this.toastr.success('New user created!','registration success full');
+        }
       },
       err => {
-        console.log("NE RADI");
-
         console.log(err);
       }
     );
