@@ -4,18 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication1.Klase;
+using WebApplication1.Klasa;
+using WebApplication1.Model;
 
 namespace WebApplication1
 {
-    public class MyDbContext :  IdentityDbContext
+    public class MyDbContext : IdentityDbContext
     {
-        public MyDbContext(DbContextOptions<MyDbContext> options)
-: base(options) 
+        public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
 
-    }
-        public DbSet<RegistrovaniKorisniciKlasa> RegistrovaniKorisnici { get; set; }
+        }
+        public DbSet<RegistrovaniKorisniciModel> RegistrovaniKorisnici { get; set; }
 
     }
 }

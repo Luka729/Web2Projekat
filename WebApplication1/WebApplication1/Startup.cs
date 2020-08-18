@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebApplication1.Klasa;
+using WebApplication1.Model;
 
 namespace WebApplication1
 {
@@ -27,15 +30,19 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddControllers();
-            services.AddDbContext<MyDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MyDbContext")));
+            services.AddDbContext<MyDbContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("MyDbContext")));
 
             services.AddCors();
+
+           // services.AddIdentity<IdentityUser, IdentityRole>()
+           // .AddEntityFrameworkStores<MyDbContext>();
+
+             services.AddDefaultIdentity<RegistrovaniKorisniciModel>().AddRoles<IdentityRole>().
+                           AddEntityFrameworkStores<MyDbContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,10 @@ namespace WebApplication1
 
             app.UseRouting();
 
+            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString()).AllowAnyHeader()
+            .AllowAnyMethod()
+            );
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -59,3 +70,4 @@ namespace WebApplication1
         }
     }
 }
+
