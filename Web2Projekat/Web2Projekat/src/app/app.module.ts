@@ -14,27 +14,22 @@ import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angular-6-social-login';
+import { AuthServiceConfig,GoogleLoginProvider,SocialLoginModule} from 'angularx-social-login';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TokenInterceptor } from './auth/tokenInterceptor';
+import { ToastrModule } from 'ngx-toastr';
 
-export function socialConfigs() {  
-  const config = new AuthServiceConfig(  
-    [  
-      {  
-        id: FacebookLoginProvider.PROVIDER_ID,  
-        provider: new FacebookLoginProvider('app -id')  
-      },  
-      {  
-        id: GoogleLoginProvider.PROVIDER_ID,  
-        provider: new GoogleLoginProvider('')  
-      }  
-    ]  
-  );  
-  return config;  
-}  
-
+let config = new AuthServiceConfig([
+  {
+     id: GoogleLoginProvider.PROVIDER_ID,
+     provider: new GoogleLoginProvider("819577468977-qal4ja5eb8ca3ggigol588ej90qnm0fg.apps.googleusercontent.com")
+  }
+]);
+export function provideConfig()
+ {
+    return config;
+ }
 
 @NgModule({
   declarations: [
@@ -52,25 +47,18 @@ export function socialConfigs() {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      progressBar:true
+    }),
+    SocialLoginModule.initialize(config)
     ],
     providers: [
-      CookieService,
       {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-      },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: TokenInterceptor,
-        multi: true,
-        },
-      /*AuthService,  
-      {  
-        provide: AuthServiceConfig,  
-        useFactory: socialConfigs  
-      } */ 
+        provide: AuthServiceConfig,
+        useFactory:provideConfig
+      }
+       
     ],
   bootstrap: [AppComponent]
 })

@@ -10,5 +10,8 @@ namespace WebApplication1.Klasa
         public string Lozinka { get; set; }
 
         public string UserName { get; set; }
+
+        public string IdToken { get; set; }
+
     }
 }

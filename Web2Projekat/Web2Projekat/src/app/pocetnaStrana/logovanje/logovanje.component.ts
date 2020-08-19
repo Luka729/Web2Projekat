@@ -2,7 +2,8 @@ import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, NgForm, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular-6-social-login';
+import { AuthServiceConfig,GoogleLoginProvider,SocialLoginModule, AuthService, FacebookLoginProvider} from 'angularx-social-login';
+
 import { CookieService } from 'ngx-cookie-service';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -27,8 +28,8 @@ export class LogovanjeComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
-
-  constructor(private route: ActivatedRoute,private http:HttpClient,private fb: FormBuilder) { }
+  constructor( private router: Router,private http:HttpClient,
+    public OAuth: AuthService,private route: ActivatedRoute,private fb: FormBuilder) { }
 
   private initForm() {
     this.loginForm= this.fb.group({
@@ -37,13 +38,11 @@ export class LogovanjeComponent implements OnInit {
     });
   }
 
-  /* socialProvider = "google";
-  constructor( private router: Router, private toastr: ToastrService,private http:HttpClient,
-    public OAuth: AuthService,
-    private cookieService: CookieService, @Inject(DOCUMENT) private document: Document,private route: ActivatedRoute) { }*/
+  socialProvider = "google";
 
 
-  /*LoginWithGoogle(){
+
+  LoginWithGoogle(){
     let socialPlatformProvider;  
     if (this.socialProvider === 'facebook') {  
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;  
@@ -54,8 +53,8 @@ export class LogovanjeComponent implements OnInit {
       console.log(socialusers);   
 
       this.externalLogin(socialusers).subscribe((res:any)=>{
+        console.log("RADI PREKO GUGLA");
         localStorage.setItem('token', res.token);
-        this.router.navigateByUrl('/home');
       });
    
       console.log(socialusers);  
@@ -64,8 +63,8 @@ export class LogovanjeComponent implements OnInit {
   }
 
   externalLogin(loginForm){
-    return this.http.post(this.BaseURI + '/ApplicationUser/SocialLogin',loginForm);
-  }*/
+    return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/DrustveneMrezeLogin',loginForm);
+  }
 
   login() {
     var body = { 
