@@ -1,0 +1,50 @@
+<html>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <table align="center">
+
+            <tr>
+                    <td>
+                       
+                        <label>Unesite username:</label>
+                    </td>
+                    <td>
+                        <input type="text" formControlName="userNameProvera" class="form-control">
+                        <div *ngIf="loginForm.controls.userNameProvera.invalid">
+                            Molimo Vas unesite minimalno 6 karaktera
+                        </div>
+                    </td>
+            </tr>
+
+    
+            <tr>
+                <td>
+                    <label>Unesite password:</label>
+                </td>
+    
+                <td>
+                    <input type="password" formControlName="lozinkaProvera" class="form-control">
+                    <div *ngIf="loginForm.controls.lozinkaProvera.invalid">
+                        Molimo Vas unesite minimalno 6 karaktera
+                    </div>
+                </td>
+    
+            </tr>
+    
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-outline-primary" [disabled]="!loginForm.valid">Submit</button>
+                </td>
+            </tr>
+            
+        </table>
+
+        
+    </form>
+    <nav align="center">
+        <a routerLink="/registrovanje">Jos nemate nalog? Registrujte se</a>
+    </nav>
+</html>

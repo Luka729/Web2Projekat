@@ -19,6 +19,7 @@ namespace WebApplication1.Klasa
         public string Telefon { get; set; }
 
         public string Lozinka { get; set; }
+
         public string UserName { get; set; }
 
 
