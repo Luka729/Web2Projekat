@@ -13,7 +13,27 @@ import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.
 import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angular-6-social-login';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { TokenInterceptor } from './auth/tokenInterceptor';
+
+export function socialConfigs() {  
+  const config = new AuthServiceConfig(  
+    [  
+      {  
+        id: FacebookLoginProvider.PROVIDER_ID,  
+        provider: new FacebookLoginProvider('app -id')  
+      },  
+      {  
+        id: GoogleLoginProvider.PROVIDER_ID,  
+        provider: new GoogleLoginProvider('')  
+      }  
+    ]  
+  );  
+  return config;  
+}  
 
 
 @NgModule({
@@ -34,7 +54,24 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
     ],
-  providers: [],
+    providers: [
+      CookieService,
+      {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptor,
+        multi: true,
+        },
+      /*AuthService,  
+      {  
+        provide: AuthServiceConfig,  
+        useFactory: socialConfigs  
+      } */ 
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

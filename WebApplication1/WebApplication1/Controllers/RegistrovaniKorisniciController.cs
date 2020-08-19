@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication1.Klasa;
 using WebApplication1.Model;
 
@@ -16,11 +21,14 @@ namespace WebApplication1.Controllers
     {
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
+        private readonly ApplicationSettings _appSettings;
 
-        public RegistrovaniKorisniciController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user)
+        public RegistrovaniKorisniciController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user, IOptions<ApplicationSettings> appSettings)
         {
             userManager = user;
             _context = context;
+            _appSettings = appSettings.Value;
+
         }
         [HttpPost]
         [Route("Registrovanje")]
@@ -63,5 +71,32 @@ namespace WebApplication1.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Logovanje")]
+        public async Task<Object> Login(LogovaniKorisniciKlasa model)
+        {
+            var user = await userManager.FindByNameAsync(model.UserName);
+            if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka))
+            {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim("UserID",user.Id.ToString()),
+                        new Claim("Roles", "admin")
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                return Ok(new { token });
+            }
+            else
+                return BadRequest(new { message = "Username or password is incorrect." });
+        }
+
     }
+
 }
