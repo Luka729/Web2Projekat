@@ -55,7 +55,15 @@ export class LogovanjeComponent implements OnInit {
       this.externalLogin(socialusers).subscribe((res:any)=>{
         console.log("RADI PREKO GUGLA");
         localStorage.setItem('token', res.token);
-      });
+        document.getElementById("labelaSaGreskom").innerHTML = "";
+
+      },
+      err => {
+        console.log("Ne radi preko gugla")
+        console.log(err);
+        document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno logovanje, probajte opet";
+
+    });
    
       console.log(socialusers);  
     });  
@@ -69,7 +77,7 @@ export class LogovanjeComponent implements OnInit {
   login() {
     var body = { 
       Lozinka: this.loginForm.value.lozinkaProvera,
-      UserName: this.loginForm.value.userNameProvera
+      UserName: this.loginForm.value.userNameProvera,
   
       };
     return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Logovanje',body);
@@ -82,10 +90,14 @@ export class LogovanjeComponent implements OnInit {
         console.log("Radi")
         this.loginForm.reset();
         localStorage.setItem('token', res.token);
+        document.getElementById("labelaSaGreskom").innerHTML = "";
+
       },
       err => {
           console.log("Ne radi")
           console.log(err);
+          document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno logovanje, probajte opet";
+
       }
     );
   }

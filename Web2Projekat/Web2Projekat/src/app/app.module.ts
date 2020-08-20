@@ -19,6 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TokenInterceptor } from './auth/tokenInterceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { VerifikacijaComponent } from './pocetnaStrana/verifikacija/verifikacija.component';
 
 let config = new AuthServiceConfig([
   {
@@ -40,7 +41,8 @@ export function provideConfig()
     VozilaIspisComponent,
     AvioComponent,
     LetoviIspisComponent,
-    PocetnaStranicaComponent
+    PocetnaStranicaComponent,
+    VerifikacijaComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -18,16 +18,17 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrovanjeComponent implements OnInit {
   toastr: any;
   load: number;
+  
 
   constructor(private fb: FormBuilder,private http:HttpClient) {
     this.load = 0
+    
    }
 
   registrovanjeForm: FormGroup;
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
   formModel: FormGroup;
   readonly BaseURI ='http://localhost:58544/api';
-
 
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class RegistrovanjeComponent implements OnInit {
     'telefonProvera': ['',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
     'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
     'proveralozinkeProvera' : ['',Validators.required],
-    'userNameProvera' : ['',Validators.required],
+    'userNameProvera': ['', [Validators.required,Validators.minLength(6)]],
     'eadresaProvera' : ['',[Validators.required,Validators.email]]
   },{ validator: this.comparePasswords})
 
@@ -66,7 +67,7 @@ export class RegistrovanjeComponent implements OnInit {
     Telefon: this.registrovanjeForm.value.telefonProvera,
     Email: this.registrovanjeForm.value.eadresaProvera,
     Lozinka: this.registrovanjeForm.value.lozinkaProvera,
-    UserName: this.registrovanjeForm.value.userNameProvera
+    UserName: this.registrovanjeForm.value.userNameProvera,
 
     };
     return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
@@ -78,11 +79,13 @@ export class RegistrovanjeComponent implements OnInit {
       (res: any) => {      
         console.log("RADI");
         this.registrovanjeForm.reset();
+        document.getElementById("labelaSaGreskom").innerHTML = "";
         console.log(res);
   
       },
       err => {
         console.log("NE RADI");
+        document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno registrovanje, korisnik sa ovim email-om vec postoji";
 
         console.log(err);
       }

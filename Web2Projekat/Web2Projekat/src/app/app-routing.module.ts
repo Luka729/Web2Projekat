@@ -7,6 +7,7 @@ import { VozilaIspisComponent } from './pocetnaStrana/vozila-ispis/vozila-ispis.
 import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.component';
 import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
+import { VerifikacijaComponent } from './pocetnaStrana/verifikacija/verifikacija.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: '',
     component:PocetnaStranicaComponent
+  },
+  {
+    path: 'verifikacija',
+    component: VerifikacijaComponent
   }
 
 ];

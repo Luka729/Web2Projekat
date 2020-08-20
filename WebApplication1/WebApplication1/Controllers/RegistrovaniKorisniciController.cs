@@ -4,8 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +24,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class RegistrovaniKorisniciController : ControllerBase
     {
+        
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
         private readonly ApplicationSettings _appSettings;
@@ -33,6 +36,8 @@ namespace WebApplication1.Controllers
             _appSettings = appSettings.Value;
 
         }
+
+        
         [HttpPost]
         [Route("Registrovanje")]
         public async Task<Object> DodajKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
@@ -58,7 +63,30 @@ namespace WebApplication1.Controllers
                 };
                 try
                 {
+
+                    
                     var rezultat = await userManager.CreateAsync(registerUser, registrovaniKorisnici.Lozinka.ToString());
+                    var sendMailThread = new Thread(async () => {
+                        var message = new MailMessage();
+                        message.From = new System.Net.Mail.MailAddress("webprogramiranje2@gmail.com");
+                        message.To.Add(registerUser.Email);
+                        message.Subject = "Verifikacija email adrese ";
+                        message.Body = "Da biste se prijavili, kliknite na sledeci link http://localhost:4200/verifikacija";
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.Host = "smtp.gmail.com";
+                            smtpClient.Port = 587;
+                            smtpClient.EnableSsl = true;
+                            smtpClient.UseDefaultCredentials = false;
+
+                            smtpClient.Credentials = new NetworkCredential("webprogramiranje2@gmail.com", "lukaikristina1");
+
+                            await smtpClient.SendMailAsync(message);
+                        }
+                    });
+
+                    sendMailThread.Start();
                     return Ok(rezultat);
 
                 }
@@ -74,11 +102,27 @@ namespace WebApplication1.Controllers
             }
         }
 
+        
         [HttpPost]
         [Route("Logovanje")]
         public async Task<Object> Login(LogovaniKorisniciKlasa model)
         {
+
             var user = await userManager.FindByNameAsync(model.UserName);
+            bool verifikovanjePolje = false;
+
+            /*if (Int32.Parse(model.KliknuoValidaciju) == 1)
+            {
+                user.EmailConfirmed = true;
+                verifikovanjePolje = true;
+
+            }
+            else
+            {
+                user.EmailConfirmed = false;
+                verifikovanjePolje = false;
+
+            }*/
             if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka))
             {
                 var tokenDescriptor = new SecurityTokenDescriptor

@@ -29,7 +29,7 @@
             <td>
                 <input type="text" formControlName="userNameProvera" class="form-control">
                 <div *ngIf="registrovanjeForm.controls.userNameProvera.invalid">
-                    Molimo Vas unesite username
+                    Molimo Vas unesite username,minimalno 6 karaktera
                 </div>
             </td>
         </tr>
@@ -98,4 +98,6 @@
             </td>
         </tr>
     </table>
+    <label id="labelaSaGreskom" name="labelaSaGreskom"></label>
+
 </form>

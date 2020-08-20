@@ -12,6 +12,7 @@ namespace WebApplication1.Klasa
         public string UserName { get; set; }
 
         public string IdToken { get; set; }
-
+      //  public string KliknuoValidaciju { get; set; }
+        
     }
 }
