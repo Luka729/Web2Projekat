@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Model;
 
 namespace WebApplication1.Klasa
 {
     public class LogovaniKorisniciKlasa
     {
+
         public string Lozinka { get; set; }
 
         public string UserName { get; set; }
@@ -15,4 +19,8 @@ namespace WebApplication1.Klasa
       //  public string KliknuoValidaciju { get; set; }
         
     }
+
+   
+
 }
+

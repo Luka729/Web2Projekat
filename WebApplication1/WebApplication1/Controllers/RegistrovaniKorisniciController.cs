@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -34,7 +35,25 @@ namespace WebApplication1.Controllers
             userManager = user;
             _context = context;
             _appSettings = appSettings.Value;
+          
+        }
 
+        [HttpGet]
+        [Route("Verifikacija/{id}")]
+        public async Task Verifikacija(string id) 
+        {
+            var user = await userManager.FindByIdAsync(id);
+            try 
+            {
+                user.EmailConfirmed = true;
+                _context.Update(user);
+                _context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
 
         
@@ -71,7 +90,7 @@ namespace WebApplication1.Controllers
                         message.From = new System.Net.Mail.MailAddress("webprogramiranje2@gmail.com");
                         message.To.Add(registerUser.Email);
                         message.Subject = "Verifikacija email adrese ";
-                        message.Body = "Da biste se prijavili, kliknite na sledeci link http://localhost:4200/verifikacija";
+                        message.Body = "Da biste se prijavili, kliknite na sledeci link http://localhost:58544/api/RegistrovaniKorisnici/Verifikacija/" + registerUser.Id;
 
                         using (var smtpClient = new SmtpClient())
                         {
@@ -109,20 +128,7 @@ namespace WebApplication1.Controllers
         {
 
             var user = await userManager.FindByNameAsync(model.UserName);
-            bool verifikovanjePolje = false;
 
-            /*if (Int32.Parse(model.KliknuoValidaciju) == 1)
-            {
-                user.EmailConfirmed = true;
-                verifikovanjePolje = true;
-
-            }
-            else
-            {
-                user.EmailConfirmed = false;
-                verifikovanjePolje = false;
-
-            }*/
             if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka))
             {
                 var tokenDescriptor = new SecurityTokenDescriptor
@@ -145,7 +151,6 @@ namespace WebApplication1.Controllers
         }
         [HttpPost]
         [Route("DrustveneMrezeLogin")]
-        // POST: api/<controller>/Login
         public async Task<Object> SocialLogin([FromBody] LogovaniKorisniciKlasa loginModel)
         {
             var test = _appSettings.JWT_Secret;
