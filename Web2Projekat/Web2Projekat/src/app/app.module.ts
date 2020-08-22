@@ -19,7 +19,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TokenInterceptor } from './auth/tokenInterceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { VerifikacijaComponent } from './pocetnaStrana/verifikacija/verifikacija.component';
+import { ProfilKorisnikaComponent } from './naprednaPocetna/profil-korisnika/profil-korisnika.component';
+import { KorisnikInfoComponent } from './naprednaPocetna/korisnik-info/korisnik-info.component';
 
 let config = new AuthServiceConfig([
   {
@@ -42,7 +43,8 @@ export function provideConfig()
     AvioComponent,
     LetoviIspisComponent,
     PocetnaStranicaComponent,
-    VerifikacijaComponent
+    ProfilKorisnikaComponent,
+    KorisnikInfoComponent
   ],
   imports: [
     BrowserModule,

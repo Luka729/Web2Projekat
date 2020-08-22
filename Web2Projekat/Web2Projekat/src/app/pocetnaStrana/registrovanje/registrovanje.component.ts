@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
  
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class RegistrovanjeComponent implements OnInit {
   load: number;
   
 
-  constructor(private fb: FormBuilder,private http:HttpClient) {
+  constructor(private fb: FormBuilder,private http:HttpClient,private route:Router) {
     this.load = 0
     
    }
@@ -81,6 +82,7 @@ export class RegistrovanjeComponent implements OnInit {
         this.registrovanjeForm.reset();
         document.getElementById("labelaSaGreskom").innerHTML = "";
         console.log(res);
+
   
       },
       err => {

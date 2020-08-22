@@ -129,7 +129,7 @@ namespace WebApplication1.Controllers
 
             var user = await userManager.FindByNameAsync(model.UserName);
 
-            if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka))
+            if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka) && user.EmailConfirmed)
             {
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
