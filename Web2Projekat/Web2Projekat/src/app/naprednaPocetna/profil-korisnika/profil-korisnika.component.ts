@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil-korisnika',
@@ -7,16 +7,31 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profil-korisnika.component.css']
 })
 export class ProfilKorisnikaComponent implements OnInit {
-
   defaultComponent=0;
   username:string;
 
-  constructor(private route:ActivatedRoute) {
-   this.defaultComponent = 1;
+  constructor(private route:ActivatedRoute, private router: Router) {
+    this.defaultComponent = 1;
    route.params.subscribe(params => {
-     this.username = params['UserName'];
+     this.username = params['userNameProvera'];
    });
+   console.log("USERNAME:"+this.username);
+
    }
+  izmeniPodatke(){
+    this.router.navigateByUrl('/izmena-korisnika/' + this.username);
+
+  }
+
+  rezervisiKarte(){}
+  oceniAviokompaniju(){}
+  oceniLet(){}
+  otkaziLet(){}
+  oceniRentACar(){}
+  rezervisiVozilo(){}
+  oceniVozilo(){}
+  otkaziVozilo(){}
+
 
   ngOnInit(): void {
   }

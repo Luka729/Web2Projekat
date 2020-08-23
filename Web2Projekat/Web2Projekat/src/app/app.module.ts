@@ -20,7 +20,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { TokenInterceptor } from './auth/tokenInterceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfilKorisnikaComponent } from './naprednaPocetna/profil-korisnika/profil-korisnika.component';
-import { KorisnikInfoComponent } from './naprednaPocetna/korisnik-info/korisnik-info.component';
+import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izmena-korisnika.component';
 
 let config = new AuthServiceConfig([
   {
@@ -44,7 +44,7 @@ export function provideConfig()
     LetoviIspisComponent,
     PocetnaStranicaComponent,
     ProfilKorisnikaComponent,
-    KorisnikInfoComponent
+    IzmenaKorisnikaComponent,
   ],
   imports: [
     BrowserModule,

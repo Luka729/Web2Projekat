@@ -89,10 +89,11 @@ export class LogovanjeComponent implements OnInit {
     this.login().subscribe(
       (res: any) => {
         console.log("Radi")
-        this.loginForm.reset();
+
         localStorage.setItem('token', res.token);
         document.getElementById("labelaSaGreskom").innerHTML = "";
-        this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.value.UserName);
+        this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.value.userNameProvera);
+        this.loginForm.reset();
 
       },
       err => {

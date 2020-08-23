@@ -121,7 +121,36 @@ namespace WebApplication1.Controllers
             }
         }
 
-        
+
+        [HttpPost]
+        [Route("IzmenaPodataka")]
+        public async Task<Object> AzuriranjePodatakaKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
+        {
+            var user = await userManager.FindByNameAsync(registrovaniKorisnici.UserName);
+            try
+            {
+                user.Ime = registrovaniKorisnici.Ime;
+                user.Prezime = registrovaniKorisnici.Prezime;
+                user.Email = registrovaniKorisnici.Email;
+                user.Grad = registrovaniKorisnici.Grad;
+                user.PhoneNumber = registrovaniKorisnici.Telefon;
+                user.PasswordHash = registrovaniKorisnici.Lozinka;
+
+                _context.Update(user);
+                _context.SaveChanges();
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+
+            }
+            return Ok(user);
+
+
+
+        }
+
         [HttpPost]
         [Route("Logovanje")]
         public async Task<Object> Login(LogovaniKorisniciKlasa model)
@@ -144,6 +173,11 @@ namespace WebApplication1.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
+
+
+
+
+
                 return Ok(new { token });
             }
             else
@@ -159,7 +193,6 @@ namespace WebApplication1.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Expires = DateTime.UtcNow.AddMinutes(5),
-                    //Key min: 16 characters
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();

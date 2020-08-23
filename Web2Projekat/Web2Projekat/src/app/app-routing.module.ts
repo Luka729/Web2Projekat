@@ -8,6 +8,7 @@ import { LetoviIspisComponent } from './pocetnaStrana/letovi-ispis/letovi-ispis.
 import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
 import { ProfilKorisnikaComponent } from './naprednaPocetna/profil-korisnika/profil-korisnika.component';
+import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izmena-korisnika.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
@@ -40,9 +41,15 @@ const routes: Routes = [
     component:PocetnaStranicaComponent
   },
   {
-    path: 'profil-korisnika/:UserName',
+    path: 'profil-korisnika/:userNameProvera',
     component:ProfilKorisnikaComponent
   },
+  {
+    path:'izmena-korisnika/:username',
+    component:IzmenaKorisnikaComponent
+  }
+  
+ 
 
 ];
 
