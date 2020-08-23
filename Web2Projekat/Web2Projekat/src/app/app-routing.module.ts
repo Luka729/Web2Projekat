@@ -40,7 +40,7 @@ const routes: Routes = [
     component:PocetnaStranicaComponent
   },
   {
-    path: 'profil-korisnika',
+    path: 'profil-korisnika/:UserName',
     component:ProfilKorisnikaComponent
   },
 

@@ -92,7 +92,7 @@ export class LogovanjeComponent implements OnInit {
         this.loginForm.reset();
         localStorage.setItem('token', res.token);
         document.getElementById("labelaSaGreskom").innerHTML = "";
-        this.router.navigateByUrl('/profil-korisnika');
+        this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.value.UserName);
 
       },
       err => {
