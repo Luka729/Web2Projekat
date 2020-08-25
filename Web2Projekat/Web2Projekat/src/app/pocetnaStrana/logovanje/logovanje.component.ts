@@ -76,9 +76,11 @@ export class LogovanjeComponent implements OnInit {
   }
 
   login() {
+   
     var body = { 
       Lozinka: this.loginForm.value.lozinkaProvera,
       UserName: this.loginForm.value.userNameProvera,
+      
   
       };
     return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Logovanje',body);
@@ -89,10 +91,22 @@ export class LogovanjeComponent implements OnInit {
     this.login().subscribe(
       (res: any) => {
         console.log("Radi")
-
+         
         localStorage.setItem('token', res.token);
         document.getElementById("labelaSaGreskom").innerHTML = "";
-        this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.value.userNameProvera);
+        if(this.loginForm.value.userNameProvera.indexOf("AvioAdmin")  !== -1){
+          this.router.navigateByUrl('/profil-avio-admin/' + this.loginForm.value.userNameProvera);
+        }
+        
+        else if(this.loginForm.value.userNameProvera.indexOf("CarAdmin")  !== -1){
+          this.router.navigateByUrl('/profil-car-admin/' + this.loginForm.value.userNameProvera);
+        }
+        else if(this.loginForm.value.userNameProvera.indexOf("MainAdmin")  !== -1){
+          this.router.navigateByUrl('/profil-main-admin/' + this.loginForm.value.userNameProvera);
+        }
+        else{
+          this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.value.userNameProvera);
+        }
         this.loginForm.reset();
 
       },

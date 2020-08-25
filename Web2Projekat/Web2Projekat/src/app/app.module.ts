@@ -21,6 +21,9 @@ import { TokenInterceptor } from './auth/tokenInterceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfilKorisnikaComponent } from './naprednaPocetna/profil-korisnika/profil-korisnika.component';
 import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izmena-korisnika.component';
+import { ProfilAvioAdminComponent } from './AvioPocetna/profil-avio-admin/profil-avio-admin.component';
+import { ProfilCarAdminComponent } from './CarPocetna/profil-car-admin/profil-car-admin.component';
+import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/profil-main-admin.component';
 
 let config = new AuthServiceConfig([
   {
@@ -45,6 +48,9 @@ export function provideConfig()
     PocetnaStranicaComponent,
     ProfilKorisnikaComponent,
     IzmenaKorisnikaComponent,
+    ProfilAvioAdminComponent,
+    ProfilCarAdminComponent,
+    ProfilMainAdminComponent,
   ],
   imports: [
     BrowserModule,

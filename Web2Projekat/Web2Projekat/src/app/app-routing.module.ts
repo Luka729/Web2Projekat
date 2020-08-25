@@ -9,6 +9,9 @@ import { AvioComponent } from './pocetnaStrana/avio/avio.component';
 import { PocetnaStranicaComponent } from './pocetnaStrana/pocetna-stranica/pocetna-stranica.component';
 import { ProfilKorisnikaComponent } from './naprednaPocetna/profil-korisnika/profil-korisnika.component';
 import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izmena-korisnika.component';
+import { ProfilAvioAdminComponent } from './AvioPocetna/profil-avio-admin/profil-avio-admin.component';
+import { ProfilCarAdminComponent } from './CarPocetna/profil-car-admin/profil-car-admin.component';
+import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/profil-main-admin.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
@@ -47,6 +50,18 @@ const routes: Routes = [
   {
     path:'izmena-korisnika/:username',
     component:IzmenaKorisnikaComponent
+  },
+  {
+    path:'profil-avio-admin/:username',
+    component:ProfilAvioAdminComponent
+  },
+  {
+    path:'profil-car-admin/:username',
+    component:ProfilCarAdminComponent
+  },
+  {
+    path:'profil-main-admin/:username',
+    component:ProfilMainAdminComponent
   }
   
  

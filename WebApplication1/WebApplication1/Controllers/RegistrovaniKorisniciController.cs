@@ -107,8 +107,27 @@ namespace WebApplication1.Controllers
 
                     sendMailThread.Start();
 
-                    await userManager.AddToRoleAsync(registerUser,"avio_admin"); //registrovaniKorisnici.Rola
-                    await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "avio_admin"));
+                    if(registrovaniKorisnici.Rola == "main_admin") {
+                        await userManager.AddToRoleAsync(registerUser, "main_admin");
+                        await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "main_admin"));
+                    }
+                    else if (registrovaniKorisnici.Rola == "avio_admin")
+                    {
+                        
+                         await userManager.AddToRoleAsync(registerUser, "avio_admin");
+                         await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "avio_admin"));
+                        
+                    }
+                    else if (registrovaniKorisnici.Rola == "car_admin")
+                    {
+                        await userManager.AddToRoleAsync(registerUser, "car_admin");
+                        await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "car_admin"));
+                    }
+                    else
+                    {
+                        await userManager.AddToRoleAsync(registerUser, "regular_user");
+                        await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "regular_user"));
+                    }
 
                     return Ok(rezultat);
 
