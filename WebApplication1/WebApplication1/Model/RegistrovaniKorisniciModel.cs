@@ -13,17 +13,17 @@ namespace WebApplication1.Model
     public class RegistrovaniKorisniciModel : IdentityUser
     {
         [Required]
-        [MinLength(5)]
+        [MinLength(1)]
         [MaxLength(30)]
         public string Ime { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(1)]
         [MaxLength(30)]
         public string Prezime { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(1)]
         [MaxLength(30)]
         public string Grad { get; set; }
 

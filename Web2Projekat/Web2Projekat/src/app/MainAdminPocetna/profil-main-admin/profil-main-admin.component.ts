@@ -11,5 +11,7 @@ export class ProfilMainAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  registrujAvioKompaniju(){}
+  registrujRentACarKompaniju(){}
 
 }

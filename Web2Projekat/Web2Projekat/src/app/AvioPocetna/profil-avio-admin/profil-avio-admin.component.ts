@@ -11,5 +11,9 @@ export class ProfilAvioAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  definisiDestinacije(){}
+  dodajNovLet(){}
+  definisiCenovnik(){}
+  dobaviIzvestaj(){}
+  urediInfoStranicu(){}
 }

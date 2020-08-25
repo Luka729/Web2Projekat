@@ -11,5 +11,9 @@ export class ProfilCarAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  dodajKola(){}
+  dodajCenovnik(){}
+  dobaviIzvestaj(){}
+  urediInfoStranice(){}
+  
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200825143627_RentACarTabela")]
+    partial class RentACarTabela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,77 +258,6 @@ namespace WebApplication1.Migrations
                     b.ToTable("Automobili");
                 });
 
-            modelBuilder.Entity("WebApplication1.Model.AvioKompanijaModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Adresa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ocena")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PromoOpis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AvioKompanija");
-                });
-
-            modelBuilder.Entity("WebApplication1.Model.LetoviModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AvioKompanijaModelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BrojPresedanja")
-                        .HasColumnType("int");
-
-                    b.Property<double>("CenaKarte")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("DatumPoletanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DatumSletanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("DuzinaPutovanja")
-                        .HasColumnType("float");
-
-                    b.Property<string>("LokacijaPresedanja")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("MinutPutovanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("SatPutovanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SlobodnaMesta")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AvioKompanijaModelId");
-
-                    b.ToTable("Letovi");
-                });
-
             modelBuilder.Entity("WebApplication1.Model.RentACarModel", b =>
                 {
                     b.Property<int>("Id")
@@ -447,13 +378,6 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Model.RentACarModel", null)
                         .WithMany("SpisakAutomobila")
                         .HasForeignKey("RentACarModelId");
-                });
-
-            modelBuilder.Entity("WebApplication1.Model.LetoviModel", b =>
-                {
-                    b.HasOne("WebApplication1.Model.AvioKompanijaModel", null)
-                        .WithMany("spisakLetova")
-                        .HasForeignKey("AvioKompanijaModelId");
                 });
 #pragma warning restore 612, 618
         }
