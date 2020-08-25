@@ -22,7 +22,9 @@ namespace WebApplication1.Klasa
 
         public string UserName { get; set; }
 
-        
+        public string Rola { get; set; }
+
+
 
 
 

@@ -106,6 +106,10 @@ namespace WebApplication1.Controllers
                     });
 
                     sendMailThread.Start();
+
+                    await userManager.AddToRoleAsync(registerUser,"avio_admin"); //registrovaniKorisnici.Rola
+                    await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "avio_admin"));
+
                     return Ok(rezultat);
 
                 }
@@ -145,9 +149,6 @@ namespace WebApplication1.Controllers
                 return BadRequest();
 
             }
-            return Ok(user);
-
-
 
         }
 
@@ -155,17 +156,20 @@ namespace WebApplication1.Controllers
         [Route("Logovanje")]
         public async Task<Object> Login(LogovaniKorisniciKlasa model)
         {
-
             var user = await userManager.FindByNameAsync(model.UserName);
 
             if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka) && user.EmailConfirmed)
             {
+                var role = await userManager.GetRolesAsync(user);
+
+                IdentityOptions options = new IdentityOptions();
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserID",user.Id.ToString()),
-                        new Claim("Roles", "admin")
+                        new Claim(options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
@@ -173,16 +177,14 @@ namespace WebApplication1.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-
-
-
-
-
                 return Ok(new { token });
             }
             else
                 return BadRequest(new { message = "Username or password is incorrect." });
         }
+
+
+
         [HttpPost]
         [Route("DrustveneMrezeLogin")]
         public async Task<Object> SocialLogin([FromBody] LogovaniKorisniciKlasa loginModel)
