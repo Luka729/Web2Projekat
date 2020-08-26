@@ -24,6 +24,7 @@ import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izm
 import { ProfilAvioAdminComponent } from './AvioPocetna/profil-avio-admin/profil-avio-admin.component';
 import { ProfilCarAdminComponent } from './CarPocetna/profil-car-admin/profil-car-admin.component';
 import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/profil-main-admin.component';
+import { NavbarComponent } from './pocetnaStrana/navbar/navbar.component';
 
 let config = new AuthServiceConfig([
   {
@@ -51,6 +52,7 @@ export function provideConfig()
     ProfilAvioAdminComponent,
     ProfilCarAdminComponent,
     ProfilMainAdminComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,10 @@
 <html>
+    <app-navbar></app-navbar>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         
         <table align="center">
+
+           
 
             <tr>
                     <td>
@@ -9,8 +12,13 @@
                         <label>Unesite username:</label>
                     </td>
                     <td>
-                        <input type="text" formControlName="userNameProvera" class="form-control">
-                        <div *ngIf="loginForm.controls.userNameProvera.invalid">
+                        <div class="input-group m">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">@</span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="userNameProvera" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">                          
+                          </div>
+                          <div *ngIf="loginForm.controls.userNameProvera.invalid">
                             Molimo Vas unesite minimalno 6 karaktera
                         </div>
                     </td>
@@ -23,7 +31,7 @@
                 </td>
     
                 <td>
-                    <input type="password" formControlName="lozinkaProvera" class="form-control">
+                    <input type="password" formControlName="lozinkaProvera" class="form-control" placeholder="Password">
                     <div *ngIf="loginForm.controls.lozinkaProvera.invalid">
                         Molimo Vas unesite minimalno 6 karaktera
                     </div>
