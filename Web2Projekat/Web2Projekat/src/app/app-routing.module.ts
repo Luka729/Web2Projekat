@@ -12,6 +12,8 @@ import { IzmenaKorisnikaComponent } from './naprednaPocetna/izmena-korisnika/izm
 import { ProfilAvioAdminComponent } from './AvioPocetna/profil-avio-admin/profil-avio-admin.component';
 import { ProfilCarAdminComponent } from './CarPocetna/profil-car-admin/profil-car-admin.component';
 import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/profil-main-admin.component';
+import { RegistrovanjeAvioComponent } from './MainAdminPocetna/registrovanje-avio/registrovanje-avio.component';
+import { RegistrovanjeRentACarComponent } from './MainAdminPocetna/registrovanje-rent-a-car/registrovanje-rent-a-car.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
@@ -62,7 +64,15 @@ const routes: Routes = [
   {
     path:'profil-main-admin/:username',
     component:ProfilMainAdminComponent
-  }
+  },
+  {
+    path: 'registrovanje-avio',//username
+    component:RegistrovanjeAvioComponent
+  },
+  {
+    path: 'registrovanje-rent-a-car',//username
+    component:RegistrovanjeRentACarComponent
+  },
   
  
 
