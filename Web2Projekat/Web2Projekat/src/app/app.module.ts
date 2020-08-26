@@ -27,6 +27,7 @@ import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/p
 import { NavbarComponent } from './pocetnaStrana/navbar/navbar.component';
 import { RegistrovanjeAvioComponent } from './MainAdminPocetna/registrovanje-avio/registrovanje-avio.component';
 import { RegistrovanjeRentACarComponent } from './MainAdminPocetna/registrovanje-rent-a-car/registrovanje-rent-a-car.component';
+import { RegistrovanjeAdminaComponent } from './MainAdminPocetna/registrovanje-admina/registrovanje-admina.component';
 
 let config = new AuthServiceConfig([
   {
@@ -57,6 +58,7 @@ export function provideConfig()
     NavbarComponent,
     RegistrovanjeAvioComponent,
     RegistrovanjeRentACarComponent,
+    RegistrovanjeAdminaComponent,
   ],
   imports: [
     BrowserModule,

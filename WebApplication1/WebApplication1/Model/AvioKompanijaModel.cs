@@ -23,9 +23,10 @@ namespace WebApplication1.Model
         public string PromoOpis { get; set; }
 
         [Required]
+        public string Admin { get; set; }
+
         public ICollection<LetoviModel> spisakLetova { get; set; }
 
-        [Required]
         public int Ocena { get; set; }
 
 

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace WebApplication1.Model
 {
     [Table("RentACar")]
-
     public class RentACarModel
     {
         [Key]
@@ -30,21 +29,14 @@ namespace WebApplication1.Model
         public string PromoOpis { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(30)]
+        public string Admin { get; set; }
+
         public double CenovnikUsluga { get; set; }
 
-        [Required]
         public ICollection<AutomibilModel> SpisakAutomobila { get; set; }
 
-        [Required]
-        [MinLength(1)]
-        [MaxLength(30)]
         public string Filijale { get; set; }
 
-        [Required]
-        [MinLength(1)]
-        [MaxLength(30)]
         public double Ocena { get; set; }
 
     }
