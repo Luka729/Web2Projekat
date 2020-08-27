@@ -22,6 +22,7 @@ export class RentacarServisi {
         const rac2 = new RentacarEntitet('Bolja kola', 'Ivice Krivice 56', 'Ma top smo, dodjite i uverite se', 2017, allCars,'sdf',3.4);
         const rac3 = new RentacarEntitet('Suncica Travica', 'JNA 52', 'Nemojte da padnete na doping testu', 1991, allCars,'dff',5);
         
+
         allRentaCars.push(rac1);
         allRentaCars.push(rac2);
         allRentaCars.push(rac3);

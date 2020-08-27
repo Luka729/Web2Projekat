@@ -51,19 +51,19 @@ const routes: Routes = [
     component:ProfilKorisnikaComponent
   },
   {
-    path:'izmena-korisnika/:username',
+    path:'izmena-korisnika/:userNameProvera',
     component:IzmenaKorisnikaComponent
   },
   {
-    path:'profil-avio-admin/:username',
+    path:'profil-avio-admin/:userNameProvera',
     component:ProfilAvioAdminComponent
   },
   {
-    path:'profil-car-admin/:username',
+    path:'profil-car-admin/:userNameProvera',
     component:ProfilCarAdminComponent
   },
   {
-    path:'profil-main-admin/:username',
+    path:'profil-main-admin/:userNameProvera',
     component:ProfilMainAdminComponent
   },
   {

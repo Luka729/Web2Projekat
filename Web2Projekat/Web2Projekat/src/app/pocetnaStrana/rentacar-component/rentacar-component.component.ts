@@ -10,7 +10,6 @@ import { AutomobiliServisi } from 'src/app/servisi/automobili-servisi';
   styleUrls: ['./rentacar-component.component.css']
 })
 export class RentacarComponentComponent implements OnInit {
-  
   allRentACars: Array<RentacarEntitet>;
   allCars: Array<AutomobiliEntiteti>;
   constructor(private servis: RentacarServisi, private servisAuto: AutomobiliServisi) { 
@@ -21,5 +20,6 @@ export class RentacarComponentComponent implements OnInit {
 
   ngOnInit(): void {
   }
+ 
 
 }

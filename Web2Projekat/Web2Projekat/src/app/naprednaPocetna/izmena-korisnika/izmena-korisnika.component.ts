@@ -23,7 +23,7 @@ export class IzmenaKorisnikaComponent implements OnInit {
     this.load = 0
     this.defaultComponent = 1;
    router.params.subscribe(params => {
-     this.username = params['username'];
+     this.username = params['userNameProvera'];
    });
    console.log("USERNAME:"+this.username);
 
@@ -91,7 +91,7 @@ export class IzmenaKorisnikaComponent implements OnInit {
       },
       err => {
         console.log("NE RADI");
-        document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno registrovanje, korisnik sa ovim email-om vec postoji";
+        document.getElementById("labelaSaGreskom").innerHTML = "Neuspesna izmena podataka";
 
         console.log(err);
       }
