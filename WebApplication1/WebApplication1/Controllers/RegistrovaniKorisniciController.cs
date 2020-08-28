@@ -177,7 +177,7 @@ namespace WebApplication1.Controllers
         {
             var user = await userManager.FindByNameAsync(model.UserName);
 
-            if (user != null && await userManager.CheckPasswordAsync(user, model.Lozinka) && user.EmailConfirmed)
+            if (user != null && await userManager.CheckPasswordAsync(user, model.Password) && user.EmailConfirmed)
             {
                 var role = await userManager.GetRolesAsync(user);
 

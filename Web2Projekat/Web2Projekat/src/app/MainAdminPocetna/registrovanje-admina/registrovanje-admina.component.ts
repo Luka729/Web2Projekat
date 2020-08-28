@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-registrovanje-admina',
@@ -16,7 +17,7 @@ export class RegistrovanjeAdminaComponent implements OnInit {
   load: number;
   rola: any;
 
-  constructor(private fb: FormBuilder,private http:HttpClient,private route:Router) {
+  constructor(public service: UserService,private fb: FormBuilder,private http:HttpClient,private route:Router) {
     this.load = 0
     this.rola = ""
    }
@@ -24,85 +25,20 @@ export class RegistrovanjeAdminaComponent implements OnInit {
   registrovanjeForm= new FormGroup({
     izborAdmina: new FormControl()
  }); 
-  telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
-  //formModel: FormGroup;
-  readonly BaseURI ='http://localhost:58544/api';
 
-  ngOnInit(): void {
-    this.initForm();
+  ngOnInit() {
+    this.service.registrovanjeAdminForm.reset();
   }
-  private initForm() {
-    this.registrovanjeForm = this.fb.group({
-    'imeProvera' :['',Validators.required],
-    'prezimeProvera' : ['',Validators.required],
-    'gradProvera': ['',Validators.required],
-    'telefonProvera': ['',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
-    'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
-    'proveralozinkeProvera' : ['',Validators.required],
-    'userNameProvera': ['', [Validators.required,Validators.minLength(6)]],
-    'eadresaProvera' : ['',[Validators.required,Validators.email]],
-    'izborAdmina':['']
-  },{ validator: this.comparePasswords})
-
-  }
-
-  comparePasswords(fb: FormGroup) {
-    let confirmPswrdCtrl = fb.get('proveralozinkeProvera');
-    //passwordMismatch
-    //confirmPswrdCtrl.errors={passwordMismatch:true}
-    if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-      if (fb.get('lozinkaProvera').value != confirmPswrdCtrl.value)
-        confirmPswrdCtrl.setErrors({ passwordMismatch: true });
-      else
-        confirmPswrdCtrl.setErrors(null);
-    }
-  }
-  register() {
-
-    if(this.registrovanjeForm.value.izborAdmina === "Avio Admin")
-    {
-      if(this.registrovanjeForm.value.userNameProvera.indexOf("AvioAdmin")  === -1)
-      {
-        this.registrovanjeForm.value.userNameProvera += "AvioAdmin";
-      }
-      this.rola = "avio_admin";
-    }
-    
-    else if(this.registrovanjeForm.value.izborAdmina === "Car Admin")
-    {
-      if(this.registrovanjeForm.value.userNameProvera.indexOf("Car Admin")  === -1)
-      {
-        this.registrovanjeForm.value.userNameProvera += "CarAdmin";
-      }
-      this.rola = "car_admin";
-    }
-    else{
-      console.log("Greska nema role");
-
-    }
-    var body = {
-    Ime: this.registrovanjeForm.value.imeProvera,
-    Prezime: this.registrovanjeForm.value.prezimeProvera,
-    Grad: this.registrovanjeForm.value.gradProvera,
-    Telefon: this.registrovanjeForm.value.telefonProvera,
-    Email: this.registrovanjeForm.value.eadresaProvera,
-    Lozinka: this.registrovanjeForm.value.lozinkaProvera,
-    UserName: this.registrovanjeForm.value.userNameProvera,
-    Rola: this.rola,
-    };
-    return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
-}                                          
+  
   onSubmit() {
     this.load = 1
     console.log("Uslo u submit");
-    this.register().subscribe(
+    this.service.registerAdmin().subscribe(
       (res: any) => {      
         console.log("RADI");
-        this.registrovanjeForm.reset();
+        this.service.registrovanjeAdminForm.reset();
         document.getElementById("labelaSaGreskom").innerHTML = "";
-        console.log(res);
-
-  
+        console.log(res); 
       },
       err => {
         console.log("NE RADI");
@@ -112,10 +48,6 @@ export class RegistrovanjeAdminaComponent implements OnInit {
       }
     );
   }
-
-
-  
-
 
 }
 

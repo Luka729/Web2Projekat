@@ -1,5 +1,5 @@
 <h1>Izmenite Vase podatke</h1>
-<form [formGroup]="izmenaForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="service.registrovanjeForm" (ngSubmit)="onSubmit()">
     <table align="center">
         <tr>
             <td>
@@ -7,7 +7,7 @@
             </td>
             <td>
                 <input type="text" formControlName="imeProvera" class="form-control" id="imeProvera">
-                <div *ngIf="izmenaForm.controls.imeProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.imeProvera.invalid">
                     Molimo Vas Izmenite ime
                 </div>
             </td>
@@ -18,7 +18,7 @@
             </td>
             <td>
                 <input type="text" formControlName="prezimeProvera" class="form-control">
-                <div *ngIf="izmenaForm.controls.prezimeProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.prezimeProvera.invalid">
                     Molimo Vas Izmenite prezime
                 </div>
             </td>
@@ -30,7 +30,7 @@
             </td>
             <td>
                 <input type="password" formControlName="lozinkaProvera" class="form-control">
-                <div *ngIf="izmenaForm.controls.lozinkaProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.lozinkaProvera.invalid">
                     Molimo Vas Izmenite minimalno 6 karaktera
                 </div>
             </td>
@@ -42,7 +42,7 @@
 
             <td>
                 <input type="password" formControlName="proveralozinkeProvera" class="form-control">
-                <div *ngIf= "izmenaForm.get('proveralozinkeProvera').errors?.passwordMismatch || izmenaForm.controls.proveralozinkeProvera.invalid" >
+                <div *ngIf= "service.registrovanjeForm.get('proveralozinkeProvera').errors?.passwordMismatch || service.registrovanjeForm.controls.proveralozinkeProvera.invalid" >
                     Lozinke se ne poklapaju
                 </div>
             </td>
@@ -53,7 +53,7 @@
             </td>
             <td>
                 <input type="email" formControlName="eadresaProvera" class="form-control">
-                <div *ngIf="izmenaForm.controls.eadresaProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.eadresaProvera.invalid">
                     Molimo Vas Izmenite ispravan e-mail
                 </div>
             </td>
@@ -64,7 +64,7 @@
             </td>
             <td>
                 <input type="text" formControlName="gradProvera" class="form-control">
-                <div *ngIf="izmenaForm.controls.gradProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.gradProvera.invalid">
                     Popunite naziv Vašeg grada
                 </div>
             </td>
@@ -75,7 +75,7 @@
             </td>
             <td>
                 <input type="text" formControlName="telefonProvera"  class="form-control">
-                <div *ngIf="izmenaForm.controls.telefonProvera.invalid">
+                <div *ngIf="service.registrovanjeForm.controls.telefonProvera.invalid">
                     Molimo Vas Izmenite pravilan format mobilnog telefona
                 </div>
             </td>
@@ -85,7 +85,7 @@
                 &nbsp;
             </td>
             <td>
-                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!izmenaForm.valid">
+                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.registrovanjeForm.valid">
             </td>
         </tr>
     </table>

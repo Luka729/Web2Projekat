@@ -1,68 +1,19 @@
-<html>
-    <app-navbar></app-navbar>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        
-        <table align="center">
+<form #form='ngForm' class="mb-4" autocomplete="off" (submit)="onSubmit(form)">
+  <div class="form-group">
+    <label>Username</label>
+    <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="loginForm.UserName" required>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="loginForm.Password" required>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-8 offset-md-2">
+      <button type="submit" class="btn btn-lg btn-block" [disabled]="form.invalid">Login</button>
+    </div>
+  </div>
+</form>
 
-           
-
-            <tr>
-                    <td>
-                       
-                        <label>Unesite username:</label>
-                    </td>
-                    <td>
-                        <div class="input-group m">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="basic-addon1">@</span>
-                            </div>
-                            <input type="text" class="form-control" formControlName="userNameProvera" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">                          
-                          </div>
-                          <div *ngIf="loginForm.controls.userNameProvera.invalid">
-                            Molimo Vas unesite minimalno 6 karaktera
-                        </div>
-                    </td>
-            </tr>
-
-    
-            <tr>
-                <td>
-                    <label>Unesite password:</label>
-                </td>
-    
-                <td>
-                    <input type="password" formControlName="lozinkaProvera" class="form-control" placeholder="Password">
-                    <div *ngIf="loginForm.controls.lozinkaProvera.invalid">
-                        Molimo Vas unesite minimalno 6 karaktera
-                    </div>
-                </td>
-    
-            </tr>
-    
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td>
-                    <button type="submit" class="btn btn-outline-primary" [disabled]="!loginForm.valid">Submit</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Google logovanje:
-                </td>
-                <td>
-                    <button (click)="LoginWithGoogle()" class="btn btn-outline-primary">Login with Google</button>
-                </td>
-            </tr>
-            
-            
-        </table>
-        
-                <label id="labelaSaGreskom" name="labelaSaGreskom"></label>
-            
-    </form>
-    <nav align="center">
-        <a routerLink="/registrovanje">Jos nemate nalog? Registrujte se</a>
-    </nav>
-</html>
+<div class="form-group col-md-8 offset-md-2">
+  <button (click)="LoginWithGoogle()" class="btn btn-lg btn-block">Login with Google</button>
+</div>

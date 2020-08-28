@@ -11,7 +11,7 @@ namespace WebApplication1.Klasa
     public class LogovaniKorisniciKlasa
     {
 
-        public string Lozinka { get; set; }
+        public string Password { get; set; }
 
         public string UserName { get; set; }
 
