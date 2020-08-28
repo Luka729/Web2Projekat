@@ -16,7 +16,9 @@ namespace WebApplication1.Klasa
         public string UserName { get; set; }
 
         public string IdToken { get; set; }
-        
+
+        public string Id { get; set; }
+
     }
 
    

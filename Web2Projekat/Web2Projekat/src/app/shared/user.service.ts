@@ -25,16 +25,16 @@ export class UserService {
     }, { validator: this.comparePasswords })
 
     registrovanjeAdminForm = this.fb.group({
-        'imeProvera' :['',Validators.required],
-        'prezimeProvera' : ['',Validators.required],
-        'gradProvera': ['',Validators.required],
-        'telefonProvera': ['',[Validators.required,Validators.maxLength(10),Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
-        'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
-        'proveralozinkeProvera' : ['',Validators.required],
-        'userNameProvera': ['', [Validators.required,Validators.minLength(6)]],
-        'eadresaProvera' : ['',[Validators.required,Validators.email]],
-        'izborAdmina':['',new FormControl()]
-      },{ validator: this.comparePasswords})
+        'imeProvera': ['', Validators.required],
+        'prezimeProvera': ['', Validators.required],
+        'gradProvera': ['', Validators.required],
+        'telefonProvera': ['', [Validators.required, Validators.maxLength(10), Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
+        'lozinkaProvera': ['', [Validators.required, Validators.minLength(6)]],
+        'proveralozinkeProvera': ['', Validators.required],
+        'userNameProvera': ['', [Validators.required, Validators.minLength(6)]],
+        'eadresaProvera': ['', [Validators.required, Validators.email]],
+        'izborAdmina': ['', new FormControl()]
+    }, { validator: this.comparePasswords })
 
     comparePasswords(fb: FormGroup) {
         let confirmPswrdCtrl = fb.get('proveralozinkeProvera');
@@ -79,8 +79,7 @@ export class UserService {
 
     }
 
-    izmena()
-    {
+    izmena() {
         if (this.registrovanjeForm.value.userNameProvera.indexOf("AvioAdmin") !== -1) {
             this.rola = "avio_admin";
         }
@@ -112,36 +111,32 @@ export class UserService {
 
     registerAdmin() {
 
-        if(this.registrovanjeAdminForm.value.izborAdmina === "Avio Admin")
-        {
-          if(this.registrovanjeAdminForm.value.userNameProvera.indexOf("AvioAdmin")  === -1)
-          {
-            this.registrovanjeAdminForm.value.userNameProvera += "AvioAdmin";
-          }
-          this.rola = "avio_admin";
+        if (this.registrovanjeAdminForm.value.izborAdmina === "Avio Admin") {
+            if (this.registrovanjeAdminForm.value.userNameProvera.indexOf("AvioAdmin") === -1) {
+                this.registrovanjeAdminForm.value.userNameProvera += "AvioAdmin";
+            }
+            this.rola = "avio_admin";
         }
-        
-        else if(this.registrovanjeAdminForm.value.izborAdmina === "Car Admin")
-        {
-          if(this.registrovanjeAdminForm.value.userNameProvera.indexOf("Car Admin")  === -1)
-          {
-            this.registrovanjeAdminForm.value.userNameProvera += "CarAdmin";
-          }
-          this.rola = "car_admin";
+
+        else if (this.registrovanjeAdminForm.value.izborAdmina === "Car Admin") {
+            if (this.registrovanjeAdminForm.value.userNameProvera.indexOf("Car Admin") === -1) {
+                this.registrovanjeAdminForm.value.userNameProvera += "CarAdmin";
+            }
+            this.rola = "car_admin";
         }
-        else{
-          console.log("Greska nema role");
-    
+        else {
+            console.log("Greska nema role");
+
         }
         var body = {
-        Ime: this.registrovanjeAdminForm.value.imeProvera,
-        Prezime: this.registrovanjeAdminForm.value.prezimeProvera,
-        Grad: this.registrovanjeAdminForm.value.gradProvera,
-        Telefon: this.registrovanjeAdminForm.value.telefonProvera,
-        Email: this.registrovanjeAdminForm.value.eadresaProvera,
-        Lozinka: this.registrovanjeAdminForm.value.lozinkaProvera,
-        UserName: this.registrovanjeAdminForm.value.userNameProvera,
-        Rola: this.rola,
+            Ime: this.registrovanjeAdminForm.value.imeProvera,
+            Prezime: this.registrovanjeAdminForm.value.prezimeProvera,
+            Grad: this.registrovanjeAdminForm.value.gradProvera,
+            Telefon: this.registrovanjeAdminForm.value.telefonProvera,
+            Email: this.registrovanjeAdminForm.value.eadresaProvera,
+            Lozinka: this.registrovanjeAdminForm.value.lozinkaProvera,
+            UserName: this.registrovanjeAdminForm.value.userNameProvera,
+            Rola: this.rola,
         };
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
     }
@@ -153,6 +148,10 @@ export class UserService {
 
     login(formData) {
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Logovanje', formData);
+    }
+
+    KorisnickiNalog(id: string) {
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/KorisnickiNalog' + id);
     }
 
 }

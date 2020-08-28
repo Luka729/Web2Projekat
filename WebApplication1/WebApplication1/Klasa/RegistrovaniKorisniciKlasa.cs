@@ -24,6 +24,8 @@ namespace WebApplication1.Klasa
 
         public string Rola { get; set; }
 
+        public string Id { get; set; }
+
 
 
 

@@ -129,6 +129,8 @@ namespace WebApplication1.Controllers
                         await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "regular_user"));
                     }
 
+                    registrovaniKorisnici.Id = registerUser.Id;
+
                     return Ok(rezultat);
 
                 }
@@ -149,11 +151,12 @@ namespace WebApplication1.Controllers
         [Route("IzmenaPodataka")]
         public async Task<Object> AzuriranjePodatakaKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
         {
-            var user = await userManager.FindByNameAsync(registrovaniKorisnici.UserName);
+            var user = await userManager.FindByNameAsync(registrovaniKorisnici.Id);
             try
             {
                 user.Ime = registrovaniKorisnici.Ime;
                 user.Prezime = registrovaniKorisnici.Prezime;
+                user.UserName = registrovaniKorisnici.UserName;
                 user.Email = registrovaniKorisnici.Email;
                 user.Grad = registrovaniKorisnici.Grad;
                 user.PhoneNumber = registrovaniKorisnici.Telefon;
@@ -267,6 +270,21 @@ namespace WebApplication1.Controllers
             }
             return lista;
             
+        }
+
+        [HttpGet]
+        [Route("KorisnickiNalog/{id}")]
+        public async Task<RegistrovaniKorisniciKlasa> KorisnickiNalog(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            RegistrovaniKorisniciKlasa nalog = new RegistrovaniKorisniciKlasa();
+            nalog.Ime = user.Ime;
+            nalog.Prezime = user.Prezime;
+            nalog.UserName = user.UserName;
+            nalog.Email = user.Email;
+            nalog.Telefon = user.PhoneNumber;
+            nalog.Grad = user.Grad;
+            return nalog;
         }
 
 
