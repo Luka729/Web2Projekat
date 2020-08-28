@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -21,9 +21,11 @@ export class RegistrovanjeAdminaComponent implements OnInit {
     this.rola = ""
    }
 
-  registrovanjeForm: FormGroup;
+  registrovanjeForm= new FormGroup({
+    izborAdmina: new FormControl()
+ }); 
   telefonPattern: "([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})";
-  formModel: FormGroup;
+  //formModel: FormGroup;
   readonly BaseURI ='http://localhost:58544/api';
 
   ngOnInit(): void {
@@ -38,7 +40,8 @@ export class RegistrovanjeAdminaComponent implements OnInit {
     'lozinkaProvera': ['',[Validators.required, Validators.minLength(6)]],
     'proveralozinkeProvera' : ['',Validators.required],
     'userNameProvera': ['', [Validators.required,Validators.minLength(6)]],
-    'eadresaProvera' : ['',[Validators.required,Validators.email]]
+    'eadresaProvera' : ['',[Validators.required,Validators.email]],
+    'izborAdmina':['']
   },{ validator: this.comparePasswords})
 
   }
@@ -55,20 +58,26 @@ export class RegistrovanjeAdminaComponent implements OnInit {
     }
   }
   register() {
-    if(this.registrovanjeForm.value.userNameProvera.indexOf("AvioAdmin")  !== -1){
+
+    if(this.registrovanjeForm.value.izborAdmina === "Avio Admin")
+    {
+      if(this.registrovanjeForm.value.userNameProvera.indexOf("AvioAdmin")  === -1)
+      {
+        this.registrovanjeForm.value.userNameProvera += "AvioAdmin";
+      }
       this.rola = "avio_admin";
     }
     
-    else if(this.registrovanjeForm.value.userNameProvera.indexOf("CarAdmin")  !== -1){
+    else if(this.registrovanjeForm.value.izborAdmina === "Car Admin")
+    {
+      if(this.registrovanjeForm.value.userNameProvera.indexOf("Car Admin")  === -1)
+      {
+        this.registrovanjeForm.value.userNameProvera += "CarAdmin";
+      }
       this.rola = "car_admin";
-
-    }
-    else if(this.registrovanjeForm.value.userNameProvera.indexOf("MainAdmin")  !== -1){
-      this.rola = "main_admin";
-
     }
     else{
-      this.rola = "regular_user";
+      console.log("Greska nema role");
 
     }
     var body = {

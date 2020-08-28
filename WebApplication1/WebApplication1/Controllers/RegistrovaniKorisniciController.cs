@@ -252,5 +252,23 @@ namespace WebApplication1.Controllers
 
             return true;
         }
+
+        [HttpGet]
+        [Route("Admini")]
+        public async Task<List<string>> Admini() 
+        {
+            List<string> lista = new List<string>();
+            foreach (RegistrovaniKorisniciModel u in userManager.Users)
+            {
+                if (u.UserName.Contains("CarAdmin")) 
+                {
+                    lista.Add(u.Id);
+                }
+            }
+            return lista;
+            
+        }
+
+
     }
 }

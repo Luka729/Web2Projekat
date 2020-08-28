@@ -5,8 +5,12 @@
                 <label>Odaberite Admina:</label>
             </td>
             <td>
-                <input type="radio" name="izborAdmina">Avio Admin
-                <input type="radio" name="izborAdmina">Car Admin
+                <div class="radio">
+                    <label><input type="radio" value="Avio Admin" formControlName="izborAdmina" checked>Avio Admin</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" value="Car Admin" formControlName="izborAdmina">Car Admin</label>
+                  </div>
             </td>
         </tr>
         <tr>
