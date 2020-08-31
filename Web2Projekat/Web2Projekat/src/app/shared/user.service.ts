@@ -13,6 +13,13 @@ export class UserService {
     }
     readonly BaseURI = 'http://localhost:58544/api';
 
+    registrovanjeRentACar = this.fb.group({
+        'nazivProvera' :['',Validators.required],
+        'adresaProvera' : ['',Validators.required],
+        'promotivniOpisProvera': ['',Validators.required],
+        'adminProvera': ['',Validators.required]
+      })
+
     registrovanjeForm = this.fb.group({
         'imeProvera': ['', Validators.required],
         'prezimeProvera': ['', Validators.required],
@@ -21,6 +28,16 @@ export class UserService {
         'lozinkaProvera': ['', [Validators.required, Validators.minLength(6)]],
         'proveralozinkeProvera': ['', Validators.required],
         'userNameProvera': ['', [Validators.required, Validators.minLength(6)]],
+        'eadresaProvera': ['', [Validators.required, Validators.email]]
+    }, { validator: this.comparePasswords })
+
+    izmenaForm = this.fb.group({
+        'imeProvera': ['', Validators.required],
+        'prezimeProvera': ['', Validators.required],
+        'gradProvera': ['', Validators.required],
+        'telefonProvera': ['', [Validators.required, Validators.maxLength(10), Validators.pattern("([0]{1}[6]{1}([0-9]{1}){8})|([0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){6})|([0-9]{1}[0-9]{1}[0-9]{1}([0-9]{1}){7})")]],
+        'lozinkaProvera': ['', [Validators.required, Validators.minLength(6)]],
+        'proveralozinkeProvera': ['', Validators.required],
         'eadresaProvera': ['', [Validators.required, Validators.email]]
     }, { validator: this.comparePasswords })
 
@@ -76,19 +93,18 @@ export class UserService {
             Rola: this.rola,
         };
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
-
     }
 
-    izmena() {
-        if (this.registrovanjeForm.value.userNameProvera.indexOf("AvioAdmin") !== -1) {
+    izmena(username:string) {
+        if (username.indexOf("AvioAdmin") !== -1) {
             this.rola = "avio_admin";
         }
 
-        else if (this.registrovanjeForm.value.userNameProvera.indexOf("CarAdmin") !== -1) {
+        else if (username.indexOf("CarAdmin") !== -1) {
             this.rola = "car_admin";
 
         }
-        else if (this.registrovanjeForm.value.userNameProvera.indexOf("MainAdmin") !== -1) {
+        else if (username.indexOf("MainAdmin") !== -1) {
             this.rola = "main_admin";
 
         }
@@ -97,13 +113,13 @@ export class UserService {
 
         }
         var body = {
-            Ime: this.registrovanjeForm.value.imeProvera,
-            Prezime: this.registrovanjeForm.value.prezimeProvera,
-            Grad: this.registrovanjeForm.value.gradProvera,
-            Telefon: this.registrovanjeForm.value.telefonProvera,
-            Email: this.registrovanjeForm.value.eadresaProvera,
-            Lozinka: this.registrovanjeForm.value.lozinkaProvera,
-            UserName: this.registrovanjeForm.value.userNameProvera,
+            Ime: this.izmenaForm.value.imeProvera,
+            Prezime: this.izmenaForm.value.prezimeProvera,
+            Grad: this.izmenaForm.value.gradProvera,
+            Telefon: this.izmenaForm.value.telefonProvera,
+            Email: this.izmenaForm.value.eadresaProvera,
+            Lozinka: this.izmenaForm.value.lozinkaProvera,
+            UserName: username,
             Rola: this.rola,
         };
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/IzmenaPodataka', body);
@@ -150,8 +166,26 @@ export class UserService {
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Logovanje', formData);
     }
 
-    KorisnickiNalog(id: string) {
-        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/KorisnickiNalog' + id);
+    KorisnickiNalog(userName: string) {
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviPodatkeKorisnika/'+userName);
     }
+    
+    ListaCarAdmina(){
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviCarAdmina');
+
+    }
+
+    UpisiRentACar(){
+        
+            var body = {
+            Naziv: this.registrovanjeRentACar.value.nazivProvera,
+            Adresa: this.registrovanjeRentACar.value.adresaProvera,
+            PromotivniOpis:this.registrovanjeRentACar.value.promotivniOpisProvera,
+            Admin:this.registrovanjeRentACar.value.adminProvera,
+            };
+            return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/UpisUBazu', body);
+        
+    }
+
 
 }

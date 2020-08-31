@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-registrovanje-rent-a-car',
@@ -9,14 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./registrovanje-rent-a-car.component.css']
 })
 export class RegistrovanjeRentACarComponent implements OnInit {
-  lista:Array<string>;
+  lista:Array<any>;
   load: number;
 
-  constructor(private fb: FormBuilder,private http:HttpClient,private route:Router) {
+  constructor(private fb: FormBuilder,private http:HttpClient,private route:Router, public service: UserService) {
     this.load = 0;
-    for (let i = 0; i < this.dobaviAdmine.length; i++) {
-      this.lista.push(this.dobaviAdmine[i]);
-    }
+    //for (let i = 0; i < this.dobaviAdmine.length; i++) {
+    //  this.lista.push(this.dobaviAdmine[i]);
+    //}
    }
 
    registrovanjeRentACar = new FormGroup({}); 
@@ -24,44 +25,46 @@ export class RegistrovanjeRentACarComponent implements OnInit {
 
    ngOnInit(): void {
     this.initForm();
+    this.ListaCarAdmina();
   }
   private initForm() {
-    this.registrovanjeRentACar = this.fb.group({
-    'nazivProvera' :['',Validators.required],
-    'adresaProvera' : ['',Validators.required],
-    'promotivniOpisProvera': ['',Validators.required],
-    'adminProvera': ['',Validators.required]
-  })
+    
   }
 
-  register() {  
-    var body = {
-    Naziv: this.registrovanjeRentACar.value.nazivProvera,
-    Adresa: this.registrovanjeRentACar.value.adresaProvera,
-    GrpromotivniOpis: this.registrovanjeRentACar.value.promotivniOpisProvera,
-    Admin: this.registrovanjeRentACar.value.adminProvera,
-    };
-    return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);//promeni i uradi bek kasnije
-}
 
-dobaviAdmine()
+
+/*dobaviAdmine()
 {
   return this.http.get(this.BaseURI+"/RegistrovaniKorisnici/Admini");
+}*/
+
+ListaCarAdmina() :void{
+  this.service.ListaCarAdmina().subscribe(
+    (res: any) => {   
+      this.lista=res;  
+      console.log(this.lista);
+     
+    },
+    err => {
+      console.log("NE RADI DOBAVLJANJE KORISNIKA");
+      document.getElementById("labelaSaGreskom").innerHTML = "Neuspelo dobavljanje korisnika";
+
+      console.log(err);
+    }
+  );
 }
 
   onSubmit() {
     this.load = 1
     console.log("Uslo u submit");
-    this.register().subscribe(
+    this.service.UpisiRentACar().subscribe(
       (res: any) => {      
         console.log("RADI");
         this.registrovanjeRentACar.reset();
-        document.getElementById("labelaSaGreskom").innerHTML = "";
         console.log(res);  
       },
       err => {
         console.log("NE RADI");
-        document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno registrovanje, korisnik sa ovim email-om vec postoji";
 
         console.log(err);
       }

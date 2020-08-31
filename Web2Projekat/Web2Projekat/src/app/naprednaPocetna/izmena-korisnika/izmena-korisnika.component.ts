@@ -14,14 +14,14 @@ export class IzmenaKorisnikaComponent implements OnInit {
 
   defaultComponent=0;
   username:string;
-
+  korisnik:any;
     
   toastr: any;
   load: number;
   rezultat: any;
   
 
-  constructor(private fb: FormBuilder,private router:ActivatedRoute,private http:HttpClient,private route:Router, public service: UserService) {
+  constructor(private fb: FormBuilder,private router:ActivatedRoute,private http:HttpClient,private route:Router,public service: UserService) {
     this.load = 0
     this.defaultComponent = 1;
    router.params.subscribe(params => {
@@ -31,15 +31,35 @@ export class IzmenaKorisnikaComponent implements OnInit {
 
    }
 
+
    ngOnInit() {
     this.service.registrovanjeForm.reset();
+    this.DobaviPodatkeKorisnika();
   }
    
+  DobaviPodatkeKorisnika() :void{
+    this.service.KorisnickiNalog(this.username).subscribe(
+      (res: any) => {      
+        document.getElementById("ImeKorisnika").innerText  = res.ime;
+        document.getElementById("PrezimeKorisnika").innerText  = res.prezime;
+        document.getElementById("EmailKorisnika").innerText = res.email;
+        document.getElementById("GradKorisnika").innerText = res.grad;
+        document.getElementById("TelefonKorisnika").innerText = res.phoneNumber;
+        console.log("RES:"+res.grad);
+      },
+      err => {
+        console.log("NE RADI DOBAVLJANJE KORISNIKA");
+        document.getElementById("labelaSaGreskom").innerHTML = "Neuspelo dobavljanje korisnika";
+
+        console.log(err);
+      }
+    );
+  }
                                         
   onSubmit() {
     this.load = 1
     console.log("Uslo u submit");
-    this.service.izmena().subscribe(
+    this.service.izmena(this.username).subscribe(
       (res: any) => {      
         console.log("RADI");
         this.service.registrovanjeForm.reset();

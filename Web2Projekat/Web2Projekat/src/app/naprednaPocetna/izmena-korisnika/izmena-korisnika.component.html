@@ -1,24 +1,25 @@
 <h1>Izmenite Vase podatke</h1>
-<form [formGroup]="service.registrovanjeForm" (ngSubmit)="onSubmit()">
-    <table align="center">
+<form [formGroup]="service.izmenaForm" (ngSubmit)="onSubmit()">
+    <table align="right">
         <tr>
             <td>
                 <label>Izmenite ime:</label>
             </td>
             <td>
-                <input type="text" formControlName="imeProvera" class="form-control" id="imeProvera">
-                <div *ngIf="service.registrovanjeForm.controls.imeProvera.invalid">
+                <input type="text" formControlName="imeProvera" class="form-control" >
+                <div *ngIf="service.izmenaForm.controls.imeProvera.invalid">
                     Molimo Vas Izmenite ime
                 </div>
             </td>
         </tr>
+
         <tr>
             <td>
                 <label>Izmenite prezime:</label>
             </td>
             <td>
-                <input type="text" formControlName="prezimeProvera" class="form-control">
-                <div *ngIf="service.registrovanjeForm.controls.prezimeProvera.invalid">
+                <input type="text" formControlName="prezimeProvera" class="form-control" >
+                <div *ngIf="service.izmenaForm.controls.prezimeProvera.invalid">
                     Molimo Vas Izmenite prezime
                 </div>
             </td>
@@ -29,8 +30,8 @@
                 <label>Izmenite password:</label>
             </td>
             <td>
-                <input type="password" formControlName="lozinkaProvera" class="form-control">
-                <div *ngIf="service.registrovanjeForm.controls.lozinkaProvera.invalid">
+                <input type="password" formControlName="lozinkaProvera" class="form-control"  > 
+                <div *ngIf="service.izmenaForm.controls.lozinkaProvera.invalid">
                     Molimo Vas Izmenite minimalno 6 karaktera
                 </div>
             </td>
@@ -41,8 +42,8 @@
             </td>
 
             <td>
-                <input type="password" formControlName="proveralozinkeProvera" class="form-control">
-                <div *ngIf= "service.registrovanjeForm.get('proveralozinkeProvera').errors?.passwordMismatch || service.registrovanjeForm.controls.proveralozinkeProvera.invalid" >
+                <input type="password" formControlName="proveralozinkeProvera" class="form-control" >
+                <div *ngIf= "service.izmenaForm.get('proveralozinkeProvera').errors?.passwordMismatch || service.izmenaForm.controls.proveralozinkeProvera.invalid" >
                     Lozinke se ne poklapaju
                 </div>
             </td>
@@ -53,7 +54,7 @@
             </td>
             <td>
                 <input type="email" formControlName="eadresaProvera" class="form-control">
-                <div *ngIf="service.registrovanjeForm.controls.eadresaProvera.invalid">
+                <div *ngIf="service.izmenaForm.controls.eadresaProvera.invalid">
                     Molimo Vas Izmenite ispravan e-mail
                 </div>
             </td>
@@ -63,8 +64,8 @@
                 <label>Izmenite ime vašeg grada:</label>
             </td>
             <td>
-                <input type="text" formControlName="gradProvera" class="form-control">
-                <div *ngIf="service.registrovanjeForm.controls.gradProvera.invalid">
+                <input type="text" formControlName="gradProvera" class="form-control"  >
+                <div *ngIf="service.izmenaForm.controls.gradProvera.invalid">
                     Popunite naziv Vašeg grada
                 </div>
             </td>
@@ -74,8 +75,8 @@
                 <label>Izmenite broj mobilnog telefona:</label>
             </td>
             <td>
-                <input type="text" formControlName="telefonProvera"  class="form-control">
-                <div *ngIf="service.registrovanjeForm.controls.telefonProvera.invalid">
+                <input type="text" formControlName="telefonProvera"  class="form-control" >
+                <div *ngIf="service.izmenaForm.controls.telefonProvera.invalid">
                     Molimo Vas Izmenite pravilan format mobilnog telefona
                 </div>
             </td>
@@ -85,10 +86,63 @@
                 &nbsp;
             </td>
             <td>
-                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.registrovanjeForm.valid">
+                <input type="submit" value="Submit" class="btn btn-outline-primary"  [disabled]="!service.izmenaForm.valid">
             </td>
         </tr>
     </table>
     <label id="labelaSaGreskom" name="labelaSaGreskom"></label>
 
 </form>
+
+    <table align="left">
+        <tr>
+            <td>
+                <label>Ime:</label>
+            </td>
+            <td>
+                <label id="ImeKorisnika" name="ImeKorisnika"></label>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Prezime:</label>
+            </td>
+            <td>
+                <label id="PrezimeKorisnika" name="PrezimeKorisnika"></label>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>E-adresa:</label>
+            </td>
+            <td>
+                <label  id="EmailKorisnika"name="EmailKorisnika"></label>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Ime vašeg grada:</label>
+            </td>
+            <td>
+                <label id="GradKorisnika" name="EmailKorisnika"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Broj mobilnog telefona:</label>
+            </td>
+            <td>
+                <label id="TelefonKorisnika" name="TelefonKorisnika"></label>
+
+            </td>
+        </tr>
+        
+    </table>
+
+
+
+

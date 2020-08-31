@@ -25,9 +25,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class RegistrovaniKorisniciController : ControllerBase
     {
-        
+
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
+        private readonly UserManager<RentACarModel> userManager2;
         private readonly ApplicationSettings _appSettings;
 
         public RegistrovaniKorisniciController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user, IOptions<ApplicationSettings> appSettings)
@@ -35,15 +36,15 @@ namespace WebApplication1.Controllers
             userManager = user;
             _context = context;
             _appSettings = appSettings.Value;
-          
+
         }
 
         [HttpGet]
         [Route("Verifikacija/{id}")]
-        public async Task Verifikacija(string id) 
+        public async Task Verifikacija(string id)
         {
             var user = await userManager.FindByIdAsync(id);
-            try 
+            try
             {
                 user.EmailConfirmed = true;
                 _context.Update(user);
@@ -52,11 +53,11 @@ namespace WebApplication1.Controllers
             }
             catch (Exception e)
             {
-                
+
             }
         }
 
-        
+
         [HttpPost]
         [Route("Registrovanje")]
         public async Task<Object> DodajKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
@@ -83,9 +84,10 @@ namespace WebApplication1.Controllers
                 try
                 {
 
-                    
+
                     var rezultat = await userManager.CreateAsync(registerUser, registrovaniKorisnici.Lozinka.ToString());
-                    var sendMailThread = new Thread(async () => {
+                    var sendMailThread = new Thread(async () =>
+                    {
                         var message = new MailMessage();
                         message.From = new System.Net.Mail.MailAddress("webprogramiranje2@gmail.com");
                         message.To.Add(registerUser.Email);
@@ -107,16 +109,17 @@ namespace WebApplication1.Controllers
 
                     sendMailThread.Start();
 
-                    if(registrovaniKorisnici.Rola == "main_admin") {
+                    if (registrovaniKorisnici.Rola == "main_admin")
+                    {
                         await userManager.AddToRoleAsync(registerUser, "main_admin");
                         await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "main_admin"));
                     }
                     else if (registrovaniKorisnici.Rola == "avio_admin")
                     {
-                        
-                         await userManager.AddToRoleAsync(registerUser, "avio_admin");
-                         await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "avio_admin"));
-                        
+
+                        await userManager.AddToRoleAsync(registerUser, "avio_admin");
+                        await userManager.AddClaimAsync(registerUser, new Claim(ClaimTypes.Role, "avio_admin"));
+
                     }
                     else if (registrovaniKorisnici.Rola == "car_admin")
                     {
@@ -151,7 +154,7 @@ namespace WebApplication1.Controllers
         [Route("IzmenaPodataka")]
         public async Task<Object> AzuriranjePodatakaKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
         {
-            var user = await userManager.FindByNameAsync(registrovaniKorisnici.Id);
+            var user = await userManager.FindByNameAsync(registrovaniKorisnici.UserName);
             try
             {
                 user.Ime = registrovaniKorisnici.Ime;
@@ -173,6 +176,8 @@ namespace WebApplication1.Controllers
             }
 
         }
+
+
 
         [HttpPost]
         [Route("Logovanje")]
@@ -204,6 +209,53 @@ namespace WebApplication1.Controllers
             else
                 return BadRequest(new { message = "Username or password is incorrect." });
         }
+
+        [HttpGet]
+        [Route("DobaviCarAdmina")]
+        public IActionResult DobaviCarAdmina()
+        {
+            var admini = _context.RegistrovaniKorisnici;
+            if (admini == null)
+            {
+                return NotFound("Ne postoje admini u bazi podataka");
+
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var admin in admini)
+            {
+                if (admin.UserName.Contains("CarAdmin"))
+                {
+                    rezultat.Add(admin);
+                }
+
+            }
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
+        [Route("DobaviPodatkeKorisnika/{userName}")]
+        public IActionResult DobaviPodatkeKorisnika(string userName)
+        {
+            var korisnici = _context.RegistrovaniKorisnici;
+            if (korisnici == null)
+            {
+                return NotFound("Ne postoje korisnici u bazi podataka");
+
+            }
+            var rezultat = new RegistrovaniKorisniciModel();
+
+            foreach (var korisnik in korisnici)
+            {
+                if (korisnik.UserName == userName)
+                {
+                    rezultat = korisnik;
+                }
+
+            }
+            return Ok(rezultat);
+        }
+
 
 
 
@@ -256,6 +308,45 @@ namespace WebApplication1.Controllers
             return true;
         }
 
+        [HttpPost]
+        [Route("UpisUBazu")]
+        public async Task<Object> DodajKorisnika(RentACarKlasa rentACarServisi)
+        {
+            if (await userManager2.FindByNameAsync(rentACarServisi.NazivServisa) != null)
+            {
+                return BadRequest(new { message = "Vec postoji servis sa takvim imenom" });
+            }
+
+            var resultFind = await userManager2.FindByNameAsync(rentACarServisi.NazivServisa);
+            if (resultFind == null)
+            {
+                var rentACar = new RentACarModel()
+                {
+                    NazivServisa = rentACarServisi.NazivServisa,
+                    AdresaServisa = rentACarServisi.AdresaServisa,
+                    PromoOpis = rentACarServisi.PromoOpis,
+                    Admin = rentACarServisi.Admin,
+
+                };
+                try
+                {
+                    var rezultat = await userManager2.CreateAsync(rentACar, rentACarServisi.NazivServisa);
+
+                    return Ok(rentACar);
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+            }
+            else
+            {
+                return BadRequest(new { message = "Ne valja" });
+            }
+        }
+        /*
         [HttpGet]
         [Route("Admini")]
         public async Task<List<string>> Admini() 
@@ -270,9 +361,9 @@ namespace WebApplication1.Controllers
             }
             return lista;
             
-        }
+        }*/
 
-        [HttpGet]
+        /*[HttpGet]
         [Route("KorisnickiNalog/{id}")]
         public async Task<RegistrovaniKorisniciKlasa> KorisnickiNalog(string id)
         {
@@ -286,7 +377,7 @@ namespace WebApplication1.Controllers
             nalog.Grad = user.Grad;
             return nalog;
         }
-
+        */
 
     }
 }
