@@ -16,10 +16,10 @@ namespace WebApplication1
 
         }
         public DbSet<RegistrovaniKorisniciModel> RegistrovaniKorisnici { get; set; }
-        public DbSet<RentACarModel> RentACarTabela { get; set; }
+        public DbSet<RentACarModel> RentACar { get; set; }
         public DbSet<AutomibilModel> AutomibilTabela { get; set; }
 
-        public DbSet<AvioKompanijaModel> AviokompanijaTabela { get; set; }
+        public DbSet<AvioKompanijaModel> Aviokompanija { get; set; }
 
         public DbSet<LetoviModel> LetoviTabela { get; set; }
 

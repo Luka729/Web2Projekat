@@ -28,7 +28,6 @@ namespace WebApplication1.Controllers
 
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
-        private readonly UserManager<RentACarModel> userManager2;
         private readonly ApplicationSettings _appSettings;
 
         public RegistrovaniKorisniciController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user, IOptions<ApplicationSettings> appSettings)
@@ -234,6 +233,29 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Route("DobaviAvioAdmina")]
+        public IActionResult DobaviAvioAdmina()
+        {
+            var admini = _context.RegistrovaniKorisnici;
+            if (admini == null)
+            {
+                return NotFound("Ne postoje admini u bazi podataka");
+
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var admin in admini)
+            {
+                if (admin.UserName.Contains("AvioAdmin"))
+                {
+                    rezultat.Add(admin);
+                }
+
+            }
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
         [Route("DobaviPodatkeKorisnika/{userName}")]
         public IActionResult DobaviPodatkeKorisnika(string userName)
         {
@@ -307,77 +329,6 @@ namespace WebApplication1.Controllers
 
             return true;
         }
-
-        [HttpPost]
-        [Route("UpisUBazu")]
-        public async Task<Object> DodajKorisnika(RentACarKlasa rentACarServisi)
-        {
-            if (await userManager2.FindByNameAsync(rentACarServisi.NazivServisa) != null)
-            {
-                return BadRequest(new { message = "Vec postoji servis sa takvim imenom" });
-            }
-
-            var resultFind = await userManager2.FindByNameAsync(rentACarServisi.NazivServisa);
-            if (resultFind == null)
-            {
-                var rentACar = new RentACarModel()
-                {
-                    NazivServisa = rentACarServisi.NazivServisa,
-                    AdresaServisa = rentACarServisi.AdresaServisa,
-                    PromoOpis = rentACarServisi.PromoOpis,
-                    Admin = rentACarServisi.Admin,
-
-                };
-                try
-                {
-                    var rezultat = await userManager2.CreateAsync(rentACar, rentACarServisi.NazivServisa);
-
-                    return Ok(rentACar);
-
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-
-            }
-            else
-            {
-                return BadRequest(new { message = "Ne valja" });
-            }
-        }
-        /*
-        [HttpGet]
-        [Route("Admini")]
-        public async Task<List<string>> Admini() 
-        {
-            List<string> lista = new List<string>();
-            foreach (RegistrovaniKorisniciModel u in userManager.Users)
-            {
-                if (u.UserName.Contains("CarAdmin")) 
-                {
-                    lista.Add(u.Id);
-                }
-            }
-            return lista;
-            
-        }*/
-
-        /*[HttpGet]
-        [Route("KorisnickiNalog/{id}")]
-        public async Task<RegistrovaniKorisniciKlasa> KorisnickiNalog(string id)
-        {
-            var user = await userManager.FindByIdAsync(id);
-            RegistrovaniKorisniciKlasa nalog = new RegistrovaniKorisniciKlasa();
-            nalog.Ime = user.Ime;
-            nalog.Prezime = user.Prezime;
-            nalog.UserName = user.UserName;
-            nalog.Email = user.Email;
-            nalog.Telefon = user.PhoneNumber;
-            nalog.Grad = user.Grad;
-            return nalog;
-        }
-        */
 
     }
 }

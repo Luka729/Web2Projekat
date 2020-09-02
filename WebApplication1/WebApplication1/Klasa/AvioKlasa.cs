@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Klasa
 {
-    public class RentACarKlasa
-    {        
-
+    public class AvioKlasa
+    {
         public string Naziv { get; set; }
 
         public string Adresa { get; set; }
@@ -15,8 +14,5 @@ namespace WebApplication1.Klasa
         public string PromotivniOpis { get; set; }
 
         public string Admin { get; set; }
-
-      
-
     }
 }

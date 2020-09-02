@@ -12,12 +12,12 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentACarController : ControllerBase
+    public class AvioController : ControllerBase
     {
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
 
-        public RentACarController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user)
+        public AvioController(MyDbContext context, UserManager<RegistrovaniKorisniciModel> user)
         {
             userManager = user;
             _context = context;
@@ -26,22 +26,22 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [Route("UpisUBazu")]
-        public async Task<Object> UpisUBazu(RentACarKlasa rentACarServisi)
+        public async Task<Object> UpisUBazu(AvioKlasa avioServisi)
         {
-            var rentACar = new RentACarModel();
+            var avioKompanija = new AvioKompanijaModel();
 
-            var listaRentACar = _context.RentACar;
-            if (listaRentACar.Count() == 0)
+            var listaAvioKompanija = _context.Aviokompanija;
+            if (listaAvioKompanija.Count() == 0)
             {
 
-                rentACar.NazivServisa = rentACarServisi.Naziv;
-                rentACar.AdresaServisa = rentACarServisi.Adresa;
-                rentACar.PromoOpis = rentACarServisi.PromotivniOpis;
-                rentACar.Admin = rentACarServisi.Admin;
+                avioKompanija.Naziv = avioServisi.Naziv;
+                avioKompanija.Adresa = avioServisi.Adresa;
+                avioKompanija.PromoOpis = avioServisi.PromotivniOpis;
+                avioKompanija.Admin = avioServisi.Admin;
 
                 try
                 {
-                    var rezultat = _context.RentACar.Add(rentACar);
+                    var rezultat = _context.Aviokompanija.Add(avioKompanija);
                     _context.SaveChanges();
                     return Ok();
 
@@ -52,9 +52,9 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            foreach (var el in listaRentACar)
+            foreach (var el in listaAvioKompanija)
             {
-                if (el.NazivServisa.Equals(rentACarServisi.Naziv))
+                if (el.Naziv.Equals(avioServisi.Naziv))
                 {
                     return BadRequest(new { message = "Vec postoji servis sa takvim imenom" });
 
@@ -62,14 +62,14 @@ namespace WebApplication1.Controllers
 
             }
 
-            rentACar.NazivServisa = rentACarServisi.Naziv;
-            rentACar.AdresaServisa = rentACarServisi.Adresa;
-            rentACar.PromoOpis = rentACarServisi.PromotivniOpis;
-            rentACar.Admin = rentACarServisi.Admin;
+            avioKompanija.Naziv = avioServisi.Naziv;
+            avioKompanija.Adresa = avioServisi.Adresa;
+            avioKompanija.PromoOpis = avioServisi.PromotivniOpis;
+            avioKompanija.Admin = avioServisi.Admin;
 
             try
             {
-                var rezultat = _context.RentACar.Add(rentACar);
+                var rezultat = _context.Aviokompanija.Add(avioKompanija);
                 _context.SaveChanges();
                 return Ok();
 

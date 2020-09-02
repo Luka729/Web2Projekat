@@ -15,9 +15,6 @@ export class RegistrovanjeRentACarComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private http:HttpClient,private route:Router, public service: UserService) {
     this.load = 0;
-    //for (let i = 0; i < this.dobaviAdmine.length; i++) {
-    //  this.lista.push(this.dobaviAdmine[i]);
-    //}
    }
 
    registrovanjeRentACar = new FormGroup({}); 
@@ -33,10 +30,7 @@ export class RegistrovanjeRentACarComponent implements OnInit {
 
 
 
-/*dobaviAdmine()
-{
-  return this.http.get(this.BaseURI+"/RegistrovaniKorisnici/Admini");
-}*/
+
 
 ListaCarAdmina() :void{
   this.service.ListaCarAdmina().subscribe(
@@ -47,8 +41,6 @@ ListaCarAdmina() :void{
     },
     err => {
       console.log("NE RADI DOBAVLJANJE KORISNIKA");
-      document.getElementById("labelaSaGreskom").innerHTML = "Neuspelo dobavljanje korisnika";
-
       console.log(err);
     }
   );

@@ -175,6 +175,11 @@ export class UserService {
 
     }
 
+    ListaAvioAdmina(){
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviAvioAdmina');
+
+    }
+
     UpisiRentACar(){
         
             var body = {
@@ -183,9 +188,21 @@ export class UserService {
             PromotivniOpis:this.registrovanjeRentACar.value.promotivniOpisProvera,
             Admin:this.registrovanjeRentACar.value.adminProvera,
             };
-            return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/UpisUBazu', body);
+            return this.http.post(this.BaseURI + '/RentACar/UpisUBazu', body);
         
     }
+
+    UpisiAvio(){
+        
+        var body = {
+        Naziv: this.registrovanjeRentACar.value.nazivProvera,
+        Adresa: this.registrovanjeRentACar.value.adresaProvera,
+        PromotivniOpis:this.registrovanjeRentACar.value.promotivniOpisProvera,
+        Admin:this.registrovanjeRentACar.value.adminProvera,
+        };
+        return this.http.post(this.BaseURI + '/Avio/UpisUBazu', body);
+    
+}
 
 
 }

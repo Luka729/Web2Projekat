@@ -42,7 +42,7 @@ namespace WebApplication1
 
              services.AddDefaultIdentity<RegistrovaniKorisniciModel>().AddRoles<IdentityRole>().
                            AddEntityFrameworkStores<MyDbContext>();
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
