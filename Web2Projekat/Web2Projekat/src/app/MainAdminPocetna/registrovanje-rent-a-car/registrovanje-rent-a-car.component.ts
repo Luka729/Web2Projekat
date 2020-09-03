@@ -36,6 +36,8 @@ ListaCarAdmina() :void{
   this.service.ListaCarAdmina().subscribe(
     (res: any) => {   
       this.lista=res;  
+      console.log(res.userName);
+      
       console.log(this.lista);
      
     },

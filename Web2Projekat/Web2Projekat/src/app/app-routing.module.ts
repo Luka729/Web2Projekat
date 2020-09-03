@@ -15,6 +15,7 @@ import { ProfilMainAdminComponent } from './MainAdminPocetna/profil-main-admin/p
 import { RegistrovanjeAvioComponent } from './MainAdminPocetna/registrovanje-avio/registrovanje-avio.component';
 import { RegistrovanjeRentACarComponent } from './MainAdminPocetna/registrovanje-rent-a-car/registrovanje-rent-a-car.component';
 import { RegistrovanjeAdminaComponent } from './MainAdminPocetna/registrovanje-admina/registrovanje-admina.component';
+import { DodajKolaComponent } from './CarPocetna/dodaj-kola/dodaj-kola.component';
 const routes: Routes = [
   {
     path: "ispis-vozila",
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'registrovanje-admina',//username
     component:RegistrovanjeAdminaComponent
+  },
+  {
+    path: 'dodaj-kola/:userNameProvera',
+    component:DodajKolaComponent
   },
   
  

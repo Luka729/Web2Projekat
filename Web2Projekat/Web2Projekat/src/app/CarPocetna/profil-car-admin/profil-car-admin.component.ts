@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProfilCarAdminComponent implements OnInit {
 
   username:string;
+  nazivServisa: string;
   constructor(private route:ActivatedRoute, private router: Router){
     route.params.subscribe(params => {
       this.username = params['userNameProvera'];
@@ -20,7 +21,9 @@ export class ProfilCarAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  dodajKola(){}
+  dodajKola(){
+    this.router.navigateByUrl('/dodaj-kola/'+this.username)
+  }
   dodajCenovnik(){}
   dobaviIzvestaj(){}
   urediInfoStranice(){}

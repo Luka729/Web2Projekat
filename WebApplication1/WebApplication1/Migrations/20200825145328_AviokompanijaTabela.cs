@@ -27,6 +27,7 @@ namespace WebApplication1.Migrations
                 name: "Letovi",
                 columns: table => new
                 {
+                    //ovde dodati lokaciju kretanja i sletanja
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DatumPoletanja = table.Column<DateTime>(nullable: false),

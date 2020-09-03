@@ -25,6 +25,34 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Route("DodajKola/{userName}")]
+        public async Task<Object> DodajKola(AutomibilModel autoModel, string userName)
+        {
+            var listaRentACar = _context.RentACar;
+
+
+
+            foreach (var rentACar in listaRentACar)
+            {
+                if (rentACar.SpisakAutomobila == null)
+                {
+                    rentACar.SpisakAutomobila = new List<AutomibilModel>();
+                }
+
+                if (rentACar.Admin == userName)
+                {
+                    rentACar.SpisakAutomobila.Add(autoModel);
+                    _context.AutomibilTabela.Add(autoModel);
+                    break;
+                }
+            }
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
         [Route("UpisUBazu")]
         public async Task<Object> UpisUBazu(RentACarKlasa rentACarServisi)
         {
@@ -82,5 +110,28 @@ namespace WebApplication1.Controllers
 
 
         }
+
+        [HttpGet]
+        [Route("DobaviListuRentACarServisa")]
+        public IActionResult DobaviListuRentACarServisa()
+        {
+            var lista = _context.RentACar;
+            if (lista == null)
+            {
+                return NotFound("Ne postoje Rent-A-Car servisi u bazi podataka");
+
+            }
+            var rezultat = new List<RentACarModel>();
+
+            foreach (var el in lista)
+            {
+
+                rezultat.Add(el);
+
+
+            }
+            return Ok(rezultat);
+        }
+
     }
 }

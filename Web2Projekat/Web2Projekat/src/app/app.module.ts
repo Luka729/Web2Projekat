@@ -28,6 +28,7 @@ import { NavbarComponent } from './pocetnaStrana/navbar/navbar.component';
 import { RegistrovanjeAvioComponent } from './MainAdminPocetna/registrovanje-avio/registrovanje-avio.component';
 import { RegistrovanjeRentACarComponent } from './MainAdminPocetna/registrovanje-rent-a-car/registrovanje-rent-a-car.component';
 import { RegistrovanjeAdminaComponent } from './MainAdminPocetna/registrovanje-admina/registrovanje-admina.component';
+import { DodajKolaComponent } from './CarPocetna/dodaj-kola/dodaj-kola.component';
 
 let config = new AuthServiceConfig([
   {
@@ -59,6 +60,7 @@ export function provideConfig()
     RegistrovanjeAvioComponent,
     RegistrovanjeRentACarComponent,
     RegistrovanjeAdminaComponent,
+    DodajKolaComponent,
   ],
   imports: [
     BrowserModule,

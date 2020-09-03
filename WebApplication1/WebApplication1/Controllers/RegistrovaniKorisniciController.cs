@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class RegistrovaniKorisniciController : ControllerBase
     {
-
+        
         private readonly MyDbContext _context;
         private readonly UserManager<RegistrovaniKorisniciModel> userManager;
         private readonly ApplicationSettings _appSettings;

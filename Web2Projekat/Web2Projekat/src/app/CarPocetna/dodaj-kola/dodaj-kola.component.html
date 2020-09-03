@@ -1,0 +1,58 @@
+<form [formGroup]="service.KolaForm" (ngSubmit)="onSubmit()">
+    <table align="center">
+        <tr>
+            <td>
+                <label>Unesite brend:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="brendProvera" class="form-control" id="brendProvera">
+                <div *ngIf="service.KolaForm.controls.brendProvera.invalid">
+                    Molimo Vas unesite brend
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite model:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="modelProvera" class="form-control">
+                <div *ngIf="service.KolaForm.controls.modelProvera.invalid">
+                    Molimo Vas unesite model
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite godinu proizvodnje:</label>
+            </td>
+            <td>
+                <input type="number" formControlName="godinaProvera" class="form-control">
+                <div *ngIf="service.KolaForm.controls.godinaProvera.invalid">
+                    Molimo Vas unesite godinu proizvodnje
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite cenu po danu:</label>
+            </td>
+            <td>
+                <input type="number" formControlName="cenaProvera" class="form-control">
+                <div *ngIf="service.KolaForm.controls.cenaProvera.invalid">
+                    Molimo Vas unesite cenu po danu
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.KolaForm.valid">
+            </td>
+        </tr>
+    </table>
+    <label id="labelaSaGreskom" name="labelaSaGreskom"></label>
+
+</form>

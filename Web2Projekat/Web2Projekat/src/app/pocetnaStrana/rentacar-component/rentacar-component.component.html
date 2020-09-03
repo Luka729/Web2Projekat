@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let rac of allRentACars" >
+                <tr *ngFor="let rac of lista" >
                     <td>{{rac.nazivServisa}}</td>
                     <td>{{rac.adresaServisa}}</td>
                     <td>{{rac.promoOpis}}</td>
@@ -22,8 +22,7 @@
                     <td>{{rac.ocena}}</td>
                     <td><a  routerLink="/ispis-vozila" > Vidi vozila</a></td>
                     <td>{{rac.filijale}}</td>
-                </tr>
-                
+                </tr>              
             </tbody>
         </table>
     </div>

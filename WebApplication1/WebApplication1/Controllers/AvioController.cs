@@ -80,7 +80,28 @@ namespace WebApplication1.Controllers
             }
 
 
+        }
 
+        [HttpGet]
+        [Route("DobaviListuAvioKompanija")]
+        public IActionResult DobaviListuAvioKompanija()
+        {
+            var lista = _context.Aviokompanija;
+            if (lista == null)
+            {
+                return NotFound("Ne postoje Avio kompanije u bazi podataka");
+
+            }
+            var rezultat = new List<AvioKompanijaModel>();
+
+            foreach (var el in lista)
+            {
+
+                rezultat.Add(el);
+
+
+            }
+            return Ok(rezultat);
         }
     }
 }
