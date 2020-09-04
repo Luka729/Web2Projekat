@@ -103,5 +103,31 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+
+        [HttpPost]
+        [Route("DodajLet/{userName}")]
+        public async Task<Object> DodajLet(LetoviModel letModel, string userName)
+        {
+            var listaAvio = _context.Aviokompanija;
+            foreach (var el in listaAvio)
+            {
+                if (el.spisakLetova == null)
+                {
+                    el.spisakLetova = new List<LetoviModel>();
+                }
+
+                if (el.Admin == userName)
+                {
+                    el.spisakLetova.Add(letModel);
+                    _context.LetoviTabela.Add(letModel);
+                    break;
+                }
+            }
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
+
+
 }

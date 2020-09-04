@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvioKompanijaService } from 'src/app/shared/avio-kompanija-service';
 
 @Component({
   selector: 'app-profil-avio-admin',
@@ -21,7 +22,10 @@ export class ProfilAvioAdminComponent implements OnInit {
   definisiDestinacije(){
 
   }
-  dodajNovLet(){}
+  dodajNovLet()
+  {
+    this.router.navigateByUrl('/dodaj-let/' + this.username);
+  }
   definisiCenovnik(){}
   dobaviIzvestaj(){}
   urediInfoStranicu(){}

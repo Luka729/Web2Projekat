@@ -1,0 +1,134 @@
+<form [formGroup]="service.LetForm" (ngSubmit)="onSubmit()">
+    <table align="center">
+        <tr>
+            <td>
+                <label>Unesite lokaciju poletanja:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="mestoPoletanjaProvera" class="form-control" id="mestoPoletanjaProvera">
+                <div *ngIf="service.LetForm.controls.mestoPoletanjaProvera.invalid">
+                    Molimo Vas unesite lokaciju poletanja
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite lokaciju sletanja:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="mestoSletanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.mestoSletanjaProvera.invalid">
+                    Molimo Vas unesite lokaciju sletanja
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite datum poletanja:</label>
+            </td>
+            <td>
+                <input type="date" formControlName="datumPoletanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.datumPoletanjaProvera.invalid">
+                    Molimo Vas unesite datum poletanja
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite datum sletanja:</label>
+            </td>
+            <td>
+                <input type="date" formControlName="datumSletanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.datumSletanjaProvera.invalid">
+                    Molimo Vas unesite datum sletanja
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite sat polaska:</label>
+            </td>
+            <td>
+                <input type="date" formControlName="satPolaskaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.satPolaskaProvera.invalid">
+                    Molimo Vas unesite sat polaska
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite minut polaska:</label>
+            </td>
+            <td>
+                <input type="date" formControlName="minutPolaskaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.minutPolaskaProvera.invalid">
+                    Molimo Vas unesite minut polaska
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite duzinu putovanja(km):</label>
+            </td>
+            <td>
+                <input type="number" formControlName="duzinaPutovanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.duzinaPutovanjaProvera.invalid">
+                    Molimo Vas unesite duzinu putovanja
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite broj presedanja:</label>
+            </td>
+            <td>
+                <input type="number" formControlName="brojPresedanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.brojPresedanjaProvera.invalid">
+                    Molimo Vas unesite broj presedanja
+                </div>
+            </td>
+        </tr
+        ><tr>
+            <td>
+                <label>Unesite lokacije presedanja:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="lokacijaPresedanjaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.lokacijaPresedanjaProvera.invalid">
+                    Molimo Vas unesite lokacije Presedanja
+                </div>
+            </td>
+        </tr
+        ><tr>
+            <td>
+                <label>Unesite cenu kartre:</label>
+            </td>
+            <td>
+                <input type="number" formControlName="cenaKarteProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.cenaKarteProvera.invalid">
+                    Molimo Vas unesite cenu karte
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite broj slobodnih mesta:</label>
+            </td>
+            <td>
+                <input type="number" formControlName="brojSlobodnihMestaProvera" class="form-control">
+                <div *ngIf="service.LetForm.controls.brojSlobodnihMestaProvera.invalid">
+                    Molimo Vas unesite broj slobodnih mesta
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.LetForm.valid">
+            </td>
+        </tr>
+    </table>
+
+</form>

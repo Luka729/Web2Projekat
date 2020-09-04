@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RentACarService } from 'src/app/shared/RentACar.service';
+import { AvioKompanijaService } from 'src/app/shared/avio-kompanija-service';
 
 @Component({
-  selector: 'app-dodaj-kola',
-  templateUrl: './dodaj-kola.component.html',
-  styleUrls: ['./dodaj-kola.component.css']
+  selector: 'app-dodaj-let',
+  templateUrl: './dodaj-let.component.html',
+  styleUrls: ['./dodaj-let.component.css']
 })
-export class DodajKolaComponent implements OnInit {
+export class DodajLetComponent implements OnInit {
   lista:Array<any>;
   load: number;
   username: string;
 
-  constructor( private route:ActivatedRoute, private fb: FormBuilder,private http:HttpClient,private router:Router, public service: RentACarService) {
+  constructor( private route:ActivatedRoute, private fb: FormBuilder,private http:HttpClient,private router:Router, public service: AvioKompanijaService) {
     this.load = 0;
     route.params.subscribe(params => {
       this.username = params['userNameProvera'];
@@ -23,7 +23,7 @@ export class DodajKolaComponent implements OnInit {
     console.log("USERNAME:"+this.username);
    }
 
-   KolaForm = new FormGroup({}); 
+   LetForm = new FormGroup({}); 
 
    ngOnInit(): void {
     this.initForm();
@@ -33,18 +33,18 @@ export class DodajKolaComponent implements OnInit {
   onSubmit() {
     this.load = 1
     console.log("Uslo u submit");
-    this.service.dodajKola(this.username).subscribe(
+    this.service.dodajLet(this.username).subscribe(
       (res: any) => {      
         console.log("RADI");
-        this.service.KolaForm.reset();
+       // this.service.LetForm.reset();
         console.log(res);  
       },
       err => {
         console.log("NE RADI");
-
         console.log(err);
       }
     );
   }
 
 }
+

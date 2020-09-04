@@ -38,5 +38,11 @@ namespace WebApplication1.Model
         [Required]
         public int SlobodnaMesta { get; set; }
 
+        [Required]
+        public string LokacijaPoletanja { get; set; }
+
+        [Required]
+        public string LokacijaSletanja { get; set; }
+
     }
 }
