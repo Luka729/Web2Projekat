@@ -19,7 +19,7 @@
                     <td>{{av.promoOpis}}</td>
                     <td>{{av.destinacije}}</td>
                     <td>{{av.ocena}}</td>
-                    <td><a  routerLink="/ispis-letova" > Vidi letove</a></td>
+                    <td><button class="btn btn-success" (click)="ucitajLetove(av.naziv)"> Vidi letove</button></td>
                 </tr>
                 
             </tbody>

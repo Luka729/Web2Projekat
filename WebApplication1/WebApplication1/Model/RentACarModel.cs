@@ -39,5 +39,7 @@ namespace WebApplication1.Model
 
         public double Ocena { get; set; }
 
+
+
     }
 }

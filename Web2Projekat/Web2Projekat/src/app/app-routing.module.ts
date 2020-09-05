@@ -19,14 +19,16 @@ import { DodajKolaComponent } from './CarPocetna/dodaj-kola/dodaj-kola.component
 import { DodajLetComponent } from './AvioPocetna/dodaj-let/dodaj-let.component';
 const routes: Routes = [
   {
-    path: "ispis-vozila",
+    path: "vozila-ispis/:servisi",
     component: VozilaIspisComponent
   },
   {
-    path: "ispis-letova",
+    path: "letovi-ispis/:letovi",
     component: LetoviIspisComponent
   },
 
+
+  
   {
     path: "logovanje",
     component: LogovanjeComponent

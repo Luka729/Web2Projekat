@@ -83,6 +83,38 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Route("DobaviListuLetova/{naziv}")]
+        public IActionResult DobaviListuLetova(string naziv)
+        {
+
+            var lista = _context.Aviokompanija;
+            var listaLetova = _context.LetoviTabela;
+            
+            if (lista == null)
+            {
+                return NotFound("Ne postoje Avio kompanije u bazi podataka");
+
+            }
+            var rezultat = new List<LetoviModel>();
+            foreach (var el in lista)
+            {
+                if (el.Naziv == naziv)
+                {
+                    foreach (var let in listaLetova)
+                    {
+                        if(let.avioKompanija.Id == el.Id)
+                        {
+                            rezultat.Add(let);
+                        }
+                    }
+                }
+
+            }
+            
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
         [Route("DobaviListuAvioKompanija")]
         public IActionResult DobaviListuAvioKompanija()
         {
@@ -120,6 +152,7 @@ namespace WebApplication1.Controllers
                 {
                     el.spisakLetova.Add(letModel);
                     _context.LetoviTabela.Add(letModel);
+                    
                     break;
                 }
             }

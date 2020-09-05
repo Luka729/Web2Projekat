@@ -29,7 +29,10 @@ export class AvioKompanijaService {
         'cenaKarteProvera': ['', Validators.required],
         'brojSlobodnihMestaProvera': ['', Validators.required]
     })
+    ucitajLet(nazivKompanije: string){
+        return this.http.get(this.BaseURI + '/Avio/DobaviListuLetova/'+nazivKompanije);
 
+    }
     dodajLet(username: string) {
 
         var body = {

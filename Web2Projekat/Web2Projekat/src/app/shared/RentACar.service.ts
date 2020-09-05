@@ -37,6 +37,11 @@ export class RentACarService {
 
     }
 
+    ucitajKola(nazivKompanije: string){
+        return this.http.get(this.BaseURI + '/RentACar/DobaviListuKola/'+nazivKompanije);
+
+    }
+
 }
 
 

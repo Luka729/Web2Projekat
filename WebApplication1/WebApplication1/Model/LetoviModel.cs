@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WebApplication1.Model
@@ -43,6 +44,9 @@ namespace WebApplication1.Model
 
         [Required]
         public string LokacijaSletanja { get; set; }
+
+        [JsonIgnore]
+        public AvioKompanijaModel avioKompanija { get; set; }
 
     }
 }

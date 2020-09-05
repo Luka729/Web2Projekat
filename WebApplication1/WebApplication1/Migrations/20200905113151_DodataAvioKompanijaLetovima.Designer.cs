@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200905113151_DodataAvioKompanijaLetovima")]
+    partial class DodataAvioKompanijaLetovima
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,12 +248,12 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("rentACarId")
+                    b.Property<int?>("RentACarModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("rentACarId");
+                    b.HasIndex("RentACarModelId");
 
                     b.ToTable("Automobili");
                 });
@@ -329,7 +331,7 @@ namespace WebApplication1.Migrations
                     b.Property<int>("SlobodnaMesta")
                         .HasColumnType("int");
 
-                    b.Property<int?>("avioKompanijaId")
+                    b.Property<int>("avioKompanijaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -456,16 +458,18 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Model.AutomibilModel", b =>
                 {
-                    b.HasOne("WebApplication1.Model.RentACarModel", "rentACar")
+                    b.HasOne("WebApplication1.Model.RentACarModel", null)
                         .WithMany("SpisakAutomobila")
-                        .HasForeignKey("rentACarId");
+                        .HasForeignKey("RentACarModelId");
                 });
 
             modelBuilder.Entity("WebApplication1.Model.LetoviModel", b =>
                 {
                     b.HasOne("WebApplication1.Model.AvioKompanijaModel", "avioKompanija")
                         .WithMany("spisakLetova")
-                        .HasForeignKey("avioKompanijaId");
+                        .HasForeignKey("avioKompanijaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -24,6 +24,39 @@ namespace WebApplication1.Controllers
 
         }
 
+        [HttpGet]
+        [Route("DobaviListuKola/{naziv}")]
+        public IActionResult DobaviListuKola(string naziv)
+        {
+
+            var lista = _context.RentACar;
+            var listaKola = _context.AutomibilTabela;
+
+            if (lista == null)
+            {
+                return NotFound("Ne postoje Avio kompanije u bazi podataka");
+
+            }
+            var rezultat = new List<AutomibilModel>();
+            foreach (var el in lista)
+            {
+                if (el.NazivServisa == naziv)
+                {
+                    foreach (var kola in listaKola)
+                    {
+                        if (kola.rentACar.Id == el.Id)
+                        {
+                            rezultat.Add(kola);
+                        }
+                    }
+                }
+
+            }
+
+            return Ok(rezultat);
+        }
+
+
         [HttpPost]
         [Route("DodajKola/{userName}")]
         public async Task<Object> DodajKola(AutomibilModel autoModel, string userName)

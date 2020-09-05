@@ -6,6 +6,8 @@
         <table class="table table-hover" align="left">
             <thead class="thead-dark">
                 <tr>
+                    <th scope="col">MESTO POLETANJA</th>
+                    <th scope="col">MESTO SLETANJA</th>
                     <th scope="col">DATUM POLETANJA</th>
                     <th scope="col">DATUM SLETANJA</th>
                     <th scope="col">VREME PUTOVANJA</th>
@@ -17,8 +19,10 @@
 
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let al of allFlights">
+            <tbody>                
+                <tr *ngFor="let al of listaLetova">
+                    <td>{{al.lokacijaPoletanja}}</td>
+                    <td>{{al.lokacijaSletanja}}</td>
                     <td>{{al.datumPoletanja}}</td>
                     <td>{{al.datumSletanja}}</td>
                     <td>{{al.satPutovanja}}h {{al.minutPutovanja}}min</td>

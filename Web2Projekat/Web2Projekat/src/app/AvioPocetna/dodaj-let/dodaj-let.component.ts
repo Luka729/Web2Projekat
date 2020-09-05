@@ -36,7 +36,7 @@ export class DodajLetComponent implements OnInit {
     this.service.dodajLet(this.username).subscribe(
       (res: any) => {      
         console.log("RADI");
-       // this.service.LetForm.reset();
+        this.service.LetForm.reset();
         console.log(res);  
       },
       err => {

@@ -20,7 +20,7 @@
                     <td>{{rac.promoOpis}}</td>
                     <td>{{rac.cenovnikUsluga}}</td>
                     <td>{{rac.ocena}}</td>
-                    <td><a  routerLink="/ispis-vozila" > Vidi vozila</a></td>
+                    <td><button class="btn btn-success" (click)="ucitajKola(rac.nazivServisa)"> Vidi kola</button></td>
                     <td>{{rac.filijale}}</td>
                 </tr>              
             </tbody>

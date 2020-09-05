@@ -4,6 +4,7 @@ import { LetEntiteti } from 'src/app/entiteti/let-entiteti';
 import { AvioServisi } from 'src/app/servisi/avio-servisi';
 import { LetServisi } from 'src/app/servisi/let-servisi';
 import { AvioKompanijaService } from 'src/app/shared/avio-kompanija-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-avio',
@@ -12,16 +13,22 @@ import { AvioKompanijaService } from 'src/app/shared/avio-kompanija-service';
 })
 export class AvioComponent implements OnInit {
   allFlightsCompany: Array<AvioEntiteti>;
-  allFlights: Array<LetEntiteti>;
+  listaLetova: Array<any>;
   lista: Array<any>;
-  constructor(servisAvio: AvioServisi, servisLetovi: LetServisi, public service: AvioKompanijaService) 
+  constructor(private router:Router, public service: AvioKompanijaService) 
   {
     this.ListaAviokompanija();
-    this.allFlights = servisLetovi.loadFlights();
-   }
+  }
 
   ngOnInit(): void {
   }
+
+  ucitajLetove(letovi:any) :void{
+    this.router.navigateByUrl('/letovi-ispis/'+letovi);
+    
+
+  }
+
   ListaAviokompanija() :void{
     this.service.ListaAvioKompanija().subscribe(
       (res: any) => {   
