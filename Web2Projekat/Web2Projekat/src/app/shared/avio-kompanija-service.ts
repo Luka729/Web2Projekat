@@ -11,11 +11,12 @@ export class AvioKompanijaService {
     }
     readonly BaseURI = 'http://localhost:58544/api';
 
-    ListaAvioKompanija() {
-        return this.http.get(this.BaseURI + '/Avio/DobaviListuAvioKompanija');
-
-    }
-
+    
+    izmenaAKForm = this.fb.group({
+        'nazivProvera' :['',Validators.required],
+        'adresaProvera' : ['',Validators.required],
+        'promotivniOpisProvera': ['',Validators.required],
+    })
     LetForm = this.fb.group({
         'mestoPoletanjaProvera': ['', Validators.required],
         'mestoSletanjaProvera': ['', Validators.required],
@@ -29,10 +30,31 @@ export class AvioKompanijaService {
         'cenaKarteProvera': ['', Validators.required],
         'brojSlobodnihMestaProvera': ['', Validators.required]
     })
+
+    ListaAvioKompanija() {
+        return this.http.get(this.BaseURI + '/Avio/DobaviListuAvioKompanija');
+
+    }
     ucitajLet(nazivKompanije: string){
         return this.http.get(this.BaseURI + '/Avio/DobaviListuLetova/'+nazivKompanije);
 
     }
+    NalogAvioKompanije(username: string){
+        return this.http.get(this.BaseURI + '/Avio/DobaviPodatkeAvioKompanije/'+username);
+
+    }
+    
+    izmenaAvioKompanije(username: string){
+        var body = {
+            Naziv: this.izmenaAKForm.value.nazivProvera,
+            Adresa: this.izmenaAKForm.value.adresaProvera,
+            PromotivniOpis: this.izmenaAKForm.value.promotivniOpisProvera,
+            Admin: username,
+        };
+        return this.http.post(this.BaseURI + '/Avio/IzmenaPodataka', body);
+
+    }
+
     dodajLet(username: string) {
 
         var body = {

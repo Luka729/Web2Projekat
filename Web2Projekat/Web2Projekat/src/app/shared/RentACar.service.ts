@@ -19,7 +19,11 @@ export class RentACarService {
         'godinaProvera': ['', Validators.required],
         'cenaProvera': ['', Validators.required]
     })
-
+    izmenaRACForm = this.fb.group({
+        'nazivProvera' :['',Validators.required],
+        'adresaProvera' : ['',Validators.required],
+        'promotivniOpisProvera': ['',Validators.required],
+    })
 
     dodajKola(username: string) {
 
@@ -41,6 +45,23 @@ export class RentACarService {
         return this.http.get(this.BaseURI + '/RentACar/DobaviListuKola/'+nazivKompanije);
 
     }
+    NalogRAC(username: string){
+        return this.http.get(this.BaseURI + '/RentACar/DobaviPodatkeRAC/'+username);
+
+    }
+
+    izmenaRAC(username: string){
+        var body = {
+            Naziv: this.izmenaRACForm.value.nazivProvera,
+            Adresa: this.izmenaRACForm.value.adresaProvera,
+            PromotivniOpis: this.izmenaRACForm.value.promotivniOpisProvera,
+            Admin: username,
+        };
+        return this.http.post(this.BaseURI + '/RentACar/IzmenaPodataka', body);
+
+    }
+
+
 
 }
 

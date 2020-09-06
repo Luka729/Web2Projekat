@@ -33,4 +33,8 @@ export class ProfilCarAdminComponent implements OnInit {
     this.router.navigateByUrl('/izmena-korisnika/' + this.username);
 
   }
+  izmeniPodatkeORAC(){
+    this.router.navigateByUrl('/izmena-podataka-orac/' + this.username);
+
+  }
 }

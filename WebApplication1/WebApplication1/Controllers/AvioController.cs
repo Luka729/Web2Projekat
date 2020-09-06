@@ -24,6 +24,69 @@ namespace WebApplication1.Controllers
 
         }
 
+        #region izmenaPodatakaAvioKompanije
+        [HttpPost]
+        [Route("IzmenaPodataka")]
+        public async Task<Object> IzmenaPodataka(AvioKlasa avioKlasa)
+        {
+
+            var listaAvio = _context.Aviokompanija;
+
+            foreach (var el in listaAvio)
+            {
+                if (el.Admin == avioKlasa.Admin)
+                {
+                    try
+                    {
+                        el.Adresa = avioKlasa.Adresa;
+                        el.Naziv = avioKlasa.Naziv;
+                        el.PromoOpis = avioKlasa.PromotivniOpis;
+                        _context.Update(el);
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        return BadRequest();
+
+                    }
+                }
+            }
+            _context.SaveChanges();
+            return Ok();
+
+
+
+        }
+
+        #endregion
+
+        #region dobaviPodatkeAvioKompanije
+        [HttpGet]
+        [Route("DobaviPodatkeAvioKompanije/{userName}")]
+        public IActionResult DobaviPodatkeAvioKompanije(string userName)
+        {
+            var listaAvio = _context.Aviokompanija;
+            if (listaAvio == null)
+            {
+                return NotFound("Ne postoje korisnici u bazi podataka");
+
+            }
+            var rezultat = new AvioKompanijaModel();
+
+            foreach (var el in listaAvio)
+            {
+                if (el.Admin == userName)
+                {
+                    rezultat = el;
+                }
+
+            }
+            return Ok(rezultat);
+        }
+
+        #endregion
+
+        #region upisUBazu
         [HttpPost]
         [Route("UpisUBazu")]
         public async Task<Object> UpisUBazu(AvioKlasa avioServisi)
@@ -81,7 +144,9 @@ namespace WebApplication1.Controllers
 
 
         }
+        #endregion
 
+        #region dobaviListuLetova
         [HttpGet]
         [Route("DobaviListuLetova/{naziv}")]
         public IActionResult DobaviListuLetova(string naziv)
@@ -113,7 +178,9 @@ namespace WebApplication1.Controllers
             
             return Ok(rezultat);
         }
+        #endregion
 
+        #region dobaviListuAvioKompanija
         [HttpGet]
         [Route("DobaviListuAvioKompanija")]
         public IActionResult DobaviListuAvioKompanija()
@@ -135,7 +202,9 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+        #endregion
 
+        #region dodajLet
         [HttpPost]
         [Route("DodajLet/{userName}")]
         public async Task<Object> DodajLet(LetoviModel letModel, string userName)
@@ -160,6 +229,7 @@ namespace WebApplication1.Controllers
 
             return Ok();
         }
+        #endregion
     }
 
 

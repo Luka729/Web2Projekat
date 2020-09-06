@@ -12,11 +12,15 @@ import { UserService } from 'src/app/shared/user.service';
 export class RegistrovanjeAvioComponent implements OnInit {
   lista:Array<any>;
   load: number;
-
+  indeks: any;
+  pom: number;
   constructor(private fb: FormBuilder,private http:HttpClient,private route:Router, public service: UserService) {
     this.load = 0;
+    this.pom = 0;
+
    }
 
+   
    registrovanjeRentACar = new FormGroup({}); 
    readonly BaseURI ='http://localhost:58544/api';
 
@@ -27,17 +31,11 @@ export class RegistrovanjeAvioComponent implements OnInit {
   private initForm() {
     
   }
-
-
-
-
-
 ListaAvioAdmina() :void{
   this.service.ListaAvioAdmina().subscribe(
     (res: any) => {   
       this.lista=res;  
-      console.log(this.lista);
-     
+      console.log(this.lista);     
     },
     err => {
       console.log("NE RADI DOBAVLJANJE KORISNIKA");
@@ -52,7 +50,7 @@ ListaAvioAdmina() :void{
     this.service.UpisiAvio().subscribe(
       (res: any) => {      
         console.log("RADI");
-        this.registrovanjeRentACar.reset();
+        this.service.registrovanjeRentACar.reset();
         console.log(res);  
       },
       err => {

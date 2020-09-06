@@ -38,6 +38,8 @@ namespace WebApplication1.Controllers
 
         }
 
+        #region Verifikacija
+
         [HttpGet]
         [Route("Verifikacija/{id}")]
         public async Task Verifikacija(string id)
@@ -55,8 +57,9 @@ namespace WebApplication1.Controllers
 
             }
         }
+        #endregion
 
-
+        #region registrovanje
         [HttpPost]
         [Route("Registrovanje")]
         public async Task<Object> DodajKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
@@ -148,7 +151,9 @@ namespace WebApplication1.Controllers
             }
         }
 
+        #endregion
 
+        #region izmenaPodataka
         [HttpPost]
         [Route("IzmenaPodataka")]
         public async Task<Object> AzuriranjePodatakaKorisnika(RegistrovaniKorisniciKlasa registrovaniKorisnici)
@@ -176,8 +181,10 @@ namespace WebApplication1.Controllers
 
         }
 
+        #endregion
 
 
+        #region logovanje
         [HttpPost]
         [Route("Logovanje")]
         public async Task<Object> Login(LogovaniKorisniciKlasa model)
@@ -208,6 +215,9 @@ namespace WebApplication1.Controllers
             else
                 return BadRequest(new { message = "Username or password is incorrect." });
         }
+        #endregion
+
+        #region dobaviCarAdmina
 
         [HttpGet]
         [Route("DobaviCarAdmina")]
@@ -231,6 +241,9 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+        #endregion
+
+        #region dobaviAvioAdmina
 
         [HttpGet]
         [Route("DobaviAvioAdmina")]
@@ -254,6 +267,9 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+        #endregion
+
+        #region dobaviPodatkeKorisnika
 
         [HttpGet]
         [Route("DobaviPodatkeKorisnika/{userName}")]
@@ -278,8 +294,10 @@ namespace WebApplication1.Controllers
             return Ok(rezultat);
         }
 
+        #endregion
 
 
+        #region drustveneMreze
 
         [HttpPost]
         [Route("DrustveneMrezeLogin")]
@@ -329,6 +347,8 @@ namespace WebApplication1.Controllers
 
             return true;
         }
+
+        #endregion
 
     }
 }

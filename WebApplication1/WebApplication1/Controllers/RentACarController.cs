@@ -24,6 +24,70 @@ namespace WebApplication1.Controllers
 
         }
 
+        #region izmenaPodatakaRAC
+        [HttpPost]
+        [Route("IzmenaPodataka")]
+        public async Task<Object> IzmenaPodataka(RentACarKlasa racKlasa)
+        {
+
+            var listaRac = _context.RentACar;
+
+            foreach (var el in listaRac)
+            {
+                if(el.Admin == racKlasa.Admin)
+                {
+                    try
+                    {
+                        el.AdresaServisa = racKlasa.Adresa;
+                        el.NazivServisa = racKlasa.Naziv;
+                        el.PromoOpis = racKlasa.PromotivniOpis;
+                        _context.Update(el);
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        return BadRequest();
+
+                    }
+                }
+            }
+            _context.SaveChanges();
+            return Ok();
+            
+           
+
+        }
+
+        #endregion
+
+        #region dobaviPodatkeRAC
+        [HttpGet]
+        [Route("DobaviPodatkeRAC/{userName}")]
+        public IActionResult DobaviPodatkeRAC(string userName)
+        {
+            var rac = _context.RentACar;
+            if (rac == null)
+            {
+                return NotFound("Ne postoje korisnici u bazi podataka");
+
+            }
+            var rezultat = new RentACarModel();
+
+            foreach (var el in rac)
+            {
+                if (el.Admin == userName)
+                {
+                    rezultat = el;
+                }
+
+            }
+            return Ok(rezultat);
+        }
+
+        #endregion
+
+        #region dobaviListuKola
+
         [HttpGet]
         [Route("DobaviListuKola/{naziv}")]
         public IActionResult DobaviListuKola(string naziv)
@@ -55,8 +119,9 @@ namespace WebApplication1.Controllers
 
             return Ok(rezultat);
         }
+        #endregion
 
-
+        #region dodajKola
         [HttpPost]
         [Route("DodajKola/{userName}")]
         public async Task<Object> DodajKola(AutomibilModel autoModel, string userName)
@@ -83,8 +148,9 @@ namespace WebApplication1.Controllers
 
             return Ok();
         }
+        #endregion
 
-
+        #region upisUBazu
         [HttpPost]
         [Route("UpisUBazu")]
         public async Task<Object> UpisUBazu(RentACarKlasa rentACarServisi)
@@ -143,7 +209,9 @@ namespace WebApplication1.Controllers
 
 
         }
+        #endregion
 
+        #region dobaviListuRAC
         [HttpGet]
         [Route("DobaviListuRentACarServisa")]
         public IActionResult DobaviListuRentACarServisa()
@@ -165,6 +233,7 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+        #endregion
 
     }
 }

@@ -35,4 +35,8 @@ export class ProfilAvioAdminComponent implements OnInit {
     this.router.navigateByUrl('/izmena-korisnika/' + this.username);
 
   }
+  izmeniPodatkeOAK(){
+    this.router.navigateByUrl('/izmena-podataka-ak/' + this.username);
+
+  }
 }

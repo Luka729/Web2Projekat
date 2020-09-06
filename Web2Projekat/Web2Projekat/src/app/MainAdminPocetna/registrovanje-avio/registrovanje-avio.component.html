@@ -14,9 +14,8 @@
     </div>
     <div>
         <label for="Admin">Admin</label>
-        <select class="form-control" id="Admin" placeholder="Admin" formControlName="adminProvera" class="form-group">
-            
-                <option *ngFor="let el of lista" value="{{el.userName}}">{{el.userName}}</option>                
+        <select class="form-control" id="Admin" placeholder="Admin" formControlName="adminProvera" class="form-group">          
+                <option *ngFor="let el of lista; let i = index;" value="{{el.userName}}">{{el.userName}}</option>                
         </select>
     </div>
     
