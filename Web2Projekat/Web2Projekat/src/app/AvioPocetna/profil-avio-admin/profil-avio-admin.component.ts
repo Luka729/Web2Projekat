@@ -28,7 +28,6 @@ export class ProfilAvioAdminComponent implements OnInit {
   }
   definisiCenovnik(){}
   dobaviIzvestaj(){}
-  urediInfoStranicu(){}
   izmeniPodatke(){
     console.log("USERNAME U FUNKCIJI:"+this.username);
 

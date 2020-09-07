@@ -101,6 +101,8 @@ namespace WebApplication1.Controllers
                 avioKompanija.Adresa = avioServisi.Adresa;
                 avioKompanija.PromoOpis = avioServisi.PromotivniOpis;
                 avioKompanija.Admin = avioServisi.Admin;
+                var admin = await userManager.FindByNameAsync(avioKompanija.Admin);
+                admin.ImaServis = true;
 
                 try
                 {

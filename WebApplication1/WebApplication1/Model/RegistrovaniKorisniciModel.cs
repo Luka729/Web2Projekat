@@ -27,6 +27,9 @@ namespace WebApplication1.Model
         [MaxLength(30)]
         public string Grad { get; set; }
 
+        public bool ImaServis { get; set; }
+
+
 
     }
 }

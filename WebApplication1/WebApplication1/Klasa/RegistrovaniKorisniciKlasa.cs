@@ -26,6 +26,8 @@ namespace WebApplication1.Klasa
 
         public string Id { get; set; }
 
+        public bool ImaServis { get; set; }
+
 
 
 

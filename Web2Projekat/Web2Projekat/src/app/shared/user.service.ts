@@ -135,7 +135,7 @@ export class UserService {
         }
 
         else if (this.registrovanjeAdminForm.value.izborAdmina === "Car Admin") {
-            if (this.registrovanjeAdminForm.value.userNameProvera.indexOf("Car Admin") === -1) {
+            if (this.registrovanjeAdminForm.value.userNameProvera.indexOf("CarAdmin") === -1) {
                 this.registrovanjeAdminForm.value.userNameProvera += "CarAdmin";
             }
             this.rola = "car_admin";

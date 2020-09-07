@@ -33,7 +33,7 @@ export class IzmenaKorisnikaComponent implements OnInit {
 
 
    ngOnInit() {
-    this.service.registrovanjeForm.reset();
+    this.service.izmenaForm.reset();
     this.DobaviPodatkeKorisnika();
   }
    
@@ -62,7 +62,8 @@ export class IzmenaKorisnikaComponent implements OnInit {
     this.service.izmena(this.username).subscribe(
       (res: any) => {      
         console.log("RADI");
-        this.service.registrovanjeForm.reset();
+        this.service.izmenaForm.reset();
+        this.DobaviPodatkeKorisnika();
         document.getElementById("labelaSaGreskom").innerHTML = "";
         console.log(res);
 

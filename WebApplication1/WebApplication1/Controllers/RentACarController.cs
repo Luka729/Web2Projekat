@@ -165,6 +165,8 @@ namespace WebApplication1.Controllers
                 rentACar.AdresaServisa = rentACarServisi.Adresa;
                 rentACar.PromoOpis = rentACarServisi.PromotivniOpis;
                 rentACar.Admin = rentACarServisi.Admin;
+                var admin = await userManager.FindByNameAsync(rentACarServisi.Admin);
+                admin.ImaServis = true;
 
                 try
                 {

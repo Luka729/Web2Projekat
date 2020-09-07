@@ -1,4 +1,7 @@
+<app-napredni-navbar></app-napredni-navbar>
 <p>{{username}}</p>
+<a routerLink="/rent-a-car">Vidi Rent_A-Car kompanije</a> <br>
+<a routerLink="/avio-component">Vidi Avio kompanije</a><br><br>
 <button (click)="izmeniPodatke()" class="btn btn-outline-primary">Izmeni podatke</button>
 <hr style="height:2px;background-color:yellow">
 <button (click)="rezervisiKarte()" class="btn btn-outline-primary">Rezervisi karte</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -9,5 +12,53 @@
 <button (click)="rezervisiVozilo()" class="btn btn-outline-primary">Rezervisi automobil</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="oceniRentACar()" class="btn btn-outline-primary">Oceni Rent-a-Car kompaniju</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="oceniVozilo()" class="btn btn-outline-primary">Oceni vozilo</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button (click)="otkaziVozilo()" class="btn btn-outline-primary">Otkazi vozilo</button>
+<button (click)="otkaziVozilo()" class="btn btn-outline-primary">Otkazi vozilo</button> <br> <br>
 
+<table align="left">
+    <tr>
+        <td>
+            <label>Ime:</label>
+        </td>
+        <td>
+            <label id="ImeKorisnika" name="ImeKorisnika"></label>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label>Prezime:</label>
+        </td>
+        <td>
+            <label id="PrezimeKorisnika" name="PrezimeKorisnika"></label>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label>E-adresa:</label>
+        </td>
+        <td>
+            <label  id="EmailKorisnika"name="EmailKorisnika"></label>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>Ime vašeg grada:</label>
+        </td>
+        <td>
+            <label id="GradKorisnika" name="EmailKorisnika"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>Broj mobilnog telefona:</label>
+        </td>
+        <td>
+            <label id="TelefonKorisnika" name="TelefonKorisnika"></label>
+
+        </td>
+    </tr>
+    
+</table>

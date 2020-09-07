@@ -55,6 +55,7 @@ ListaCarAdmina() :void{
       (res: any) => {      
         console.log("RADI");
         this.registrovanjeRentACar.reset();
+        this.ListaCarAdmina();
         console.log(res);  
       },
       err => {

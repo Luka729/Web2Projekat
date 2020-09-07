@@ -9,6 +9,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/shared/user.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,14 +53,12 @@ export class LogovanjeComponent implements OnInit {
       this.service.externalLogin(socialusers).subscribe((res: any) => {
         console.log("RADI PREKO GUGLA");
         localStorage.setItem('token', res.token);
-        document.getElementById("labelaSaGreskom").innerHTML = "";
-        this.router.navigateByUrl('/profil-korisnika' + this.loginForm.UserName);
+        this.router.navigateByUrl('/profil-korisnika/' + socialusers.firstName);
 
       },
         err => {
           console.log("Ne radi preko gugla")
           console.log(err);
-          document.getElementById("labelaSaGreskom").innerHTML = "Neuspesno logovanje, probajte opet";
 
         });
 
@@ -74,16 +73,23 @@ export class LogovanjeComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         if (this.loginForm.UserName.indexOf("AvioAdmin") !== -1) {
+          
           this.router.navigateByUrl('/profil-avio-admin/' + this.loginForm.UserName);
         }
         else if (this.loginForm.UserName.indexOf("CarAdmin") !== -1) {
+         
           this.router.navigateByUrl('/profil-car-admin/' + this.loginForm.UserName);
         }
         else if (this.loginForm.UserName.indexOf("MainAdmin") !== -1) {
+          
           this.router.navigateByUrl('/profil-main-admin/' + this.loginForm.UserName);
         }
-        else {
+        else if(this.loginForm.UserName.indexOf("Admin") === -1) {
+         
           this.router.navigateByUrl('/profil-korisnika/' + this.loginForm.UserName);
+        }
+        else{
+          
         }
       },
       err => {

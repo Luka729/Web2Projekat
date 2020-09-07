@@ -1,5 +1,6 @@
 <h1>Lista svih avio letova</h1>
 <input type="text" placeholder="Pretraga letova" [(ngModel)]="searchFlight" (input) = "Search()">
+<input type="text" placeholder="Pretraga letova2" [(ngModel)]="searchFlight2" (input) = "Search()">
 
 <div class="col-xs-6">
     <div class="table-responsive">
@@ -16,6 +17,7 @@
                     <th scope="col">LOKACIJA PRESEDANJA</th>
                     <th scope="col">CENA KARTE</th>
                     <th scope="col">SLOBODNA MESTA</th>
+                    <th scope="col"  *ngIf="user ==2">REZERVISI LET</th>
 
                 </tr>
             </thead>
@@ -31,6 +33,7 @@
                     <td>{{al.lokacijaPresedanja}}</td>
                     <td>{{al.cenaKarte}}</td>
                     <td>{{al.slobodnaMesta}}</td>
+                    <button class="btn btn-outline-primary" *ngIf="user == 2" (click)="RezervacijaLeta(al.lokacijaPoletanja,al.lokacijaSletanja,al.datumPoletanja,al.datumSletanja)">REZERVISI</button>
                 </tr>
             </tbody>
         </table>

@@ -233,7 +233,7 @@ namespace WebApplication1.Controllers
 
             foreach (var admin in admini)
             {
-                if (admin.UserName.Contains("CarAdmin"))
+                if (admin.UserName.Contains("CarAdmin") && admin.ImaServis == false)
                 {
                     rezultat.Add(admin);
                 }
@@ -259,7 +259,7 @@ namespace WebApplication1.Controllers
 
             foreach (var admin in admini)
             {
-                if (admin.UserName.Contains("AvioAdmin"))
+                if (admin.UserName.Contains("AvioAdmin") && admin.ImaServis == false)
                 {
                     rezultat.Add(admin);
                 }
@@ -303,17 +303,18 @@ namespace WebApplication1.Controllers
         [Route("DrustveneMrezeLogin")]
         public async Task<Object> SocialLogin([FromBody] LogovaniKorisniciKlasa loginModel)
         {
-            var test = _appSettings.JWT_Secret;
+            var test = _appSettings.JWT_Secret;            
             if (VerifyToken(loginModel.IdToken))
             {
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Expires = DateTime.UtcNow.AddMinutes(5),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)                   
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
+
                 return Ok(new { token });
             }
 

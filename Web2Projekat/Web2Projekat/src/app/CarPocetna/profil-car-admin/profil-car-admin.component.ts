@@ -26,7 +26,6 @@ export class ProfilCarAdminComponent implements OnInit {
   }
   dodajCenovnik(){}
   dobaviIzvestaj(){}
-  urediInfoStranice(){}
   izmeniPodatke(){
     console.log("USERNAME U FUNKCIJI:"+this.username);
 

@@ -51,6 +51,7 @@ ListaAvioAdmina() :void{
       (res: any) => {      
         console.log("RADI");
         this.service.registrovanjeRentACar.reset();
+        this.ListaAvioAdmina();
         console.log(res);  
       },
       err => {
