@@ -26,6 +26,9 @@ namespace WebApplication1.Model
         [Required]
         public double CenaPoDanu { get; set; }
 
+        public DateTime PocetakRezervacije { get; set; }
+
+        public DateTime KrajRezervacija { get; set; }
 
         [JsonIgnore]
         public RentACarModel rentACar { get; set; }

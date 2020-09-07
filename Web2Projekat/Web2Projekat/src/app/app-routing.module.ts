@@ -19,6 +19,7 @@ import { DodajKolaComponent } from './CarPocetna/dodaj-kola/dodaj-kola.component
 import { DodajLetComponent } from './AvioPocetna/dodaj-let/dodaj-let.component';
 import { IzmenaPodatakaORACComponent } from './CarPocetna/izmena-podataka-orac/izmena-podataka-orac.component';
 import { IzmenaPodatakaAKComponent } from './AvioPocetna/izmena-podataka-ak/izmena-podataka-ak.component';
+import { RezervacijaKolaComponent } from './rezervacije/rezervacija-kola/rezervacija-kola.component';
 const routes: Routes = [
   {
     path: "vozila-ispis/:servisi",
@@ -99,6 +100,10 @@ const routes: Routes = [
   {
     path: 'izmena-podataka-ak/:userNameProvera',
     component:IzmenaPodatakaAKComponent
+  },
+  {
+    path:'rezervacija-kola/:kolaObjekat',
+    component:RezervacijaKolaComponent
   },
   
  

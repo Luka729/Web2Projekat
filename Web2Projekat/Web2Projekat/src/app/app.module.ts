@@ -33,6 +33,7 @@ import { DodajLetComponent } from './AvioPocetna/dodaj-let/dodaj-let.component';
 import { IzmenaPodatakaORACComponent } from './CarPocetna/izmena-podataka-orac/izmena-podataka-orac.component';
 import { IzmenaPodatakaAKComponent } from './AvioPocetna/izmena-podataka-ak/izmena-podataka-ak.component';
 import { NapredniNavbarComponent } from './naprednaPocetna/napredni-navbar/napredni-navbar.component';
+import { RezervacijaKolaComponent } from './rezervacije/rezervacija-kola/rezervacija-kola.component';
 
 let config = new AuthServiceConfig([
   {
@@ -69,6 +70,7 @@ export function provideConfig()
     IzmenaPodatakaORACComponent,
     IzmenaPodatakaAKComponent,
     NapredniNavbarComponent,
+    RezervacijaKolaComponent,
   ],
   imports: [
     BrowserModule,

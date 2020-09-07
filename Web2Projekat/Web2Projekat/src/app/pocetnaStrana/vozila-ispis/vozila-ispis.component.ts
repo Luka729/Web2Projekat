@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AutomobiliEntiteti } from 'src/app/entiteti/automobili-entiteti';
 import { AutomobiliServisi } from 'src/app/servisi/automobili-servisi';
 import { RentACarService } from 'src/app/shared/RentACar.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tipovi} from 'src/app/entiteti/enumeracija';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -18,7 +18,7 @@ export class VozilaIspisComponent implements OnInit {
   servisi:string;
   user:any = tipovi.neregular;
   
-  constructor(private route:ActivatedRoute,public service:RentACarService) 
+  constructor(private router: Router,private route:ActivatedRoute,public service:RentACarService) 
   {
     route.params.subscribe(params => {
       this.servisi = params['servisi'];
@@ -41,7 +41,8 @@ export class VozilaIspisComponent implements OnInit {
       else{this.user = tipovi.neregular;}
     }
   }
-  RezervacijaKola(brend:string ,model: string,godina:string,cenaPoDanu:string){
+  RezervacijaKola(kola: any){
+    this.router.navigateByUrl('/rezervacija-kola/' + kola);
 
   }
   ispisKola(servisi:any){
