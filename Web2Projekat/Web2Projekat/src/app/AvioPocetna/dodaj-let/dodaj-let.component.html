@@ -25,45 +25,23 @@
         </tr>
         <tr>
             <td>
-                <label>Unesite datum poletanja:</label>
+                <label>Unesite datum i vreme poletanja:</label>
             </td>
             <td>
-                <input type="date" formControlName="datumPoletanjaProvera" class="form-control">
+                <input type="datetime-local" formControlName="datumPoletanjaProvera" class="form-control">
                 <div *ngIf="service.LetForm.controls.datumPoletanjaProvera.invalid">
-                    Molimo Vas unesite datum poletanja
+                    Molimo Vas unesite datum i vreme poletanja
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <label>Unesite datum sletanja:</label>
+                <label>Unesite datum i vreme sletanja:</label>
             </td>
             <td>
-                <input type="date" formControlName="datumSletanjaProvera" class="form-control">
+                <input type="datetime-local" formControlName="datumSletanjaProvera" class="form-control">
                 <div *ngIf="service.LetForm.controls.datumSletanjaProvera.invalid">
-                    Molimo Vas unesite datum sletanja
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Unesite sat polaska:</label>
-            </td>
-            <td>
-                <input type="date" formControlName="satPolaskaProvera" class="form-control">
-                <div *ngIf="service.LetForm.controls.satPolaskaProvera.invalid">
-                    Molimo Vas unesite sat polaska
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Unesite minut polaska:</label>
-            </td>
-            <td>
-                <input type="date" formControlName="minutPolaskaProvera" class="form-control">
-                <div *ngIf="service.LetForm.controls.minutPolaskaProvera.invalid">
-                    Molimo Vas unesite minut polaska
+                    Molimo Vas unesite datum i vreme sletanja
                 </div>
             </td>
         </tr>

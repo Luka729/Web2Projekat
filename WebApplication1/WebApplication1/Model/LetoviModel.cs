@@ -20,11 +20,6 @@ namespace WebApplication1.Model
         [Required]
         public DateTime DatumSletanja{ get; set; }
 
-        [Required]
-        public DateTime SatPutovanja { get; set; }
-
-        [Required]
-        public DateTime MinutPutovanja { get; set; }
 
         [Required]
         public double DuzinaPutovanja { get; set; }

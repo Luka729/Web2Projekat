@@ -44,13 +44,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   }
 
   rezervisiKarte(){}
-  oceniAviokompaniju(){}
-  oceniLet(){}
-  otkaziLet(){}
-  oceniRentACar(){}
   rezervisiVozilo(){}
-  oceniVozilo(){}
-  otkaziVozilo(){}
 
 
   ngOnInit(): void {

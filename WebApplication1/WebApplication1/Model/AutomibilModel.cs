@@ -26,6 +26,7 @@ namespace WebApplication1.Model
         [Required]
         public double CenaPoDanu { get; set; }
 
+
         [JsonIgnore]
         public RentACarModel rentACar { get; set; }
 

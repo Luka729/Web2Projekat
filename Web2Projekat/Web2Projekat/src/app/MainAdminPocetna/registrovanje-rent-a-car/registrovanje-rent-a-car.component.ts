@@ -37,7 +37,6 @@ ListaCarAdmina() :void{
     (res: any) => {   
       this.lista=res;  
       console.log(res.userName);
-      
       console.log(this.lista);
      
     },
@@ -54,7 +53,7 @@ ListaCarAdmina() :void{
     this.service.UpisiRentACar().subscribe(
       (res: any) => {      
         console.log("RADI");
-        this.registrovanjeRentACar.reset();
+        this.service.registrovanjeRentACar.reset();
         this.ListaCarAdmina();
         console.log(res);  
       },

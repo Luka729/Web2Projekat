@@ -59,7 +59,7 @@ export class LetoviIspisComponent implements OnInit {
   }
 
   RezervacijaLeta(lokacijaPoletanja:string ,lokacijaSletanja:string ,datumPoletanja:string ,datumSletanja: string){
-      //...
+      
   }
   Search(){
     this.listaLetova = this.listaLetova.filter(res=>{

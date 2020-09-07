@@ -212,6 +212,7 @@ namespace WebApplication1.Controllers
         public async Task<Object> DodajLet(LetoviModel letModel, string userName)
         {
             var listaAvio = _context.Aviokompanija;
+            int poredjenjeDatuma = DateTime.Compare(letModel.DatumSletanja, letModel.DatumPoletanja);
             foreach (var el in listaAvio)
             {
                 if (el.spisakLetova == null)
@@ -221,15 +222,27 @@ namespace WebApplication1.Controllers
 
                 if (el.Admin == userName)
                 {
-                    el.spisakLetova.Add(letModel);
-                    _context.LetoviTabela.Add(letModel);
-                    
-                    break;
+                    if (poredjenjeDatuma >= 0)
+                    {
+                        el.spisakLetova.Add(letModel);
+                        _context.LetoviTabela.Add(letModel);
+                        break;
+                    }
+                    else
+                    {
+                        return BadRequest("Datum sletanja ne moze biti pre datuma poletanja");
+                    }
                 }
+                else
+                {
+                    return BadRequest("Ne postoji avio kompanija kome ste vi Admin");
+
+                }
+
             }
             _context.SaveChanges();
-
             return Ok();
+
         }
         #endregion
     }

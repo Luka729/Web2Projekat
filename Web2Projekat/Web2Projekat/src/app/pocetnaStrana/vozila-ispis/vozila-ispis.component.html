@@ -10,6 +10,8 @@
                     <th scope="col">MODEL</th>
                     <th scope="col">GODINA</th>
                     <th scope="col">CENA ZA JEDAN DAN</th>
+                    <th scope="col"  *ngIf="user ==2">REZERVISI KOLA</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +20,7 @@
                     <td>{{car.model}}</td>
                     <td>{{car.godina}}</td>
                     <td>{{car.cenaPoDanu}}$</td>
+                    <button class="btn btn-outline-primary" *ngIf="user == 2" (click)="RezervacijaKola(car.brend,car.model,car.godina,car.cenaPoDanu)">REZERVISI</button>
                 </tr>
             </tbody>
         </table>
