@@ -102,7 +102,7 @@ const routes: Routes = [
     component:IzmenaPodatakaAKComponent
   },
   {
-    path:'rezervacija-kola/:kolaObjekat',
+    path:'rezervacija-kola/:kolaObjekat/:userNameProvera',
     component:RezervacijaKolaComponent
   },
   

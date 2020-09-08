@@ -17,6 +17,7 @@ export class VozilaIspisComponent implements OnInit {
   searchServicRaC:string;
   servisi:string;
   user:any = tipovi.neregular;
+  userID: any;
   
   constructor(private router: Router,private route:ActivatedRoute,public service:RentACarService) 
   {
@@ -31,9 +32,11 @@ export class VozilaIspisComponent implements OnInit {
     let token = localStorage.getItem('token');
     const helper = new JwtHelperService();
     var decodeToken = helper.decodeToken(token);
+    this.userID = decodeToken.UserID;
     if(token != null)
     {
       console.log(decodeToken.role);
+      console.log(decodeToken);
       if(decodeToken.role === "main_admin"){this.user = tipovi.main;}
       else if(decodeToken.role === "avio_admin"){this.user = tipovi.avio;}
       else if(decodeToken.role === "car_admin"){ this.user = tipovi.rent;}
@@ -42,7 +45,7 @@ export class VozilaIspisComponent implements OnInit {
     }
   }
   RezervacijaKola(kola: any){
-    this.router.navigateByUrl('/rezervacija-kola/' + kola);
+    this.router.navigateByUrl('/rezervacija-kola/' + kola+ '/'+this.userID);
 
   }
   ispisKola(servisi:any){
@@ -62,7 +65,7 @@ export class VozilaIspisComponent implements OnInit {
   }
   Search(){
     this.lista = this.lista.filter(res=>{
-      return res.brand.toLocaleLowerCase().match(this.searchServicRaC.toLocaleLowerCase());
+      return res.brend.toLocaleLowerCase().match(this.searchServicRaC.toLocaleLowerCase());
     });
 
     if(this.searchServicRaC ==""){

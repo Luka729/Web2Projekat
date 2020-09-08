@@ -1,1 +1,47 @@
-<p>rezervacija-kola works!</p>
+<div class="col-xs-6">
+    <div class="table-responsive">
+        <table class="table table-hover" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">MARKA</th>
+                    <th scope="col">MODEL</th>
+                    <th scope="col">GODINA</th>
+                    <th scope="col">CENA ZA JEDAN DAN</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <td>{{lista.brend}}</td>
+                <td>{{lista.model}}</td>
+                <td>{{lista.godina}}</td>
+                <td>{{lista.cenaPoDanu}}$</td>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form [formGroup]="service.RezervacijaForm" (ngSubmit)="onSubmit()">
+    <tr>
+        <td>
+            <label>Unesite datum i vreme kreiranja rezervacije:</label>
+        </td>
+        <td>
+            <input type="datetime-local" formControlName="datumPocetkaRezervacije" class="form-control">
+            <div *ngIf="service.RezervacijaForm.controls.datumPocetkaRezervacije.invalid">
+                Molimo Vas unesite datum i vreme kreiranja rezervacije
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>Unesite datum i vreme kraja rezervacije:</label>
+        </td>
+        <td>
+            <input type="datetime-local" formControlName="datumKrajaRezervacije" class="form-control">
+            <div *ngIf="service.RezervacijaForm.controls.datumKrajaRezervacije.invalid">
+                Molimo Vas unesite datum i vreme kraja rezervacije
+            </div>
+        </td>
+    </tr>
+    <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.RezervacijaForm.valid">
+</form>

@@ -14,21 +14,15 @@ namespace WebApplication1.Model
         [Key]
         public int Id { get; set; }
         
-        [Required]
         public string Brend { get; set; }
 
-        [Required]
         public string Model { get; set; }
 
-        [Required]
         public int Godina { get; set; }
 
-        [Required]
         public double CenaPoDanu { get; set; }
 
-        public DateTime PocetakRezervacije { get; set; }
 
-        public DateTime KrajRezervacija { get; set; }
 
         [JsonIgnore]
         public RentACarModel rentACar { get; set; }

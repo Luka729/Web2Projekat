@@ -25,6 +25,12 @@ export class RentACarService {
         'promotivniOpisProvera': ['',Validators.required],
     })
 
+    RezervacijaForm = this.fb.group({
+        'datumPocetkaRezervacije' : ['',Validators.required],
+        'datumKrajaRezervacije': ['',Validators.required],
+
+    })
+
     dodajKola(username: string) {
 
         var body = {
@@ -45,6 +51,10 @@ export class RentACarService {
         return this.http.get(this.BaseURI + '/RentACar/DobaviListuKola/'+nazivKompanije);
 
     }
+    ucitajAuto(id:string){
+        return this.http.get(this.BaseURI + '/RentACar/DobaviAutoSaID/'+id);
+
+    }
     NalogRAC(username: string){
         return this.http.get(this.BaseURI + '/RentACar/DobaviPodatkeRAC/'+username);
 
@@ -58,6 +68,17 @@ export class RentACarService {
             Admin: username,
         };
         return this.http.post(this.BaseURI + '/RentACar/IzmenaPodataka', body);
+
+    }
+
+    rezervisiAuto(id:string,userID:string){
+        var body = {         
+            IdKorisnika:userID,
+            IdKola: id,
+            PocetakRezervacije: this.RezervacijaForm.value.datumPocetkaRezervacije,
+            KrajRezervacije: this.RezervacijaForm.value.datumKrajaRezervacije,
+        }
+        return this.http.post(this.BaseURI + '/RentACar/RezervisiAuto', body);
 
     }
 

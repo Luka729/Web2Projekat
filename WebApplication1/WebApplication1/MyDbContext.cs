@@ -23,6 +23,8 @@ namespace WebApplication1
 
         public DbSet<LetoviModel> LetoviTabela { get; set; }
 
+        public DbSet<RezervisanaKolaModel> RezervisanaKolaTabela { get; set; }
+
 
 
     }

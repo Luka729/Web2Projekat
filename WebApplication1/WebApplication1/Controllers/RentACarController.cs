@@ -23,6 +23,29 @@ namespace WebApplication1.Controllers
             _context = context;
 
         }
+        #region DobaviAutoSaID
+        [HttpGet]
+        [Route("DobaviAutoSaID/{id}")]
+        public IActionResult DobaviAutoSaID(string id)
+        {
+
+            var listaKola = _context.AutomibilTabela;
+
+           
+            var rezultat = new AutomibilModel();
+            foreach (var el in listaKola)
+            {
+
+                if (el.Id == Int32.Parse(id))
+                {
+                    rezultat = el;
+                }
+
+            }
+
+            return Ok(rezultat);
+        }
+        #endregion
 
         #region izmenaPodatakaRAC
         [HttpPost]
@@ -235,6 +258,162 @@ namespace WebApplication1.Controllers
             }
             return Ok(rezultat);
         }
+        #endregion
+
+        #region RezervisiAuto
+        [HttpPost]
+        [Route("RezervisiAuto")]
+        public async Task<Object> RezervisiAuto(RezervisanaKolaModel model)
+        {
+            bool upisanoUBazu = false;
+            var listaKola = _context.AutomibilTabela;
+            var listaRezervisanihKola = _context.RezervisanaKolaTabela;
+            int komparacijaPocetkaRezervacija;
+            int komparacijaPocetkaKrajaRezervacije;
+            int komparacijaKrajPocetakRezervacija;
+            int komparacijaKrajaRezervacija;
+            int br = 0;
+
+            int komparacijaMedjusobnoUModelu = DateTime.Compare(model.KrajRezervacije, model.PocetakRezervacije);
+
+            if(komparacijaMedjusobnoUModelu < 0)
+            {
+                return BadRequest("Ne moze kraj rezervacije da bude pre pocetka rezervacije");
+            }
+
+            if(listaRezervisanihKola.Count() == 0)
+            {
+                _context.RezervisanaKolaTabela.Add(model);
+                _context.SaveChanges();
+                
+                return Ok();
+
+            }
+
+            while (br < listaRezervisanihKola.Count()) {
+
+                
+
+                foreach (var rezervisana in listaRezervisanihKola)
+                {
+                    upisanoUBazu = false;
+
+                    if (rezervisana.IdKola == model.IdKola)
+                    {
+                        komparacijaPocetkaRezervacija = DateTime.Compare(model.PocetakRezervacije, rezervisana.PocetakRezervacije);
+                        komparacijaPocetkaKrajaRezervacije = DateTime.Compare(model.PocetakRezervacije, rezervisana.KrajRezervacije);
+                        komparacijaKrajaRezervacija = DateTime.Compare(model.KrajRezervacije, rezervisana.KrajRezervacije);
+                        komparacijaKrajPocetakRezervacija = DateTime.Compare(model.KrajRezervacije, rezervisana.PocetakRezervacije);
+
+                        if (komparacijaKrajPocetakRezervacija > 0)
+                        {
+                            if (komparacijaPocetkaKrajaRezervacije > 0)
+                            {
+                                _context.RezervisanaKolaTabela.Add(model);
+                                upisanoUBazu = true;
+                                //break;
+                            }
+                     
+                        }
+
+                        if (komparacijaPocetkaKrajaRezervacije < 0)
+                        {
+                            if (komparacijaKrajPocetakRezervacija < 0)
+                            {
+                                _context.RezervisanaKolaTabela.Add(model);
+                                upisanoUBazu = true;
+                                //break;
+                            }
+                        }
+
+                        if (komparacijaKrajPocetakRezervacija < 0)
+                        {
+                            _context.RezervisanaKolaTabela.Add(model);
+                            upisanoUBazu = true;
+                            //break;
+
+                        }
+
+                        if (komparacijaPocetkaKrajaRezervacije > 0)
+                        {
+                            _context.RezervisanaKolaTabela.Add(model);
+                            upisanoUBazu = true;
+                            //break;
+                        }
+                    }
+                    else
+                    {
+                        foreach (var kola in listaKola)
+                        {
+                            if (kola.Id == Int32.Parse(model.IdKola))
+                            {
+                                komparacijaPocetkaRezervacija = DateTime.Compare(model.PocetakRezervacije, rezervisana.PocetakRezervacije);
+                                komparacijaPocetkaKrajaRezervacije = DateTime.Compare(model.PocetakRezervacije, rezervisana.KrajRezervacije);
+                                komparacijaKrajaRezervacija = DateTime.Compare(model.KrajRezervacije, rezervisana.KrajRezervacije);
+                                komparacijaKrajPocetakRezervacija = DateTime.Compare(model.KrajRezervacije, rezervisana.PocetakRezervacije);
+
+                                if (komparacijaKrajPocetakRezervacija > 0)
+                                {
+                                    if (komparacijaPocetkaKrajaRezervacije > 0)
+                                    {
+                                        _context.RezervisanaKolaTabela.Add(model);
+                                        upisanoUBazu = true;
+                                        //break;
+                                    }
+                                }
+
+                                if (komparacijaPocetkaKrajaRezervacije < 0)
+                                {
+                                    if (komparacijaKrajPocetakRezervacija < 0)
+                                    {
+                                        _context.RezervisanaKolaTabela.Add(model);
+                                        upisanoUBazu = true;
+                                        //break;
+                                    }
+                                }
+
+                                if (komparacijaKrajPocetakRezervacija < 0)
+                                {
+                                    _context.RezervisanaKolaTabela.Add(model);
+                                    upisanoUBazu = true;
+                                    //break;
+
+                                }
+
+                                if (komparacijaPocetkaKrajaRezervacije > 0)
+                                {
+                                    _context.RezervisanaKolaTabela.Add(model);
+                                    upisanoUBazu = true;
+                                    //break;
+                                }
+
+                            }
+                        }
+                    }
+                    br++;
+
+                    if (!upisanoUBazu)
+                    {
+                        break;
+                    }
+                }
+
+                break;
+                
+            }
+
+            _context.SaveChanges();
+            if (upisanoUBazu)
+            {
+                return Ok();
+            }
+
+            else
+            {
+                return BadRequest("Neuspesna rezervacija automobila");
+            }
+        }
+
         #endregion
 
     }
