@@ -29,6 +29,8 @@ namespace WebApplication1.Model
 
         public bool ImaServis { get; set; }
 
+        public ICollection<PrijateljiModel> ListaPrijatelja { get; set; }
+
 
 
     }

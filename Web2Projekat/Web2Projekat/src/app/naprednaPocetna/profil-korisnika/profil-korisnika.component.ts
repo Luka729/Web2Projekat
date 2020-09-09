@@ -20,6 +20,10 @@ export class ProfilKorisnikaComponent implements OnInit {
    this.DobaviPodatkeKorisnika();
    }
 
+   vidiKorisnike(){
+     this.router.navigateByUrl('/prikaz-prijatelja/'+this.username);
+   }
+
    DobaviPodatkeKorisnika() :void{
     this.service.KorisnickiNalog(this.username).subscribe(
       (res: any) => {      

@@ -183,7 +183,6 @@ namespace WebApplication1.Controllers
 
         #endregion
 
-
         #region logovanje
         [HttpPost]
         [Route("Logovanje")]
@@ -296,7 +295,6 @@ namespace WebApplication1.Controllers
 
         #endregion
 
-
         #region drustveneMreze
 
         [HttpPost]
@@ -350,6 +348,139 @@ namespace WebApplication1.Controllers
         }
 
         #endregion
+
+        #region listaKorisnika
+        [HttpGet]
+        [Route("DobaviListuKorisnika/{userName}")]
+
+        public IActionResult DobaviListuKorisnika(string userName) 
+        {
+            var lista = _context.RegistrovaniKorisnici;
+            if (lista == null) 
+            {
+                return BadRequest("Ne postoje registrovani korisnici u bazi podataka");
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var el in lista)
+            {
+                if(el.UserName != userName) 
+                {
+                    if (!el.UserName.Contains("Admin")) 
+                    {
+                        rezultat.Add(el);
+                    }
+                }              
+            }
+
+            return Ok(rezultat);
+        }
+
+        #endregion
+
+        #region listaPrijatelja
+        [HttpPost]
+        [Route("DodavanjePrijatelja")]
+
+        public async Task<Object> DodavanjePrijatelja(PrijateljiModel model) 
+        {
+            var listaZahteva = _context.PrijateljiTabela;
+            foreach (var el in listaZahteva)
+            {
+                if(el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) 
+                {
+                    return BadRequest();
+                }
+            }
+            _context.PrijateljiTabela.Add(model);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        #endregion
+
+        [HttpGet]
+        [Route("DobaviListuZahteva/{userName}")]
+
+        public async Task<Object> DobaviListuZahteva(string userName)
+        {
+            var lista = _context.PrijateljiTabela;
+            if (lista == null)
+            {
+                return BadRequest("Ne postoje registrovani korisnici u bazi podataka");
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var el in lista)
+            {
+                if (el.IdPrimaoca == userName && !el.PrihvatioZahtev)
+                {
+                    var zahtev = await userManager.FindByNameAsync(el.IdPosiljaoca);
+                    
+                    rezultat.Add(zahtev);
+                    
+                }
+            }
+
+            return Ok(rezultat);
+        }
+
+        [HttpPost]
+        [Route("PrihvatiPrijatelja")]
+
+        public async Task<Object> PrihvatiPrijatelja(PrijateljiModel model) 
+        {
+            var listaPrijatelja = _context.PrijateljiTabela;
+            foreach (var el in listaPrijatelja)
+            {
+                if (el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca)
+                {
+                    el.PrihvatioZahtev = true;
+                }
+            }
+            var nadjenPosiljaoc = await userManager.FindByNameAsync(model.IdPosiljaoca);            
+            if (nadjenPosiljaoc.ListaPrijatelja == null)
+            {
+                nadjenPosiljaoc.ListaPrijatelja = new List<PrijateljiModel>();
+            }
+
+            var nadjenPrimalac = await userManager.FindByNameAsync(model.IdPrimaoca);
+            if (nadjenPrimalac.ListaPrijatelja == null)
+            {
+                nadjenPrimalac.ListaPrijatelja = new List<PrijateljiModel>();
+            }
+
+            if (model.PrihvatioZahtev) 
+            {
+                nadjenPosiljaoc.ListaPrijatelja.Add(model);
+                var prijatelj = new PrijateljiModel();
+                prijatelj.IdPosiljaoca = model.IdPosiljaoca;
+                nadjenPrimalac.ListaPrijatelja.Add(model);
+            }
+            _context.SaveChanges();
+          
+            return Ok(nadjenPosiljaoc);
+        }
+
+        [HttpPost]
+        [Route("OdbijPrijatelja")]
+
+        public async Task<Object> OdbijPrijatelja(PrijateljiModel model)
+        {
+            var listaZahteva = _context.PrijateljiTabela;
+            if (!model.PrihvatioZahtev) 
+            {
+                foreach (var el in listaZahteva)
+                {
+                    if(el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) 
+                    {
+                        _context.PrijateljiTabela.Remove(el);
+                    }
+                }
+            }
+
+            return Ok();
+        }
 
     }
 }

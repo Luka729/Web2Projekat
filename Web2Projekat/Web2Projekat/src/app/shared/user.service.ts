@@ -14,11 +14,11 @@ export class UserService {
     readonly BaseURI = 'http://localhost:58544/api';
 
     registrovanjeRentACar = this.fb.group({
-        'nazivProvera' :['',Validators.required],
-        'adresaProvera' : ['',Validators.required],
-        'promotivniOpisProvera': ['',Validators.required],
-        'adminProvera': ['',Validators.required]
-      })
+        'nazivProvera': ['', Validators.required],
+        'adresaProvera': ['', Validators.required],
+        'promotivniOpisProvera': ['', Validators.required],
+        'adminProvera': ['', Validators.required]
+    })
 
     registrovanjeForm = this.fb.group({
         'imeProvera': ['', Validators.required],
@@ -95,7 +95,7 @@ export class UserService {
         return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/Registrovanje', body);
     }
 
-    izmena(username:string) {
+    izmena(username: string) {
         if (username.indexOf("AvioAdmin") !== -1) {
             this.rola = "avio_admin";
         }
@@ -167,42 +167,76 @@ export class UserService {
     }
 
     KorisnickiNalog(userName: string) {
-        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviPodatkeKorisnika/'+userName);
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviPodatkeKorisnika/' + userName);
     }
-    
-    ListaCarAdmina(){
+
+    ListaCarAdmina() {
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviCarAdmina');
 
     }
 
-    ListaAvioAdmina(){
+    ListaAvioAdmina() {
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviAvioAdmina');
 
     }
 
-    UpisiRentACar(){
-        
-            var body = {
+    UpisiRentACar() {
+
+        var body = {
             Naziv: this.registrovanjeRentACar.value.nazivProvera,
             Adresa: this.registrovanjeRentACar.value.adresaProvera,
-            PromotivniOpis:this.registrovanjeRentACar.value.promotivniOpisProvera,
-            Admin:this.registrovanjeRentACar.value.adminProvera,
-            };
-            return this.http.post(this.BaseURI + '/RentACar/UpisUBazu', body);
-        
+            PromotivniOpis: this.registrovanjeRentACar.value.promotivniOpisProvera,
+            Admin: this.registrovanjeRentACar.value.adminProvera,
+        };
+        return this.http.post(this.BaseURI + '/RentACar/UpisUBazu', body);
+
     }
 
-    UpisiAvio(){
-        
+    UpisiAvio() {
+
         var body = {
-        Naziv: this.registrovanjeRentACar.value.nazivProvera,
-        Adresa: this.registrovanjeRentACar.value.adresaProvera,
-        PromotivniOpis:this.registrovanjeRentACar.value.promotivniOpisProvera,
-        Admin:this.registrovanjeRentACar.value.adminProvera,
+            Naziv: this.registrovanjeRentACar.value.nazivProvera,
+            Adresa: this.registrovanjeRentACar.value.adresaProvera,
+            PromotivniOpis: this.registrovanjeRentACar.value.promotivniOpisProvera,
+            Admin: this.registrovanjeRentACar.value.adminProvera,
         };
         return this.http.post(this.BaseURI + '/Avio/UpisUBazu', body);
-    
-}
+
+    }
+
+    ucitajKorisnika(username: string) {
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviListuKorisnika/' + username);
+    }
+
+    dodajPrijatelja(usernamePosiljaoca: string,usernamePrimaoca:string ){
+        var body = {
+            IdPosiljaoca: usernamePosiljaoca,
+            IdPrimaoca: usernamePrimaoca,
+        };
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/DodavanjePrijatelja',body);
+    }
+
+    dobaviListuZahteva(username:string){
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviListuZahteva/' + username);
+    }
+
+    prihvatiZahtev(usernamePrijatelja:string,username:string){
+        var body = {
+            IdPosiljaoca: usernamePrijatelja,
+            IdPrimaoca: username,
+            PrihvatioZahtev:true,
+        };
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/PrihvatiPrijatelja',body);
+    }
+
+    odbijZahtev(usernamePrijatelja:string,username:string){
+        var body = {
+            IdPosiljaoca: usernamePrijatelja,
+            IdPrimaoca: username,
+            PrihvatioZahtev:false,
+        };
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/OdbijPrijatelja',body);
+    }
 
 
 }

@@ -25,6 +25,9 @@ namespace WebApplication1
 
         public DbSet<RezervisanaKolaModel> RezervisanaKolaTabela { get; set; }
 
+        public DbSet<PrijateljiModel> PrijateljiTabela { get; set; }
+
+
 
 
     }
