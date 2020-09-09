@@ -378,7 +378,7 @@ namespace WebApplication1.Controllers
 
         #endregion
 
-        #region listaPrijatelja
+        #region DodavanjePrijatelja
         [HttpPost]
         [Route("DodavanjePrijatelja")]
 
@@ -399,6 +399,7 @@ namespace WebApplication1.Controllers
 
         #endregion
 
+        #region listaZahteva
         [HttpGet]
         [Route("DobaviListuZahteva/{userName}")]
 
@@ -424,7 +425,9 @@ namespace WebApplication1.Controllers
 
             return Ok(rezultat);
         }
+        #endregion
 
+        #region prihvatiPrijatelja
         [HttpPost]
         [Route("PrihvatiPrijatelja")]
 
@@ -438,30 +441,14 @@ namespace WebApplication1.Controllers
                     el.PrihvatioZahtev = true;
                 }
             }
-            var nadjenPosiljaoc = await userManager.FindByNameAsync(model.IdPosiljaoca);            
-            if (nadjenPosiljaoc.ListaPrijatelja == null)
-            {
-                nadjenPosiljaoc.ListaPrijatelja = new List<PrijateljiModel>();
-            }
-
-            var nadjenPrimalac = await userManager.FindByNameAsync(model.IdPrimaoca);
-            if (nadjenPrimalac.ListaPrijatelja == null)
-            {
-                nadjenPrimalac.ListaPrijatelja = new List<PrijateljiModel>();
-            }
-
-            if (model.PrihvatioZahtev) 
-            {
-                nadjenPosiljaoc.ListaPrijatelja.Add(model);
-                var prijatelj = new PrijateljiModel();
-                prijatelj.IdPosiljaoca = model.IdPosiljaoca;
-                nadjenPrimalac.ListaPrijatelja.Add(model);
-            }
+           
             _context.SaveChanges();
           
-            return Ok(nadjenPosiljaoc);
+            return Ok();
         }
+        #endregion
 
+        #region odbijPrijatelja
         [HttpPost]
         [Route("OdbijPrijatelja")]
 
@@ -481,6 +468,60 @@ namespace WebApplication1.Controllers
 
             return Ok();
         }
+        #endregion
 
+        #region listaPrijatelja
+        [HttpGet]
+        [Route("ListaPrijatelja/{userName}")]
+
+        public IActionResult ListaPrijatelja(string userName)
+        {
+            var listaKorisnika = _context.RegistrovaniKorisnici;
+            var lista = _context.PrijateljiTabela;
+            if (lista == null)
+            {
+                return BadRequest("Ne postoje registrovani korisnici u bazi podataka");
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var el in lista)
+            {
+                if (el.IdPosiljaoca == userName)
+                {
+                    if (el.PrihvatioZahtev)
+                    {
+                        foreach (var korisnik in listaKorisnika)
+                        {
+                            if(korisnik.UserName == el.IdPrimaoca)
+                            {
+                                rezultat.Add(korisnik);
+                            }
+                        }
+                    }
+                }
+                else if(el.IdPrimaoca == userName)
+                {
+                    if (el.PrihvatioZahtev)
+                    {
+                        foreach (var korisnik in listaKorisnika)
+                        {
+                            if (korisnik.UserName == el.IdPosiljaoca)
+                            {
+                                rezultat.Add(korisnik);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    
+                }
+
+                
+            }
+
+            return Ok(rezultat);
+        }
+        #endregion
     }
 }

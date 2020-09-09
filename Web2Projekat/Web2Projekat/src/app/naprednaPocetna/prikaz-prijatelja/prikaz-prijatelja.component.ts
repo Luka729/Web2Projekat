@@ -10,6 +10,7 @@ import { UserService } from 'src/app/shared/user.service';
 export class PrikazPrijateljaComponent implements OnInit {
   lista: Array<any>;
   pomocnaLista: Array<any>;
+  listaPrijatelja: Array<any>;
   searchServicRaC: string;
   username: string;
   userID: any;
@@ -23,6 +24,7 @@ export class PrikazPrijateljaComponent implements OnInit {
       this.poslatZahtev=1;
       this.ispisKorisnika(this.username);
       this.dobaviZahteve(this.username);
+      this.ispisPrijatelja(this.username);
     });
   }
 
@@ -44,7 +46,20 @@ export class PrikazPrijateljaComponent implements OnInit {
       }
     );
   }
+  ispisPrijatelja(username:string){
+    this.service.ucitajPrijatelje(username).subscribe(
+      (res: any) => {
+        this.listaPrijatelja = res;
+        console.log(res);
+        console.log("prijatelji ucitani");
+      },
+      err => {
+        console.log(err);
+        console.log("korisnici nisu ucitani");
 
+      }
+    );
+  }
   ispisKorisnika(username: any) {
     this.service.ucitajKorisnika(username).subscribe(
       (res: any) => {

@@ -57,3 +57,29 @@
         </table>        
     </div>
 </div>
+<h1>Lista svih prijatelja</h1>
+<div class="col-xs-6">
+    <div class="table-responsive">
+        <table class="table table-hover" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Ime</th>
+                    <th scope="col">Prezime</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Grad</th>
+                    <th scope="col">Email</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let el of listaPrijatelja" >
+                    <td>{{el.ime}}</td>
+                    <td>{{el.prezime}}</td>
+                    <td>{{el.userName}}</td>
+                    <td>{{el.grad}}</td>
+                    <td>{{el.email}}</td>
+                </tr>              
+            </tbody>
+        </table>        
+    </div>
+</div>

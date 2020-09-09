@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WebApplication1.Model
@@ -29,8 +30,8 @@ namespace WebApplication1.Model
 
         public bool ImaServis { get; set; }
 
-        public ICollection<PrijateljiModel> ListaPrijatelja { get; set; }
-
+        [JsonIgnore]
+        public ICollection<RegistrovaniKorisniciModel> ListaPrijatelja { get; set; }
 
 
     }

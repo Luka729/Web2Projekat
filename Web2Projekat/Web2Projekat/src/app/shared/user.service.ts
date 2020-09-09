@@ -219,7 +219,10 @@ export class UserService {
     dobaviListuZahteva(username:string){
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviListuZahteva/' + username);
     }
+    ucitajPrijatelje(username:string){
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/ListaPrijatelja/' + username);
 
+    }
     prihvatiZahtev(usernamePrijatelja:string,username:string){
         var body = {
             IdPosiljaoca: usernamePrijatelja,
