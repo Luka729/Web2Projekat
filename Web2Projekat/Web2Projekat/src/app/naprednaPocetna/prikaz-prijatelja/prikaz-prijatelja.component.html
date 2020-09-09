@@ -68,7 +68,7 @@
                     <th scope="col">Username</th>
                     <th scope="col">Grad</th>
                     <th scope="col">Email</th>
-
+                    <th scope="col">Obrisi Prijatelja</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,6 +78,7 @@
                     <td>{{el.userName}}</td>
                     <td>{{el.grad}}</td>
                     <td>{{el.email}}</td>
+                    <td><button class="btn btn-danger" (click)="odbijPrijatelja(el.userName,el.prezime)">Odrisi prijatelja </button></td>
                 </tr>              
             </tbody>
         </table>        

@@ -387,7 +387,7 @@ namespace WebApplication1.Controllers
             var listaZahteva = _context.PrijateljiTabela;
             foreach (var el in listaZahteva)
             {
-                if(el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) 
+                if((el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca)||(el.IdPosiljaoca == model.IdPrimaoca && el.IdPrimaoca == model.IdPosiljaoca)) 
                 {
                     return BadRequest();
                 }
@@ -436,12 +436,11 @@ namespace WebApplication1.Controllers
             var listaPrijatelja = _context.PrijateljiTabela;
             foreach (var el in listaPrijatelja)
             {
-                if (el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca)
+                if ((el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) || (el.IdPosiljaoca == model.IdPrimaoca && el.IdPrimaoca == model.IdPosiljaoca))
                 {
                     el.PrihvatioZahtev = true;
                 }
             }
-           
             _context.SaveChanges();
           
             return Ok();
@@ -459,12 +458,13 @@ namespace WebApplication1.Controllers
             {
                 foreach (var el in listaZahteva)
                 {
-                    if(el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) 
+                    if ((el.IdPosiljaoca == model.IdPosiljaoca && el.IdPrimaoca == model.IdPrimaoca) || (el.IdPosiljaoca == model.IdPrimaoca && el.IdPrimaoca == model.IdPosiljaoca))
                     {
                         _context.PrijateljiTabela.Remove(el);
                     }
                 }
             }
+            _context.SaveChanges();
 
             return Ok();
         }
