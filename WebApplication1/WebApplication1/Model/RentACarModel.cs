@@ -35,7 +35,7 @@ namespace WebApplication1.Model
 
         public ICollection<AutomibilModel> SpisakAutomobila { get; set; }
 
-        public string Filijale { get; set; }
+        public ICollection<FilijaleTabela> Filijale { get; set; }
 
         public double Ocena { get; set; }
 

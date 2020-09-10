@@ -31,6 +31,12 @@ export class RentACarService {
 
     })
 
+    filijalaForm = this.fb.group({
+        'adresaProvera' : ['',Validators.required],
+        'gradProvera': ['',Validators.required],
+        'drzavaProvera': ['',Validators.required],
+
+    })
     dodajKola(username: string) {
 
         var body = {
@@ -81,8 +87,30 @@ export class RentACarService {
         return this.http.post(this.BaseURI + '/RentACar/RezervisiAuto', body);
 
     }
+    dodajFilijalu(username: string) {
 
+        var body = {
+            AdresaFilijale: this.filijalaForm.value.adresaProvera,
+            GradFilijale: this.filijalaForm.value.gradProvera,
+            DrzavaFilijale: this.filijalaForm.value.drzavaProvera,
+            Admin:username
+        };
+        return this.http.post(this.BaseURI + '/RentACar/DodajFilijalu/' + username, body);
+    }
+    dobaviListuFilijala(username:string){
+        return this.http.get(this.BaseURI + '/RentACar/DobaviListuFilijala/'+username);
 
+    }
+    ObrisiFilijalu(username:string,adresa:string, grad:string,drzava:string){
+        var body = {
+            AdresaFilijale: adresa,
+            GradFilijale: grad,
+            DrzavaFilijale: drzava,
+            Admin:username
+        };
+        return this.http.post(this.BaseURI + '/RentACar/ObrisiFilijalu/' + username, body);
+
+    }
 
 }
 

@@ -418,5 +418,80 @@ namespace WebApplication1.Controllers
 
         #endregion
 
+
+        #region dodajFilijalu
+        [HttpPost]
+        [Route("DodajFilijalu/{userName}")]
+        public async Task<Object> DodajFilijalu(FilijaleTabela filijale, string userName)
+        {
+            var listaRentACar = _context.RentACar;
+
+
+
+            foreach (var rentACar in listaRentACar)
+            {
+                if (rentACar.Filijale == null)
+                {
+                    rentACar.Filijale = new List<FilijaleTabela>();
+                }
+
+                if (rentACar.Admin == userName)
+                {
+                    
+                    rentACar.Filijale.Add(filijale);
+                    _context.FilijaleTabela.Add(filijale);
+                    break;
+                }
+            }
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        #endregion
+
+        #region DobaviListuFilijala
+        [HttpGet]
+        [Route("DobaviListuFilijala/{userName}")]
+        public IActionResult DobaviListuFilijala(string userName)
+        {
+            var rezultat = new List<FilijaleTabela>();
+            var listaFilijala = _context.FilijaleTabela;
+            foreach (var el in listaFilijala)
+            {
+                if(el.Admin == userName)
+                {
+                    rezultat.Add(el);
+                }
+            }
+
+            return Ok(rezultat);
+        }
+
+        #endregion
+
+        #region obrisiFilijalu
+        [HttpPost]
+        [Route("ObrisiFilijalu/{userName}")]
+        public async Task<Object> ObrisiFilijalu(FilijaleTabela filijale, string userName)
+        {
+            var listaFilijali = _context.FilijaleTabela;
+            var listaRentACar = _context.RentACar;
+
+            foreach (var filijala in listaFilijali)
+            {
+                    if (filijala.Admin == userName && filijala.AdresaFilijale == filijale.AdresaFilijale )
+                    {
+           
+                           // _context.FilijaleTabela.Attach(filijala);
+                            _context.FilijaleTabela.Remove(filijala);
+                            break;
+                        
+                    }     
+            }
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        #endregion
     }
 }

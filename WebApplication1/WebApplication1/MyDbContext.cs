@@ -27,6 +27,7 @@ namespace WebApplication1
 
         public DbSet<PrijateljiModel> PrijateljiTabela { get; set; }
 
+        public DbSet<FilijaleTabela> FilijaleTabela { get; set; }
 
 
 

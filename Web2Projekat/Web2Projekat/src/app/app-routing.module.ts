@@ -21,6 +21,7 @@ import { IzmenaPodatakaORACComponent } from './CarPocetna/izmena-podataka-orac/i
 import { IzmenaPodatakaAKComponent } from './AvioPocetna/izmena-podataka-ak/izmena-podataka-ak.component';
 import { RezervacijaKolaComponent } from './rezervacije/rezervacija-kola/rezervacija-kola.component';
 import { PrikazPrijateljaComponent } from './naprednaPocetna/prikaz-prijatelja/prikaz-prijatelja.component';
+import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filijalu.component';
 const routes: Routes = [
   {
     path: "vozila-ispis/:servisi",
@@ -110,9 +111,12 @@ const routes: Routes = [
     path:'rezervacija-kola/:kolaObjekat/:userNameProvera',
     component:RezervacijaKolaComponent
   },
-  
+  {
+    path:'dodaj-filijalu/:userNameProvera',
+    component:DodajFilijaluComponent
+  },
  
-
+  
 ];
 
 @NgModule({

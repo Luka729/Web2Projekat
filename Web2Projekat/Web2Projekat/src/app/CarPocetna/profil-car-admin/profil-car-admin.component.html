@@ -3,6 +3,34 @@
 <button (click)="dodajKola()" class="btn btn-outline-primary">Dodaj kola</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="dodajCenovnik()" class="btn btn-outline-primary">Dodaj cenovnik</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="dobaviIzvestaj()" class="btn btn-outline-primary">Dobavi izvestaj</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button (click)="dodajFilijalu()" class="btn btn-outline-primary">Dodaj filijalu</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="izmeniPodatke()" class="btn btn-outline-primary">Izmeni podatke</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button (click)="izmeniPodatkeORAC()" class="btn btn-outline-primary">Izmeni o Rent-A-Car servisu</button>
 
+<h1>Lista filijali Vaseg Rent-A-Car kompanije</h1>
+<div class="col-xs-6">
+    <div class="table-responsive">
+        <table class="table table-hover" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ADRESA</th>
+                    <th scope="col">GRAD</th>
+                    <th scope="col">DRZAVA</th>
+                    <th scope="col">IZMENI</th>
+                    <th scope="col">OBRISI</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let filijale of listaFilijala">
+                    <td>{{filijale.adresaFilijale}}</td>
+                    <td>{{filijale.gradFilijale}}</td>
+                    <td>{{filijale.drzavaFilijale}}</td>
+                    <td><button class="btn btn-success"  (click)="izmeniFilijale(filijale.id)">IZMENI</button></td>
+                    <td><button class="btn btn-danger"  (click)="obrisiFilijalu(filijale.admin,filijale.adresaFilijale,filijale.gradFilijale,filijale.drzavaFilijale)">OBRISI</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
