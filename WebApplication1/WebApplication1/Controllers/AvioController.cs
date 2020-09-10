@@ -93,6 +93,7 @@ namespace WebApplication1.Controllers
         {
             var avioKompanija = new AvioKompanijaModel();
 
+
             var listaAvioKompanija = _context.Aviokompanija;
             if (listaAvioKompanija.Count() == 0)
             {
@@ -131,6 +132,8 @@ namespace WebApplication1.Controllers
             avioKompanija.Adresa = avioServisi.Adresa;
             avioKompanija.PromoOpis = avioServisi.PromotivniOpis;
             avioKompanija.Admin = avioServisi.Admin;
+            var adminn = await userManager.FindByNameAsync(avioKompanija.Admin);
+            adminn.ImaServis = true;
 
             try
             {
@@ -156,7 +159,7 @@ namespace WebApplication1.Controllers
 
             var lista = _context.Aviokompanija;
             var listaLetova = _context.LetoviTabela;
-            
+
             if (lista == null)
             {
                 return NotFound("Ne postoje Avio kompanije u bazi podataka");
@@ -169,7 +172,7 @@ namespace WebApplication1.Controllers
                 {
                     foreach (var let in listaLetova)
                     {
-                        if(let.avioKompanija.Id == el.Id)
+                        if (let.avioKompanija.Id == el.Id)
                         {
                             rezultat.Add(let);
                         }
@@ -177,7 +180,7 @@ namespace WebApplication1.Controllers
                 }
 
             }
-            
+
             return Ok(rezultat);
         }
         #endregion
@@ -232,11 +235,6 @@ namespace WebApplication1.Controllers
                     {
                         return BadRequest("Datum sletanja ne moze biti pre datuma poletanja");
                     }
-                }
-                else
-                {
-                    return BadRequest("Ne postoji avio kompanija kome ste vi Admin");
-
                 }
 
             }

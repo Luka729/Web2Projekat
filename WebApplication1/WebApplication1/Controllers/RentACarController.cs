@@ -179,7 +179,7 @@ namespace WebApplication1.Controllers
         public async Task<Object> UpisUBazu(RentACarKlasa rentACarServisi)
         {
             var rentACar = new RentACarModel();
-
+            
             var listaRentACar = _context.RentACar;
             if (listaRentACar.Count() == 0)
             {
@@ -218,6 +218,8 @@ namespace WebApplication1.Controllers
             rentACar.AdresaServisa = rentACarServisi.Adresa;
             rentACar.PromoOpis = rentACarServisi.PromotivniOpis;
             rentACar.Admin = rentACarServisi.Admin;
+            var adminn = await userManager.FindByNameAsync(rentACarServisi.Admin);
+            adminn.ImaServis = true;
 
             try
             {
