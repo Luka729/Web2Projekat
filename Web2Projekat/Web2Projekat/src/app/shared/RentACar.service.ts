@@ -111,6 +111,15 @@ export class RentACarService {
         return this.http.post(this.BaseURI + '/RentACar/ObrisiFilijalu/' + username, body);
 
     }
+    izmeniFilijalu(id:string){
+        var body = {
+            AdresaFilijale: this.filijalaForm.value.adresaProvera,
+            GradFilijale: this.filijalaForm.value.gradProvera,
+            DrzavaFilijale: this.filijalaForm.value.drzavaProvera,
+        };
+        return this.http.post(this.BaseURI + '/RentACar/IzmeniFilijalu/'+id, body);
+
+    }
 
 }
 

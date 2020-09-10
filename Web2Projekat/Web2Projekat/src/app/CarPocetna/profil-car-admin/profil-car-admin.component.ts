@@ -74,5 +74,7 @@ export class ProfilCarAdminComponent implements OnInit {
       }
     );
   }
-  izmeniFilijale(id:string){}
+  izmeniFilijale(id:string){
+    this.router.navigateByUrl('/izmeni-filijalu/' + id);
+  }
 }

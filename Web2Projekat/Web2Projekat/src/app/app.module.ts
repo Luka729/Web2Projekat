@@ -36,6 +36,7 @@ import { NapredniNavbarComponent } from './naprednaPocetna/napredni-navbar/napre
 import { RezervacijaKolaComponent } from './rezervacije/rezervacija-kola/rezervacija-kola.component';
 import { PrikazPrijateljaComponent } from './naprednaPocetna/prikaz-prijatelja/prikaz-prijatelja.component';
 import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filijalu.component';
+import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-filijalu.component';
 
 let config = new AuthServiceConfig([
   {
@@ -75,6 +76,7 @@ export function provideConfig()
     RezervacijaKolaComponent,
     PrikazPrijateljaComponent,
     DodajFilijaluComponent,
+    IzmeniFilijaluComponent,
   ],
   imports: [
     BrowserModule,

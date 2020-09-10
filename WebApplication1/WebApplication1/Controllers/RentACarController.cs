@@ -475,18 +475,41 @@ namespace WebApplication1.Controllers
         public async Task<Object> ObrisiFilijalu(FilijaleTabela filijale, string userName)
         {
             var listaFilijali = _context.FilijaleTabela;
-            var listaRentACar = _context.RentACar;
 
             foreach (var filijala in listaFilijali)
             {
                     if (filijala.Admin == userName && filijala.AdresaFilijale == filijale.AdresaFilijale )
                     {
            
-                           // _context.FilijaleTabela.Attach(filijala);
                             _context.FilijaleTabela.Remove(filijala);
                             break;
                         
                     }     
+            }
+            _context.SaveChanges();
+
+            return Ok();
+        }
+        #endregion
+
+        #region izmeniFilijalu
+        [HttpPost]
+        [Route("IzmeniFilijalu/{id}")]
+        public async Task<Object> IzmeniFilijalu(FilijaleTabela filijale, string id)
+        {
+            var listaFilijali = _context.FilijaleTabela;
+
+            foreach (var filijala in listaFilijali)
+            {
+                if (filijala.Id == Int32.Parse(id))
+                {
+                    filijala.AdresaFilijale = filijale.AdresaFilijale;
+                    filijala.GradFilijale = filijale.GradFilijale;
+                    filijala.DrzavaFilijale = filijale.DrzavaFilijale;
+                    _context.FilijaleTabela.Update(filijala);
+                    break;
+
+                }
             }
             _context.SaveChanges();
 

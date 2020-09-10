@@ -1,0 +1,47 @@
+<form [formGroup]="service.filijalaForm" (ngSubmit)="onSubmit()">
+    <table align="center">
+        <tr>
+            <td>
+                <label>Unesite Adresu:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="adresaProvera" class="form-control" id="adresaProvera">
+                <div *ngIf="service.filijalaForm.controls.adresaProvera.invalid">
+                    Molimo Vas unesite adresu
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite naziv grada:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="gradProvera" class="form-control">
+                <div *ngIf="service.filijalaForm.controls.gradProvera.invalid">
+                    Molimo Vas unesite grad
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Unesite naziv drzave:</label>
+            </td>
+            <td>
+                <input type="text" formControlName="drzavaProvera" class="form-control">
+                <div *ngIf="service.filijalaForm.controls.drzavaProvera.invalid">
+                    Molimo Vas unesite drzavu
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" value="Submit" class="btn btn-outline-primary" [disabled]="!service.filijalaForm.valid">
+            </td>
+        </tr>
+    </table>
+
+</form>

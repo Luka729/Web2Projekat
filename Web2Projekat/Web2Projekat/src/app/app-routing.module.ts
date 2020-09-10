@@ -22,6 +22,7 @@ import { IzmenaPodatakaAKComponent } from './AvioPocetna/izmena-podataka-ak/izme
 import { RezervacijaKolaComponent } from './rezervacije/rezervacija-kola/rezervacija-kola.component';
 import { PrikazPrijateljaComponent } from './naprednaPocetna/prikaz-prijatelja/prikaz-prijatelja.component';
 import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filijalu.component';
+import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-filijalu.component';
 const routes: Routes = [
   {
     path: "vozila-ispis/:servisi",
@@ -114,6 +115,10 @@ const routes: Routes = [
   {
     path:'dodaj-filijalu/:userNameProvera',
     component:DodajFilijaluComponent
+  },
+  {
+    path:'izmeni-filijalu/:id',
+    component:IzmeniFilijaluComponent
   },
  
   
