@@ -172,6 +172,10 @@ namespace WebApplication1.Controllers
                 {
                     foreach (var let in listaLetova)
                     {
+                        if(let.avioKompanija == null) 
+                        {
+                            continue;
+                        }
                         if (let.avioKompanija.Id == el.Id)
                         {
                             rezultat.Add(let);
@@ -243,6 +247,30 @@ namespace WebApplication1.Controllers
 
         }
         #endregion
+
+        [HttpGet]
+        [Route("DobaviListuLetova/{PolazniAerodrom}/{OdredisniAerodrom}/{DatumPolaska}/{DatumPovratka}")]
+        public IActionResult DobaviListuLetova(string PolazniAerodrom, string OdredisniAerodrom, DateTime DatumPolaska, DateTime DatumPovratka)
+        {
+
+            var lista = _context.LetoviTabela;
+            if (lista == null)
+            {
+                return NotFound("Ne postoje Avio kompanije u bazi podataka");
+
+            }
+            var rezultat = new List<LetoviModel>();
+
+            foreach (var el in lista)
+            {
+                if (el.LokacijaPoletanja == PolazniAerodrom && el.LokacijaSletanja == OdredisniAerodrom && el.DatumPoletanja.Date == DatumPolaska.Date && el.DatumSletanja == DatumPovratka.Date)
+                {
+                    rezultat.Add(el);
+                }
+                
+            }
+            return Ok(rezultat);
+        }
     }
 
 

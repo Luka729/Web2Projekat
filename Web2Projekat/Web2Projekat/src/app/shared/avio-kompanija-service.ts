@@ -29,6 +29,15 @@ export class AvioKompanijaService {
         'brojSlobodnihMestaProvera': ['', Validators.required]
     })
 
+    pretragaLetaForm = this.fb.group({
+        'polazniAerodromProvera': ['', Validators.required],
+        'odredisniAerodromProvera': ['', Validators.required],
+        'datumPolaskaProvera': ['', Validators.required],
+        'datumPovratkaProvera': ['', Validators.required],
+    })
+
+    //pretragaLetaForm = this.fb.group({})
+
     ListaAvioKompanija() {
         return this.http.get(this.BaseURI + '/Avio/DobaviListuAvioKompanija');
 
@@ -68,5 +77,14 @@ export class AvioKompanijaService {
         };
         return this.http.post(this.BaseURI + '/Avio/DodajLet/' + username, body);
 
+    }
+
+    dobaviSveLetove(){
+        var PolazniAerodrom=this.pretragaLetaForm.value.polazniAerodromProvera;
+        var OdredisniAerodrom =this.pretragaLetaForm.value.odredisniAerodromProvera;
+        var DatumPolaska =this.pretragaLetaForm.value.datumPolaskaProvera;
+        var DatumPovratka = this.pretragaLetaForm.value.datumPovratkaProvera;
+
+        return this.http.get(this.BaseURI + '/Avio/DobaviListuLetova/'+PolazniAerodrom+'/'+OdredisniAerodrom+'/'+DatumPolaska+'/'+DatumPovratka);
     }
 }
