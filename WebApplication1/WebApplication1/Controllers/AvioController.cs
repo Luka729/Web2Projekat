@@ -263,7 +263,9 @@ namespace WebApplication1.Controllers
 
             foreach (var el in lista)
             {
-                if (el.LokacijaPoletanja == PolazniAerodrom && el.LokacijaSletanja == OdredisniAerodrom && el.DatumPoletanja.Date == DatumPolaska.Date && el.DatumSletanja == DatumPovratka.Date)
+                int komparacijaDatumaPoletanja = DateTime.Compare(el.DatumPoletanja.Date, DatumPolaska.Date);
+                int komparacijaDatumaSletanja = DateTime.Compare(el.DatumSletanja.Date, DatumPovratka.Date);
+                if (el.LokacijaPoletanja == PolazniAerodrom && el.LokacijaSletanja == OdredisniAerodrom && komparacijaDatumaPoletanja == 0 && komparacijaDatumaSletanja == 0)
                 {
                     rezultat.Add(el);
                 }

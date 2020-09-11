@@ -10,24 +10,25 @@ import { AvioKompanijaService } from 'src/app/shared/avio-kompanija-service';
 export class RezervacijaAvioComponent implements OnInit {
 
   lista: Array<any>;
-  
+  listaLetova: Array<any>
 
- 
-  constructor(private route:ActivatedRoute, private router: Router, public service:AvioKompanijaService) { 
+
+
+  constructor(private route: ActivatedRoute, private router: Router, public service: AvioKompanijaService) {
     this.ListaAviokompanija();
   }
 
   ngOnInit(): void {
   }
 
-  ucitajLetove(letovi:any) :void{
-    this.router.navigateByUrl('/letovi-ispis/'+letovi);
+  ucitajLetove(letovi: any): void {
+    this.router.navigateByUrl('/letovi-ispis/' + letovi);
   }
 
-  ListaAviokompanija() :void{
+  ListaAviokompanija(): void {
     this.service.ListaAvioKompanija().subscribe(
-      (res: any) => {   
-        this.lista=res;  
+      (res: any) => {
+        this.lista = res;
       },
       err => {
         console.log(err);
@@ -36,13 +37,13 @@ export class RezervacijaAvioComponent implements OnInit {
   }
 
 
-  onSubmit(){
+  onSubmit() {
     this.service.dobaviSveLetove().subscribe(
-      (res: any) => {         
+      (res: any) => {
         //this.service.RezervacijaForm.reset();
         //this.router.navigateByUrl('/profil-avio-admin/');
-        this.lista = res;
-        console.log(this.lista);
+        this.listaLetova = res;
+        console.log(this.listaLetova);
         console.log("letovi su ispisani");
       },
       err => {
