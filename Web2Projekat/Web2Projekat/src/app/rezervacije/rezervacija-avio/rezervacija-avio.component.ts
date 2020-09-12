@@ -25,6 +25,10 @@ export class RezervacijaAvioComponent implements OnInit {
     this.router.navigateByUrl('/letovi-ispis/' + letovi);
   }
 
+  ucitajStranicuZaIzborSedista(lett: any): void{
+    this.router.navigateByUrl('/odabir-sedista/' + lett);
+  }
+
   ListaAviokompanija(): void {
     this.service.ListaAvioKompanija().subscribe(
       (res: any) => {

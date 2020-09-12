@@ -87,4 +87,8 @@ export class AvioKompanijaService {
 
         return this.http.get(this.BaseURI + '/Avio/DobaviListuLetova/'+PolazniAerodrom+'/'+OdredisniAerodrom+'/'+DatumPolaska+'/'+DatumPovratka);
     }
+
+    dobaviLet(id:string){
+        return this.http.get(this.BaseURI + '/Avio/DobaviLet/'+id);
+    }
 }

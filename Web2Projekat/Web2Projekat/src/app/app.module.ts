@@ -39,6 +39,7 @@ import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filija
 import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-filijalu.component';
 import { RezervacijaAvioComponent } from './rezervacije/rezervacija-avio/rezervacija-avio.component';
 import { NadjeniLetoviComponent } from './rezervacije/nadjeni-letovi/nadjeni-letovi.component';
+import { IzaberiSedisteComponent } from './rezervacije/izaberi-sediste/izaberi-sediste.component';
 
 let config = new AuthServiceConfig([
   {
@@ -81,6 +82,7 @@ export function provideConfig()
     IzmeniFilijaluComponent,
     RezervacijaAvioComponent,
     NadjeniLetoviComponent,
+    IzaberiSedisteComponent,
   ],
   imports: [
     BrowserModule,

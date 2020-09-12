@@ -29,6 +29,8 @@ namespace WebApplication1
 
         public DbSet<FilijaleTabela> FilijaleTabela { get; set; }
 
+        public DbSet<SedistaTabela> SedistaTabela { get; set; }
+
 
 
     }

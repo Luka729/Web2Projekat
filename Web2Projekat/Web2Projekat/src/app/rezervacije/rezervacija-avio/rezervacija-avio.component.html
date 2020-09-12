@@ -100,18 +100,21 @@
                     <th scope="col">BROJ PRESEDANJA</th>
                     <th scope="col">VREME TRAJANJA LETA</th>
                     <th scope="col">NAZIV AVIOKOMPANIJE</th>
+                    <th scope="col">SLOBODNA</th>
                     <th scope="col">CENA</th>
+                    <th scope="col">REZERVISI</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let lett of listaLetova">
                     <td>{{lett.datumPoletanja}}</td>
                     <td>{{lett.datumSletanja}}</td>
-                    <td>{{lett.datumSletanja-lett.datumPoletanja}}</td>
                     <td>{{lett.brojPresedanja}}</td>
-                    <td>{{lett.Aviokompanija.id}}</td>
+                    <td>{{lett.datumSletanja-lett.datumPoletanja}}</td>
+                    <td>{{lett.AviokompanijaId}}</td>
+                    <td>{{lett.slobodnaMesta}}</td>
                     <td>{{lett.cenaKarte}}</td>
-                   <!-- <td><button class="btn btn-success" (click)="ucitajLetove(av.naziv)"> Vidi letove</button></td> -->
+                    <td><button class="btn btn-success" (click)="ucitajStranicuZaIzborSedista(lett.id)"> Rezervisi</button></td>
                 </tr>
                 
             </tbody>

@@ -24,7 +24,7 @@ import { PrikazPrijateljaComponent } from './naprednaPocetna/prikaz-prijatelja/p
 import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filijalu.component';
 import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-filijalu.component';
 import { RezervacijaAvioComponent } from './rezervacije/rezervacija-avio/rezervacija-avio.component';
-import { NadjeniLetoviComponent } from './rezervacije/nadjeni-letovi/nadjeni-letovi.component';
+import { IzaberiSedisteComponent } from './rezervacije/izaberi-sediste/izaberi-sediste.component';
 const routes: Routes = [
   {
     path: "vozila-ispis/:servisi",
@@ -34,9 +34,10 @@ const routes: Routes = [
     path: "letovi-ispis/:letovi",
     component: LetoviIspisComponent
   },
-
-
-  
+  {
+    path: "odabir-sedista/:lett",
+    component: IzaberiSedisteComponent
+  },  
   {
     path: "logovanje",
     component: LogovanjeComponent
@@ -124,10 +125,6 @@ const routes: Routes = [
   {
     path:'rezervacija-avio',
     component:RezervacijaAvioComponent
-  },
-  {
-    path:'nadjeni-letovi',
-    component:NadjeniLetoviComponent
   },
 
  

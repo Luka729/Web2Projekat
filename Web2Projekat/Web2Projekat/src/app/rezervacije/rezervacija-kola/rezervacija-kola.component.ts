@@ -21,8 +21,6 @@ export class RezervacijaKolaComponent implements OnInit {
       this.ispisAuta(this.kolaID);
 
     });
-    //hocu da dobavim auto sa tim ID, da ga ispisem, da omogucim korisniku da bira datum od kog do kog zeli
-    //da rezervise taj auto i da taj auto dodam u listu kola koja je taj korisnik registrovo
   }
 
   ispisAuta(ID:any){

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200912162453_DodataSedista3")]
+    partial class DodataSedista3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -350,10 +352,15 @@ namespace WebApplication1.Migrations
                     b.Property<int>("SlobodnaMesta")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SlobodnaMestaModelId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("avioKompanijaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SlobodnaMestaModelId");
 
                     b.HasIndex("avioKompanijaId");
 
@@ -455,15 +462,10 @@ namespace WebApplication1.Migrations
                     b.Property<int>("IdLeta")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LetoviModelId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Zauzeto")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LetoviModelId");
 
                     b.ToTable("Sedista");
                 });
@@ -567,16 +569,13 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Model.LetoviModel", b =>
                 {
+                    b.HasOne("WebApplication1.Model.SedistaTabela", "SlobodnaMestaModel")
+                        .WithMany()
+                        .HasForeignKey("SlobodnaMestaModelId");
+
                     b.HasOne("WebApplication1.Model.AvioKompanijaModel", "avioKompanija")
                         .WithMany("spisakLetova")
                         .HasForeignKey("avioKompanijaId");
-                });
-
-            modelBuilder.Entity("WebApplication1.Model.SedistaTabela", b =>
-                {
-                    b.HasOne("WebApplication1.Model.LetoviModel", null)
-                        .WithMany("SlobodnaMestaModel")
-                        .HasForeignKey("LetoviModelId");
                 });
 
             modelBuilder.Entity("WebApplication1.Model.RegistrovaniKorisniciModel", b =>

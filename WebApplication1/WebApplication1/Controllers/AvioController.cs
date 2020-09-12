@@ -172,7 +172,7 @@ namespace WebApplication1.Controllers
                 {
                     foreach (var let in listaLetova)
                     {
-                        if(let.avioKompanija == null) 
+                        if (let.avioKompanija == null)
                         {
                             continue;
                         }
@@ -219,6 +219,7 @@ namespace WebApplication1.Controllers
         public async Task<Object> DodajLet(LetoviModel letModel, string userName)
         {
             var listaAvio = _context.Aviokompanija;
+            var listaSedista = _context.SedistaTabela;
             int poredjenjeDatuma = DateTime.Compare(letModel.DatumSletanja, letModel.DatumPoletanja);
             foreach (var el in listaAvio)
             {
@@ -231,6 +232,20 @@ namespace WebApplication1.Controllers
                 {
                     if (poredjenjeDatuma >= 0)
                     {
+
+                        List<SedistaTabela> sedista = new List<SedistaTabela>();
+                        SedistaTabela sediste = new SedistaTabela();
+                        for (int i = 0; i < letModel.SlobodnaMesta; i++)
+                        {
+                            sediste.IdLeta = el.Id;
+                            sediste.BrojSedista = i;
+                            sediste.Zauzeto = true;
+                            sedista.Add(sediste);
+                            listaSedista.Add(sediste);
+                        }
+
+                        
+                        letModel.SlobodnaMestaModel = sedista;
                         el.spisakLetova.Add(letModel);
                         _context.LetoviTabela.Add(letModel);
                         break;
@@ -269,8 +284,30 @@ namespace WebApplication1.Controllers
                 {
                     rezultat.Add(el);
                 }
-                
+
             }
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
+        [Route("DobaviLet/{id}")]
+
+        public IActionResult DobaviLet(string id)
+        {
+
+            var listaLetova = _context.LetoviTabela;
+            var rezultat = new LetoviModel();
+
+            foreach (var el in listaLetova)
+            {
+
+                if (el.Id == Int32.Parse(id))
+                {
+                    rezultat = el;
+                    break;
+                }
+            }
+
             return Ok(rezultat);
         }
     }

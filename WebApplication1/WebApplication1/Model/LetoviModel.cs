@@ -34,13 +34,15 @@ namespace WebApplication1.Model
         [Required]
         public int SlobodnaMesta { get; set; }
 
+        public List<SedistaTabela> SlobodnaMestaModel { get; set; }
+
         [Required]
         public string LokacijaPoletanja { get; set; }
 
         [Required]
         public string LokacijaSletanja { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public AvioKompanijaModel avioKompanija { get; set; }
 
     }
