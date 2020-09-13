@@ -22,12 +22,15 @@ export class ProfilAvioAdminComponent implements OnInit {
   definisiDestinacije(){
 
   }
+
   dodajNovLet()
   {
     this.router.navigateByUrl('/dodaj-let/' + this.username);
   }
   definisiCenovnik(){}
-  dobaviIzvestaj(){}
+  dobaviIzvestaj(){
+    this.router.navigateByUrl('/izvestaj');
+  }
   izmeniPodatke(){
     console.log("USERNAME U FUNKCIJI:"+this.username);
 

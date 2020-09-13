@@ -234,20 +234,21 @@ namespace WebApplication1.Controllers
                     {
 
                         List<SedistaTabela> sedista = new List<SedistaTabela>();
-                        SedistaTabela sediste = new SedistaTabela();
+                        SedistaTabela sediste;
                         for (int i = 0; i < letModel.SlobodnaMesta; i++)
                         {
-                            sediste.IdLeta = el.Id;
-                            sediste.BrojSedista = i;
-                            sediste.Zauzeto = true;
+                            sediste = new SedistaTabela() { IdLeta = 7, BrojSedista = i, Zauzeto = false };
                             sedista.Add(sediste);
-                            listaSedista.Add(sediste);
+                            _context.SedistaTabela.Add(sediste);
                         }
 
                         
                         letModel.SlobodnaMestaModel = sedista;
                         el.spisakLetova.Add(letModel);
                         _context.LetoviTabela.Add(letModel);
+
+                        
+
                         break;
                     }
                     else
@@ -256,6 +257,15 @@ namespace WebApplication1.Controllers
                     }
                 }
 
+            }
+            _context.SaveChanges();
+            foreach (var item in _context.SedistaTabela)
+            {
+                if(item.IdLeta == 7) 
+                {
+                    item.IdLeta = letModel.Id;
+                }
+                
             }
             _context.SaveChanges();
             return Ok();
@@ -310,6 +320,84 @@ namespace WebApplication1.Controllers
 
             return Ok(rezultat);
         }
+
+        [HttpGet]
+        [Route("DobaviSedista/{id}")]
+
+        public IActionResult DobaviSedista(string id)//idLeta
+        {
+
+            var listaSedista = _context.SedistaTabela;
+            var rezultat = new List<SedistaTabela>();
+
+            foreach (var el in listaSedista)
+            {
+                if (el.IdLeta == Int32.Parse(id))
+                {
+                    rezultat.Add(el);
+                }
+            }
+
+            return Ok(rezultat);
+        }
+
+        [HttpGet]
+        [Route("Rezervisi/{letId}/{ticketIDs}/{userId}")]
+
+        public async Task<Object> Rezervisi(string letId, string ticketIDs, string userId) 
+        {
+            var listaRezervacija = _context.RezervacijaTabela;
+            RezervacijaModel model = new RezervacijaModel();
+            var listaSedista = _context.SedistaTabela;
+            string[] mojrR = null;
+            model.IdKorisnika = userId;
+            model.IdLetova = int.Parse(letId);
+
+            var listaSdista = _context.SedistaTabela;
+           
+                foreach (var i in listaSedista)
+                {
+                    mojrR = ticketIDs.Split(',');
+                    foreach (var u in mojrR)
+                    {
+                        if (i.BrojSedista.ToString() == u)
+                        {
+                            i.Zauzeto = true;                   
+                        }
+                    }
+                   
+                }  
+            
+            _context.SaveChanges();
+
+            model.BrojevisSedista = ticketIDs;
+
+            if (listaRezervacija == null) 
+            {
+                listaRezervacija.Add(model);
+                _context.SaveChanges();
+
+            }
+            else
+            {
+
+                listaRezervacija.Add(model);
+                _context.SaveChanges();
+
+
+
+            }
+            var listaLetova = _context.LetoviTabela;
+
+
+          
+
+
+
+
+            return Ok();
+        }
+
     }
 
 

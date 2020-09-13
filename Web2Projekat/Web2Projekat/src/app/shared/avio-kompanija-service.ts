@@ -91,4 +91,12 @@ export class AvioKompanijaService {
     dobaviLet(id:string){
         return this.http.get(this.BaseURI + '/Avio/DobaviLet/'+id);
     }
+
+    dobaviSedista(id:string){
+        return this.http.get(this.BaseURI + '/Avio/DobaviSedista/'+id);
+    }
+    
+    rezervisi(letId: string, ticketIDs: string, userId:string){
+        return this.http.get(this.BaseURI + '/Avio/Rezervisi/' + letId + '/' + ticketIDs + '/' + userId); 
+    }
 }

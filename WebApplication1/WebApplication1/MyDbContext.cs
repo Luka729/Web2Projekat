@@ -31,6 +31,8 @@ namespace WebApplication1
 
         public DbSet<SedistaTabela> SedistaTabela { get; set; }
 
+        public DbSet<RezervacijaModel> RezervacijaTabela { get; set; }
+
 
 
     }

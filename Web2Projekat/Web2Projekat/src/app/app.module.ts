@@ -40,6 +40,7 @@ import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-fil
 import { RezervacijaAvioComponent } from './rezervacije/rezervacija-avio/rezervacija-avio.component';
 import { NadjeniLetoviComponent } from './rezervacije/nadjeni-letovi/nadjeni-letovi.component';
 import { IzaberiSedisteComponent } from './rezervacije/izaberi-sediste/izaberi-sediste.component';
+import { IzvestajComponent } from './AvioPocetna/izvestaj/izvestaj.component';
 
 let config = new AuthServiceConfig([
   {
@@ -83,6 +84,7 @@ export function provideConfig()
     RezervacijaAvioComponent,
     NadjeniLetoviComponent,
     IzaberiSedisteComponent,
+    IzvestajComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +92,7 @@ export function provideConfig()
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
     ToastrModule.forRoot({
       progressBar:true
     }),

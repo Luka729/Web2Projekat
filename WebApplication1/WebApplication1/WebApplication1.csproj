@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200904145315_PromenaTipaDatuma.cs" />
     <Compile Remove="Migrations\20200904145315_PromenaTipaDatuma.Designer.cs" />
+    <Compile Remove="Migrations\20200913185108_UpdatovaneTabeleSedistaLetovaiRezervacija.cs" />
+    <Compile Remove="Migrations\20200913185108_UpdatovaneTabeleSedistaLetovaiRezervacija.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

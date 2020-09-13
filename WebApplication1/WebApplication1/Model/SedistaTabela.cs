@@ -18,5 +18,7 @@ namespace WebApplication1.Model
         public int BrojSedista { get; set; }
 
         public bool Zauzeto { get; set; }
+
+        public RezervacijaModel rezervacija { get; set; }
     }
 }

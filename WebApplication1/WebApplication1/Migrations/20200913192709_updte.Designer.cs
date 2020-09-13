@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200913192709_updte")]
+    partial class updte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,8 +430,8 @@ namespace WebApplication1.Migrations
                     b.Property<string>("BrojevisSedista")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdKorisnika")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdKorisnika")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdLetova")
                         .HasColumnType("int");

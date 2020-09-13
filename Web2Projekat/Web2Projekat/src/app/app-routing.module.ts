@@ -25,6 +25,7 @@ import { DodajFilijaluComponent } from './CarPocetna/dodaj-filijalu/dodaj-filija
 import { IzmeniFilijaluComponent } from './CarPocetna/izmeni-filijalu/izmeni-filijalu.component';
 import { RezervacijaAvioComponent } from './rezervacije/rezervacija-avio/rezervacija-avio.component';
 import { IzaberiSedisteComponent } from './rezervacije/izaberi-sediste/izaberi-sediste.component';
+import { IzvestajComponent } from './AvioPocetna/izvestaj/izvestaj.component';
 const routes: Routes = [
   {
     path: "vozila-ispis/:servisi",
@@ -125,6 +126,10 @@ const routes: Routes = [
   {
     path:'rezervacija-avio',
     component:RezervacijaAvioComponent
+  },
+  {
+    path:'izvestaj',
+    component:IzvestajComponent
   },
 
  

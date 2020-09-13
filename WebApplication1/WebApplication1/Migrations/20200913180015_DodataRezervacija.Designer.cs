@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1;
 
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200913180015_DodataRezervacija")]
+    partial class DodataRezervacija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -425,11 +427,8 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BrojevisSedista")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdKorisnika")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdKorisnika")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdLetova")
                         .HasColumnType("int");
@@ -479,17 +478,17 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("LetoviModelId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RezervacijaModelId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Zauzeto")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("rezervacijaId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LetoviModelId");
 
-                    b.HasIndex("rezervacijaId");
+                    b.HasIndex("RezervacijaModelId");
 
                     b.ToTable("Sedista");
                 });
@@ -604,9 +603,9 @@ namespace WebApplication1.Migrations
                         .WithMany("SlobodnaMestaModel")
                         .HasForeignKey("LetoviModelId");
 
-                    b.HasOne("WebApplication1.Model.RezervacijaModel", "rezervacija")
+                    b.HasOne("WebApplication1.Model.RezervacijaModel", null)
                         .WithMany("SpisakSedista")
-                        .HasForeignKey("rezervacijaId");
+                        .HasForeignKey("RezervacijaModelId");
                 });
 
             modelBuilder.Entity("WebApplication1.Model.RegistrovaniKorisniciModel", b =>
