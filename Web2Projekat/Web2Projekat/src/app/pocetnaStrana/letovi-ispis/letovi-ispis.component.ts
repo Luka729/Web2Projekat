@@ -63,11 +63,10 @@ export class LetoviIspisComponent implements OnInit {
   }
   Search(){
     this.listaLetova = this.listaLetova.filter(res=>{
-      return res.lokacijaPoletanja.toLocaleLowerCase().match(this.searchFlight.toLocaleLowerCase()), res.lokacijaSletanja.toLocaleLowerCase().match(this.searchFlight2.toLocaleLowerCase());
+      return res.lokacijaPoletanja.toLocaleLowerCase().match(this.searchFlight.toLocaleLowerCase());
         });
-    if(this.searchFlight =="" || this.searchFlight2==""){
+    if(this.searchFlight ==""){
       this.listaLetova = this.listaPomocnaLetova;
     }
   }
-  
 }

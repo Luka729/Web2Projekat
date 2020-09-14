@@ -36,7 +36,6 @@ export class AvioKompanijaService {
         'datumPovratkaProvera': ['', Validators.required],
     })
 
-    //pretragaLetaForm = this.fb.group({})
 
     ListaAvioKompanija() {
         return this.http.get(this.BaseURI + '/Avio/DobaviListuAvioKompanija');
