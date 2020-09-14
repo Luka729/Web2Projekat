@@ -11,6 +11,10 @@ export class AvioKompanijaService {
     }
     readonly BaseURI = 'http://localhost:58544/api';
 
+    prijateljForma =this.fb.group({
+        'prijateljProvera' :['',Validators.required],
+    })
+
     
     izmenaAKForm = this.fb.group({
         'nazivProvera' :['',Validators.required],
@@ -97,5 +101,11 @@ export class AvioKompanijaService {
     
     rezervisi(letId: string, ticketIDs: string, userId:string){
         return this.http.get(this.BaseURI + '/Avio/Rezervisi/' + letId + '/' + ticketIDs + '/' + userId); 
+    }
+
+    rezervisiZaPrijatelja(letId: string, ticketIDs: string){
+        var prijatelj = this.prijateljForma.value.prijateljProvera;
+        
+        return this.http.get(this.BaseURI + '/Avio/RezervisiZaPrijatelja/' + letId + '/' + ticketIDs+'/'+prijatelj); 
     }
 }

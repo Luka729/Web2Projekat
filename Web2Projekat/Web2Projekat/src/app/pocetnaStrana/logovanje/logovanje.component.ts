@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/shared/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -73,13 +74,57 @@ export class LogovanjeComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res.token);
         if (this.loginForm.UserName.indexOf("AvioAdmin") !== -1) {
+          const helper = new JwtHelperService();
+          const decodedToken = helper.decodeToken(res.token);
+          if(decodedToken.FirstLogin === "True"){
+            var tenure = prompt("Prvo logovanje, molimo unesite novu sifru:","");
+            var body= {
+              IdToken: decodedToken.UserID,
+              Password: tenure
+            }
           
-          this.router.navigateByUrl('/profil-avio-admin/' + this.loginForm.UserName);
-        }
+              this.service.promenaSifrePrvoLogovanje(body).subscribe((res: any)=>{
+                if(res.succeded){
+                  alert('Changing password sucesffully');
+                  console.log(body);
+                  this.router.navigateByUrl('/profil-avio-admin/' + this.loginForm.UserName);
+
+                }
+              },
+              err =>{
+                alert('username or password is incorrect');
+              })
+            }
+            this.router.navigateByUrl('/profil-avio-admin/' + this.loginForm.UserName);
+
+          }
+        
         else if (this.loginForm.UserName.indexOf("CarAdmin") !== -1) {
+          const helper = new JwtHelperService();
+          const decodedToken = helper.decodeToken(res.token);
+          if(decodedToken.FirstLogin === "True"){
+            var tenure = prompt("Prvo logovanje, molimo unesite novu sifru:","");
+            var body= {
+              IdToken: decodedToken.UserID,
+              Password: tenure
+            }
+          
+              this.service.promenaSifrePrvoLogovanje(body).subscribe((res: any)=>{
+                if(res.succeded){
+                  alert('Changing password sucesffully');
+                  console.log(body);
+                  this.router.navigateByUrl('/profil-car-admin/' + this.loginForm.UserName);
+                }
+              },
+              err =>{
+                alert('username or password is incorrect');
+              })
+            }
+            this.router.navigateByUrl('/profil-car-admin/' + this.loginForm.UserName);
+          }
          
-          this.router.navigateByUrl('/profil-car-admin/' + this.loginForm.UserName);
-        }
+      
+        
         else if (this.loginForm.UserName.indexOf("MainAdmin") !== -1) {
           
           this.router.navigateByUrl('/profil-main-admin/' + this.loginForm.UserName);

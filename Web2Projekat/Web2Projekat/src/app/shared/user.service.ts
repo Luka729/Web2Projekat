@@ -208,37 +208,46 @@ export class UserService {
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviListuKorisnika/' + username);
     }
 
-    dodajPrijatelja(usernamePosiljaoca: string,usernamePrimaoca:string ){
+    dodajPrijatelja(usernamePosiljaoca: string, usernamePrimaoca: string) {
         var body = {
             IdPosiljaoca: usernamePosiljaoca,
             IdPrimaoca: usernamePrimaoca,
         };
-        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/DodavanjePrijatelja',body);
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/DodavanjePrijatelja', body);
     }
 
-    dobaviListuZahteva(username:string){
+    dobaviListuZahteva(username: string) {
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/DobaviListuZahteva/' + username);
     }
-    ucitajPrijatelje(username:string){
+    ucitajPrijatelje(username: string) {
         return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/ListaPrijatelja/' + username);
 
     }
-    prihvatiZahtev(usernamePrijatelja:string,username:string){
+
+    ucitajPrijateljeZaPozivanje(id: string) {
+        return this.http.get(this.BaseURI + '/RegistrovaniKorisnici/ListaPrijateljaZaPozivanje/' + id);
+
+    }
+    prihvatiZahtev(usernamePrijatelja: string, username: string) {
         var body = {
             IdPosiljaoca: usernamePrijatelja,
             IdPrimaoca: username,
-            PrihvatioZahtev:true,
+            PrihvatioZahtev: true,
         };
-        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/PrihvatiPrijatelja',body);
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/PrihvatiPrijatelja', body);
     }
 
-    odbijZahtev(usernamePrijatelja:string,username:string){
+    odbijZahtev(usernamePrijatelja: string, username: string) {
         var body = {
             IdPosiljaoca: usernamePrijatelja,
             IdPrimaoca: username,
-            PrihvatioZahtev:false,
+            PrihvatioZahtev: false,
         };
-        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/OdbijPrijatelja',body);
+        return this.http.post(this.BaseURI + '/RegistrovaniKorisnici/OdbijPrijatelja', body);
+    }
+
+    promenaSifrePrvoLogovanje(body) {
+        return this.http.post(this.BaseURI + "/RegistrovaniKorisnici/PromenaSifrePrvoLogovanje", body);
     }
 
 

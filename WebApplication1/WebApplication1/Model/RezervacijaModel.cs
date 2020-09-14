@@ -18,6 +18,10 @@ namespace WebApplication1.Model
         public string BrojevisSedista { get; set; }
 
         public List<SedistaTabela> SpisakSedista { get; set; }
+
+        public bool PrihvatioPozivnicu { get; set; }
+
+        public DateTime vremeKreiranjaRezervacije { get; set; }
         public RezervacijaModel()
         {
                 

@@ -33,6 +33,6 @@ namespace WebApplication1.Model
         [JsonIgnore]
         public ICollection<RegistrovaniKorisniciModel> ListaPrijatelja { get; set; }
 
-
+        public bool prvaPrijavaAdmina { get; set; }
     }
 }

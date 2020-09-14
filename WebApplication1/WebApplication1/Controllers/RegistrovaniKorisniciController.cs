@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Claims;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,8 @@ namespace WebApplication1.Controllers
 
         }
 
-        #region Verifikacija
+        #region 
+
 
         [HttpGet]
         [Route("Verifikacija/{id}")]
@@ -81,6 +83,7 @@ namespace WebApplication1.Controllers
                     PhoneNumber = registrovaniKorisnici.Telefon,
                     UserName = registrovaniKorisnici.UserName,
                     PasswordHash = registrovaniKorisnici.Lozinka,
+                    prvaPrijavaAdmina = true,
 
                 };
                 try
@@ -201,7 +204,9 @@ namespace WebApplication1.Controllers
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserID",user.Id.ToString()),
-                        new Claim(options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
+                        new Claim(options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault()),
+                        new Claim("FirstLogin",user.prvaPrijavaAdmina.ToString())
+
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
@@ -521,6 +526,76 @@ namespace WebApplication1.Controllers
             }
 
             return Ok(rezultat);
+        }
+        #endregion
+
+        #region listaPrijateljaZaPozivanjeNaLet
+        [HttpGet]
+        [Route("ListaPrijateljaZaPozivanje/{id}")]
+
+        public async Task<Object> ListaPrijateljaZaPozivanje(string id)
+        {
+            var listaKorisnika = _context.RegistrovaniKorisnici;
+            var pronadjenUser = await userManager.FindByIdAsync(id);
+            var lista = _context.PrijateljiTabela;
+            if (lista == null)
+            {
+                return BadRequest("Ne postoje registrovani korisnici u bazi podataka");
+            }
+            var rezultat = new List<RegistrovaniKorisniciModel>();
+
+            foreach (var el in lista)
+            {
+                if (el.IdPosiljaoca == pronadjenUser.UserName)
+                {
+                    if (el.PrihvatioZahtev)
+                    {
+                        foreach (var korisnik in listaKorisnika)
+                        {
+                            if (korisnik.UserName == el.IdPrimaoca)
+                            {
+                                rezultat.Add(korisnik);
+                            }
+                        }
+                    }
+                }
+                else if (el.IdPrimaoca == pronadjenUser.UserName)
+                {
+                    if (el.PrihvatioZahtev)
+                    {
+                        foreach (var korisnik in listaKorisnika)
+                        {
+                            if (korisnik.UserName == el.IdPosiljaoca)
+                            {
+                                rezultat.Add(korisnik);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+
+
+            }
+
+            return Ok(rezultat);
+        }
+        #endregion
+
+        #region promenaSifrePrvoLogovanje
+
+        [HttpPost]
+        [Route("PromenaSifrePrvoLogovanje")]
+        public async Task<Object> PromenaSifrePrvoLogovanje(LogovaniKorisniciKlasa model)
+        {
+            var user = await userManager.FindByIdAsync(model.IdToken);
+            user.PasswordHash = userManager.PasswordHasher.HashPassword(user,model.Password);
+            user.prvaPrijavaAdmina = false;
+            _context.Update(user);
+            _context.SaveChanges();
+            return Ok();
         }
         #endregion
     }

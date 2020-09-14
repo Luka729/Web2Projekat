@@ -23,9 +23,18 @@
         </ol>
         <div>
             <button class="btn btn-success" (click)="Rezervisi()"> Rezervisi</button>
+            <form [formGroup]="service.prijateljForma">
+                <label for="Prijatelji">Prijatelji</label>
+                <select class="form-control" id="Prijatelji" placeholder="Prijatelji" formControlName="prijateljProvera"
+                    class="form-group">
+                    <option *ngFor="let el of listaPrijatelja; let i = index;" value="{{el.userName}}">{{el.userName}}</option>
+                </select>
+                <button class="btn btn-success" (click)="RezervisiZaPrijatelja()"> Rezervisi za Prijatelja</button>
+            </form>
             <div class="exit exit--back fuselage">
             </div>
 
         </div>
     </div>
 </span>
+

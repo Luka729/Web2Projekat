@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +26,6 @@ namespace WebApplication1.Controllers
             _context = context;
 
         }
-
         #region izmenaPodatakaAvioKompanije
         [HttpPost]
         [Route("IzmenaPodataka")]
@@ -242,12 +244,12 @@ namespace WebApplication1.Controllers
                             _context.SedistaTabela.Add(sediste);
                         }
 
-                        
+
                         letModel.SlobodnaMestaModel = sedista;
                         el.spisakLetova.Add(letModel);
                         _context.LetoviTabela.Add(letModel);
 
-                        
+
 
                         break;
                     }
@@ -261,11 +263,11 @@ namespace WebApplication1.Controllers
             _context.SaveChanges();
             foreach (var item in _context.SedistaTabela)
             {
-                if(item.IdLeta == 7) 
+                if (item.IdLeta == 7)
                 {
                     item.IdLeta = letModel.Id;
                 }
-                
+
             }
             _context.SaveChanges();
             return Ok();
@@ -326,7 +328,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult DobaviSedista(string id)//idLeta
         {
-
+            var listaRezervacija = _context.RezervacijaTabela;
             var listaSedista = _context.SedistaTabela;
             var rezultat = new List<SedistaTabela>();
 
@@ -336,43 +338,80 @@ namespace WebApplication1.Controllers
                 {
                     rezultat.Add(el);
                 }
-            }
+                if (rezultat.Contains(el))
+                {
+                    continue;
+                }
+                foreach (var rezervacija in listaRezervacija)
+                {
+                    int komparator = DateTime.Now.Day - rezervacija.vremeKreiranjaRezervacije.Day;
+                    if (komparator > 3 && rezervacija.PrihvatioPozivnicu == false)
+                    {
+                        if (el.IdLeta == rezervacija.IdLetova)
+                        {
 
+                            var mojrR = rezervacija.BrojevisSedista.Split(',');
+                            foreach (var u in mojrR)
+                            {
+                                if (u == "")
+                                {
+                                    break;
+                                }
+                                if (el.BrojSedista == Int32.Parse(u))
+                                {
+
+
+                                    el.Zauzeto = false;
+                                    rezultat.Add(el);
+
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            _context.SaveChanges();
             return Ok(rezultat);
         }
 
         [HttpGet]
         [Route("Rezervisi/{letId}/{ticketIDs}/{userId}")]
 
-        public async Task<Object> Rezervisi(string letId, string ticketIDs, string userId) 
+        public async Task<Object> Rezervisi(string letId, string ticketIDs, string userId)
         {
             var listaRezervacija = _context.RezervacijaTabela;
             RezervacijaModel model = new RezervacijaModel();
             var listaSedista = _context.SedistaTabela;
+            var user = await userManager.FindByIdAsync(userId);
             string[] mojrR = null;
             model.IdKorisnika = userId;
             model.IdLetova = int.Parse(letId);
 
             var listaSdista = _context.SedistaTabela;
-           
-                foreach (var i in listaSedista)
+
+            foreach (var i in listaSedista)
+            {
+                mojrR = ticketIDs.Split(',');
+                foreach (var u in mojrR)
                 {
-                    mojrR = ticketIDs.Split(',');
-                    foreach (var u in mojrR)
+                    if (i.BrojSedista.ToString() == u)
                     {
-                        if (i.BrojSedista.ToString() == u)
-                        {
-                            i.Zauzeto = true;                   
-                        }
+                        i.Zauzeto = true;
+
                     }
-                   
-                }  
-            
+                }
+
+            }
+
             _context.SaveChanges();
 
             model.BrojevisSedista = ticketIDs;
+            model.PrihvatioPozivnicu = true;
+            model.vremeKreiranjaRezervacije = DateTime.Now;
 
-            if (listaRezervacija == null) 
+            if (listaRezervacija == null)
             {
                 listaRezervacija.Add(model);
                 _context.SaveChanges();
@@ -390,15 +429,148 @@ namespace WebApplication1.Controllers
             var listaLetova = _context.LetoviTabela;
 
 
-          
+            var sendMailThread = new Thread(async () =>
+            {
+                var message = new MailMessage();
+                message.From = new System.Net.Mail.MailAddress("webprogramiranje2@gmail.com");
+                message.To.Add(user.Email);
+                message.Subject = "Uspesna rezervacija leta ";
+                message.Body = "Uspesno ste rezervisali let http://localhost:58544/api/RegistrovaniKorisnici/Verifikacija/" + user.Id;
+
+                using (var smtpClient = new SmtpClient())
+                {
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.UseDefaultCredentials = false;
+
+                    smtpClient.Credentials = new NetworkCredential("webprogramiranje2@gmail.com", "lukaikristina1");
+
+                    await smtpClient.SendMailAsync(message);
+                }
+            });
+
+            sendMailThread.Start();
+            return Ok();
+        }
+        #region idRezervacije
+
+        [HttpPost]
+        [Route("VerifikacijaPozivnice/{idRezervacije}")]
+        public async Task<Object> VerifikacijaPozivnice(string idRezervacije)
+        {
+            var rezervacijaLista = _context.RezervacijaTabela;
+            foreach (var rez in rezervacijaLista)
+            {
+                if (rez.Id == Int32.Parse(idRezervacije))
+                {
+                    rez.PrihvatioPozivnicu = true;
+                    _context.Update(rez);
+                    _context.SaveChangesAsync();
+                }
+
+            }
+            return Ok();
+
+        }
+        #endregion
+
+        [HttpGet]
+        [Route("RezervisiZaPrijatelja/{letId}/{ticketIDs}/{prijateljUsername}")]
+
+        //imamo dugme kod korisnkika oceni 
+        //pojavi lista letova ako datum sletanja < now  ima u toj listi polje oceni i moze da da ocenu od 1 do 5 
+        //ako je datum vracanja < now oceni 
+
+        public async Task<Object> RezervisiZaPrijatelja(string letId, string ticketIDs, string prijateljUsername)
+        {
+            var prijatelj = await userManager.FindByNameAsync(prijateljUsername);
+            var listaRezervacija = _context.RezervacijaTabela;
+            RezervacijaModel model = new RezervacijaModel();
+            var listaSedista = _context.SedistaTabela;
+            string[] mojrR = null;
+            model.IdKorisnika = prijatelj.Id;
+            model.IdLetova = int.Parse(letId);
+            bool idiDalje = true;
+
+            var listaSdista = _context.SedistaTabela;
+
+            foreach (var i in listaSedista)
+            {
+                mojrR = ticketIDs.Split(',');
+                foreach (var u in mojrR)
+                {
+                    if (u == "")
+                    {
+                        idiDalje = false;
+                        break;
+                    }
+                }
+                foreach (var u in mojrR)
+                {
+                    if (i.BrojSedista.ToString() == u)
+                    {
+                        i.Zauzeto = true;
+                    }
+                }
+
+            }
+
+            if (idiDalje)
+            {
+                _context.SaveChanges();
+
+                model.BrojevisSedista = ticketIDs;
+                model.PrihvatioPozivnicu = false;
+                model.vremeKreiranjaRezervacije = DateTime.Now;
+
+                if (listaRezervacija == null)
+                {
+                    listaRezervacija.Add(model);
+                    _context.SaveChanges();
+
+                }
+                else
+                {
+
+                    listaRezervacija.Add(model);
+                    _context.SaveChanges();
 
 
 
+                }
+                var listaLetova = _context.LetoviTabela;
+                var sendMailThread = new Thread(async () =>
+                {
+                    var message = new MailMessage();
+                    message.From = new System.Net.Mail.MailAddress("webprogramiranje2@gmail.com");
+                    message.To.Add(prijatelj.Email);
+                    message.Subject = "Stigla Vam je pozivnica za let ";
+                    message.Body = "Stigla Vam je pozivnica za let http://localhost:58544/api/Avio/VerifikacijaPozivnice/" + model.Id;
+
+                    using (var smtpClient = new SmtpClient())
+                    {
+                        smtpClient.Host = "smtp.gmail.com";
+                        smtpClient.Port = 587;
+                        smtpClient.EnableSsl = true;
+                        smtpClient.UseDefaultCredentials = false;
+
+                        smtpClient.Credentials = new NetworkCredential("webprogramiranje2@gmail.com", "lukaikristina1");
+
+                        await smtpClient.SendMailAsync(message);
+                    }
+                });
+
+                sendMailThread.Start();
+
+            }
 
             return Ok();
         }
-
     }
 
 
+
 }
+
+
