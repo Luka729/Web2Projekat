@@ -42,7 +42,7 @@ namespace WebApplication1.Model
         [Required]
         public string LokacijaSletanja { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public AvioKompanijaModel avioKompanija { get; set; }
 
     }
